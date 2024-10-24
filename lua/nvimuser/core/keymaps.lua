@@ -8,7 +8,9 @@ local keymap = vim.keymap -- for conciseness
 
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", {desc = "Exit insert mode with jk"})
-keymap.set("i", ";;", "<ESC>", {desc = "Exit insert mode with ;;"})
+-- keymap.set("i", ";;", "<ESC>", {desc = "Exit insert mode with ;;"})
+keymap.set("i", "jj", "<ESC>", {desc = "Exit insert mode with jj"})
+keymap.set("n", "<leader>q", ":q<CR>", {desc = "Fast quit, alias for :q"})
 
 -- remap mark recall
 keymap.set("n", "<leader>m", "`", {desc = "Remap mark recall"})
@@ -112,14 +114,16 @@ keymap.set("n", "<leader>Pl", 'O<Esc>"*p', { desc = "Paste line above, from clip
 -- Scroll and Center
 keymap.set("n", "<C-u>", "<C-u>zz", {desc = "Scroll up and center"})
 keymap.set("n", "<C-d>", "<C-d>zz", {desc = "Scroll down and center"})
+keymap.set("n", "<C-b>", "<C-b>zz", {desc = "Scroll back and center"})
+keymap.set("n", "<C-f>", "<C-f>zz", {desc = "Scroll forward and center"})
 
 -- Search and center
 keymap.set("n", "n", "nzzzv", {desc = "Search and center"})
 keymap.set("n", "N", "Nzzzv", {desc = "Search and center"})
 
 -- Move to first non-blank
-keymap.set("n", "<BS>", "^", {desc = "Move to first non-blank character"})
-keymap.set("n", "<S-BS>", "$", {desc = "Move to the end of the line"})
+keymap.set("n", "<S-BS>", "^", {desc = "Move to first non-blank character"})
+keymap.set("n", "<BS>", "$", {desc = "Move to the end of the line"})
 
 -- Convenience Search
 keymap.set("n", "<leader>ss", ":s/\\v", {desc = "Search and replace on line"})
@@ -130,12 +134,12 @@ keymap.set("v", "<C-d>", '"hy:%s/\\v<C-r>h//c<left><left>', {desc= "Change selec
 
 -- Paste from register (register, paste)
 keymap.set(
-    "i", "<leader>rp",
+    "i", "<leader>pr",
     function() require("telescope.builtin").registers() end,
     {remap = true, silent = false, desc = "Paste from register prompt"}
 )
 keymap.set(
-    "n", "<leader>rp",
+    "n", "<leader>pr",
     function() require("telescope.builtin").registers() end,
     {remap = true, silent = false, desc = "Paste from register prompt"}
 )

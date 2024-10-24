@@ -10,7 +10,6 @@ return {
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
-        local builtin = require("telescope.builtin")
 
         telescope.setup({
             defaults = {
@@ -23,9 +22,16 @@ return {
                     },
                 },
             },
+            extensions = {
+                persisted = {
+                    layout_config = { width = 0.25, height = 0.25 }
+                }
+            }
         })
 
         telescope.load_extension("fzf")
+        telescope.load_extension("persisted")
+        local builtin = require("telescope.builtin")
         -- telescope.load_extension('remote-sshfs')
 
         -- set keymaps
@@ -41,7 +47,7 @@ return {
         keymap.set("n", "<leader>frg", "<cmd>Telescope registers<cr>", { desc = "Find registers" })
         keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in buffer, fuzzy" })
         -- keymap.set("n", "<leader>fs", "<cmd>Telescope treesitter<cr>", { desc = "Find in buffer, fuzzy" })
-        keymap.set("n", "<leader>fs", function() builtin.treesitter({symbols = {'function', 'type'}}) end, { desc = "Find symbols"})
+        -- keymap.set("n", "<leader>fs", function() builtin.treesitter({symbols = {'function', 'type'}}) end, { desc = "Find symbols"})
         keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "Show command history"})
     end,
 }
