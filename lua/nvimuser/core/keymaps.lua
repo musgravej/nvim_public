@@ -53,6 +53,9 @@ keymap.set("v", "<leader>D", "_D")
 keymap.set("v", "<leader>c", "_c")
 keymap.set("v", "<leader>C", "_C")
 
+-- New mapping for folds
+keymap.set("n", ", ", 'za', {desc = "Toggle a fold"} )
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", {desc = "Split window vertically"}) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", {desc = "Split window horizontally"}) -- split window horizontally
