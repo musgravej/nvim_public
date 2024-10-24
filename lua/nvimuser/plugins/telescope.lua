@@ -24,7 +24,7 @@ return {
             },
             extensions = {
                 persisted = {
-                    layout_config = { width = 0.25, height = 0.25 }
+                    layout_config = { width = 0.55, height = 0.55 }
                 }
             }
         })

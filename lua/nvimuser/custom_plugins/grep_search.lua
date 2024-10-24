@@ -116,10 +116,11 @@ function QuickfixOpen()
 end
 
 -- Function to set key mappings for quickfix window --
-vim.api.nvim_set_keymap("n", "<leader>ge", "<cmd>lua ExcludeText()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua IncludeText()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<CR>", ":lua QuickfixOpen()<CR>", { noremap = true, silent = true }) -- Specific to quickfix window
+vim.api.nvim_set_keymap("n", "<leader>ge", "<cmd>lua ExcludeText()<CR>", { noremap = true, silent = true, desc = "Grep search exclude text"})
+vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua IncludeText()<CR>", { noremap = true, silent = true,  desc = "Grep search include text"})
+vim.api.nvim_set_keymap("n", "<CR>", ":lua QuickfixOpen()<CR>", { noremap = true, silent = true, desc = "Grep search Quickfix" }) -- Specific to quickfix window
 -- end
 
 -- Set the main keymap for this, <leader>gs to open the search interface --
-vim.api.nvim_set_keymap("n", "<leader>gs", ":lua GrepSearch()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>gs", ":lua GrepSearch()<CR>", { noremap = true, silent = true, desc = "Grep search" })
+
