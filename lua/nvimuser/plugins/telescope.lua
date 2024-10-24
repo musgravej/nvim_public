@@ -47,7 +47,9 @@ return {
         keymap.set("n", "<leader>frg", "<cmd>Telescope registers<cr>", { desc = "Find registers" })
         keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in buffer, fuzzy" })
         -- keymap.set("n", "<leader>fs", "<cmd>Telescope treesitter<cr>", { desc = "Find in buffer, fuzzy" })
-        -- keymap.set("n", "<leader>fs", function() builtin.treesitter({symbols = {'function', 'type'}}) end, { desc = "Find symbols"})
+        -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols({ignore_symbols = {'parameter', 'method'}}) end, { desc = "Find symbols"})
+        keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end, { desc = "Find symbols"})
+        keymap.set("n", "<leader>fw", function() builtin.lsp_workspace_symbols() end, { desc = "Find symbols"})
         keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "Show command history"})
     end,
 }
