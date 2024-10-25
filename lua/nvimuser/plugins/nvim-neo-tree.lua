@@ -310,15 +310,11 @@ return {
             }
         })
 
-        -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-        -- set keymaps
-        local keymap = vim.keymap -- for conciseness
-
-        keymap.set("n", "<leader>ee", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
-        keymap.set("n", "\\", "<cmd>Neotree reveal<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
-        -- copied from other, ignore for now
-        -- keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
-        -- keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
-        -- keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
+        local keymap = vim.keymap
+        keymap.set("n", "<leader>ee", "<cmd>Neotree left toggle<CR>", { desc = "Toggle file explorer" })
+        keymap.set("n", "<leader>ef", "<cmd>Neotree left reveal_force_cwd<CR>", { desc = "Go to file in explorer" })
+        keymap.set("n", "<leader>er", "<cmd>Neotree float reveal_file<CR>", { desc = "Reveal file in explorer preview" })
+        keymap.set("n", "<leader>eb", "<cmd>Neotree float buffers<CR>", { desc = "Show buffers in explorer preview" })
+        keymap.set("n", "<leader>eg", "<cmd>Neotree git_status<CR>", { desc = "Show git changes explorer preview" })
     end
 }

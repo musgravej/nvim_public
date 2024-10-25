@@ -19,8 +19,8 @@ return {
 
 			follow_cwd = true, -- Change the session file to match any change in the cwd?
 			use_git_branch = false, -- Include the git branch in the session file name?
-			-- autoload = false, -- Automatically load the session for the cwd on Neovim startup?
-			autoload = true, -- Automatically load the session for the cwd on Neovim startup?
+			autoload = false, -- Automatically load the session for the cwd on Neovim startup?
+			-- autoload = true, -- Automatically load the session for the cwd on Neovim startup?
 
 			-- Function to run when `autoload = true` but there is no session to load
 			---@type fun(): any
