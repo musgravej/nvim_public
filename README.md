@@ -10,6 +10,7 @@ Suggested installation:
 * Launch neovim, allow packages to install
     - review installation logs for missing / required packages (some packages may require locally installed terminal programs).
     - best run from "advanced" terminal, like [iTerm](https://iterm2.com), with compatible fonts.
+        - [nerd fonts](https://www.nerdfonts.com)
     - dependent system package requirements
         - [fd](https://github.com/sharkdp/fd)
         - [ripgrep](https://github.com/BurntSushi/ripgrep)
