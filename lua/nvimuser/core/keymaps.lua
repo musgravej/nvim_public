@@ -8,8 +8,7 @@ local keymap = vim.keymap -- for conciseness
 
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", {desc = "Exit insert mode with jk"})
--- keymap.set("i", ";;", "<ESC>", {desc = "Exit insert mode with ;;"})
-keymap.set("i", "jj", "<ESC>", {desc = "Exit insert mode with jj"})
+keymap.set("i", ";;", "<ESC>", {desc = "Exit insert mode with ;;"})
 keymap.set("n", "<leader>q", ":q<CR>", {desc = "Fast quit, alias for :q"})
 
 -- remap mark recall
@@ -52,9 +51,6 @@ keymap.set("v", "<leader>d", "_d")
 keymap.set("v", "<leader>D", "_D")
 keymap.set("v", "<leader>c", "_c")
 keymap.set("v", "<leader>C", "_C")
-
--- New mapping for folds
-keymap.set("n", ", ", 'za', {desc = "Toggle a fold"} )
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", {desc = "Split window vertically"}) -- split window vertically

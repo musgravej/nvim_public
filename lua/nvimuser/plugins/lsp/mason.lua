@@ -40,6 +40,7 @@ return {
                     "ruff_lsp", -- ruff
                     "mypy",
                     "jedi_language_server", -- jedi
+                    "terraform-ls",
                     "pyright",
                     "dockerls",
                 },

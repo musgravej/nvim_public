@@ -17,9 +17,7 @@ return {
     },
     config = function()
         local cmp = require("cmp")
-
         local luasnip = require("luasnip")
-
         local lspkind = require("lspkind")
 
         -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
@@ -35,14 +33,19 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-                ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                -- ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+                -- ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+                ["<S-Tab>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+                ["<Tab>"] = cmp.mapping.select_next_item(), -- next suggestion
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-                ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+                -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+                ["<Esc>"] = cmp.mapping.abort(), -- close completion window
                 ["<CR>"] = cmp.mapping.confirm({select = false}),
+                ["<Space>"] = cmp.mapping.confirm({select = false}),
             }),
+
             -- sources for autocompletion
             sources = cmp.config.sources({
                 {name = "nvim_lsp"},

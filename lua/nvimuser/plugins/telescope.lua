@@ -31,6 +31,7 @@ return {
 
         telescope.load_extension("fzf")
         telescope.load_extension("persisted")
+        telescope.load_extension("noice")
         local builtin = require("telescope.builtin")
         -- telescope.load_extension('remote-sshfs')
 
@@ -43,8 +44,8 @@ return {
         keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find string under cursor in buffers" })
         keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
-        keymap.set("n", "<leader>frr", "<cmd>Telescope lsp_references<cr>", { desc = "Find references" })
-        keymap.set("n", "<leader>frg", "<cmd>Telescope registers<cr>", { desc = "Find registers" })
+        keymap.set("n", "<leader>fR", "<cmd>Telescope lsp_references<cr>", { desc = "Find references" })
+        keymap.set("n", "<leader>fr", "<cmd>Telescope registers<cr>", { desc = "Find registers" })
         keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in buffer, fuzzy" })
         -- keymap.set("n", "<leader>fs", "<cmd>Telescope treesitter<cr>", { desc = "Find in buffer, fuzzy" })
         -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols({ignore_symbols = {'parameter', 'method'}}) end, { desc = "Find symbols"})
