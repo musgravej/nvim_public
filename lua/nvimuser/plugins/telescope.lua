@@ -31,7 +31,7 @@ return {
 
         telescope.load_extension("fzf")
         telescope.load_extension("persisted")
-        telescope.load_extension("noice")
+        -- telescope.load_extension("noice")
         local builtin = require("telescope.builtin")
         -- telescope.load_extension('remote-sshfs')
 

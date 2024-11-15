@@ -3,7 +3,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
         local lualine = require("lualine")
-        local lazy_status = require("lazy.status") -- to configure lazy pending updates count
+        -- local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
         local colors = {
             blue = "#65D1FF",
@@ -49,35 +49,48 @@ return {
             },
         }
 
-        -- configure lualine with modified theme
+        -- configured for noice
         lualine.setup({
-            options = {
-                theme = my_lualine_theme,
-            },
             sections = {
-                lualine_a = {
-                    {
-                        'mode',
-                    }
-                },
-                lualine_c = {
-                    {
-                        'filename',
-                        path = 3,
-                        shortening_target = 70
-                    }
-                },
                 lualine_x = {
                     {
-                        lazy_status.updates,
-                        cond = lazy_status.has_updates,
+                        require("noice").api.statusline.mode.get,
+                        cond = require("noice").api.statusline.mode.has,
                         color = { fg = "#ff9e64" },
-                    },
-                    { "encoding" },
-                    { "fileformat" },
-                    { "filetype" },
+                    }
                 },
             },
         })
+
+        -- configure lualine with modified theme
+        -- lualine.setup({
+        --     options = {
+        --         theme = my_lualine_theme,
+        --     },
+        --     sections = {
+        --         lualine_a = {
+        --             {
+        --                 'mode',
+        --             }
+        --         },
+        --         lualine_c = {
+        --             {
+        --                 'filename',
+        --                 path = 3,
+        --                 shortening_target = 70
+        --             }
+        --         },
+        --         lualine_x = {
+        --             {
+        --                 lazy_status.updates,
+        --                 cond = lazy_status.has_updates,
+        --                 color = { fg = "#ff9e64" },
+        --             },
+        --             { "encoding" },
+        --             { "fileformat" },
+        --             { "filetype" },
+        --         },
+        --     },
+        -- })
     end,
 }
