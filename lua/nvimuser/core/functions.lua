@@ -48,6 +48,15 @@ vim.api.nvim_create_user_command(
   { nargs = 0 }
 )
 
+-- set current file path as the current working directory
+vim.api.nvim_create_user_command(
+  'Cwdhere',
+  function()
+        vim.cmd("lcd%:p:h")
+  end,
+  { nargs = 0 }
+)
+
 -- copy current file name to clipboard
 vim.api.nvim_create_user_command(
   'Filename',
@@ -59,4 +68,5 @@ vim.api.nvim_create_user_command(
 
 -- save from insert mode
 vim.keymap.set('n', '<leader>www', [[<Cmd>w<CR>]])
+
 

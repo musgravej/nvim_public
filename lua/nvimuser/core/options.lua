@@ -35,18 +35,24 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- folding
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldcolumn = "1"
+vim.opt.foldcolumn = "0"
 -- vim.opt.foldtext = ""
 vim.opt.foldlevel = 20
--- vim.opt.foldlevelstart = 1
--- vim.opt.foldnestmax = 4
 --
 -- remove whitespace on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = {"*"},
-    callback = function(ev)
-        save_cursor = vim.fn.getpos(".")
+    callback = function()
+        SAVE_CURSOR = vim.fn.getpos(".")
         vim.cmd([[%s/\s\+$//e]])
-        vim.fn.setpos(".", save_cursor)
+        vim.fn.setpos(".", SAVE_CURSOR)
     end,
 })
+
+-- vim.formatoptions.remove('ro')
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "*",
+--     callback = function()
+--         vim.opt_local.formatoptions:remove('ro')
+--     end,
+-- })
