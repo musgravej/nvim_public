@@ -1,10 +1,10 @@
 return {
     "neovim/nvim-lspconfig",
-    event = {"BufReadPre", "BufNewFile"},
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        {"antosha417/nvim-lsp-file-operations", config = true},
-        {"folke/neodev.nvim", opts = {}},
+        { "antosha417/nvim-lsp-file-operations", config = true },
+        { "folke/neodev.nvim",                   opts = {} },
         -- { "hrsh7th/nvim-cmp" }, -- Required
         -- { "hrsh7th/cmp-buffer" },
         -- { "hrsh7th/cmp-path" },
@@ -22,39 +22,12 @@ return {
 
         local keymap = vim.keymap -- for conciseness
 
-        -- local cmp = require("cmp")
-        -- `/` search setup.
-        -- cmp.setup.cmdline("/", {
-        --     mapping = cmp.mapping.preset.cmdline(),
-        --     sources = {
-        --         { name = "buffer" },
-        --     },
-        -- })
-
-        -- `:` cmdline setup.
-        -- cmp.setup.cmdline(
-        --     ":", {
-        --         mapping = cmp.mapping.preset.cmdline(),
-        --         sources = cmp.config.sources({
-        --             { name = "path" },
-        --         },
-        --             {
-        --                 {
-        --                     name = "cmdline",
-        --                     option = {
-        --                         ignore_cmds = { "Man", "!" },
-        --                     },
-        --                 },
-        --             }
-        --         ),
-        --     })
-
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
                 -- Buffer local mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
-                local opts = {buffer = ev.buf, silent = true}
+                local opts = { buffer = ev.buf, silent = true }
 
                 -- set keybinds
                 opts.desc = "Go to declaration"
@@ -70,24 +43,10 @@ return {
                 -- keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
                 opts.desc = "See available code actions"
-                keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+                keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
                 opts.desc = "Show buffer diagnostics"
                 keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
-                --
-                -- opts.desc = "Next method start"
-                -- keymap.set("n", "", "]m", opts)
-                -- --
-                -- opts.desc = "Next method end"
-                -- keymap.set("n", "", "[m", opts)
-                -- --
-                -- opts.desc = "Previous method start"
-                -- keymap.set("n", "", "]M", opts)
-                -- --
-                -- opts.desc = "Previous method end"
-                -- keymap.set("n", "", "[M", opts)
-                --
 
                 opts.desc = "Show line diagnostics"
                 keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
@@ -104,7 +63,7 @@ return {
                 opts.desc = "Restart LSP"
                 keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
-                keymap.set("n", "<leader>fm", vim.lsp.buf.format, { desc = "Format file with current LSP"})
+                keymap.set("n", "<leader>fm", vim.lsp.buf.format, { desc = "Format file with current LSP" })
             end,
         })
 
@@ -113,10 +72,10 @@ return {
 
         -- Change the Diagnostic symbols in the sign column (gutter)
         -- (not in youtube nvim video)
-        local signs = {Error = " ", Warn = " ", Hint = "󰠠 ", Info = " "}
+        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ""})
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
         mason_lspconfig.setup_handlers({
@@ -134,7 +93,7 @@ return {
                         Lua = {
                             -- make the language server recognize "vim" global
                             diagnostics = {
-                                globals = {"vim"},
+                                globals = { "vim" },
                             },
                             completion = {
                                 callSnippet = "Replace",
@@ -146,39 +105,75 @@ return {
             ["jsonls"] = function()
                 lspconfig["jsonls"].setup({
                     capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = {"json"},
+                    -- on_attach = on_attach,
+                    filetypes = { "json" },
                     settings = nil
                 })
             end,
             -- ["fixjson"] = function()
             --     lspconfig["fixjson"].setup({
             --         capabilities = capabilities,
-            --         on_attach = on_attach,
+            --         -- on_attach = on_attach,
             --         filetypes = {"json"},
+            --     })
+            -- end,
+            -- ["black"] = function()
+            --     lspconfig["black"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = { "python" },
+            --         settings = {
+            --             enabled = true,
+            --             line_length = 120
+            --         }
             --     })
             -- end,
             ["pylsp"] = function()
                 lspconfig["pylsp"].setup({
                     capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = {"python"},
-                    configurationSources = {"pycodestyle", "flake8", "jedi_completion"},
+                    -- on_attach = on_attach,
+                    filetypes = { "python" },
+                    configurationSources = { "pycodestyle", "flake8", "jedi_completion" },
                     settings = {
                         pylsp = {
                             plugins = {
+                                black = {
+                                    enabled = true,
+                                    line_length = 120
+                                },
+                                autopep8 = { enabled = false },
+                                jedi_hover = { enabled = true },
+                                jedi_references = { enabled = true },
+                                jedi_signature_help = { enabled = true },
+                                jedi_symbols = { enabled = true },
+                                mccabe = { enabled = false },
+                                preload = { enabled = true },
+                                pydocstyle = { enabled = false },
+                                pylint = { enabled = false },
+                                rope_autoimport = { enabled = false },
+                                rope_completion = { enabled = false },
+                                yapf = { enabled = false },
+                                pyflakes = { enabled = false },
+                                jedi_completion = {
+                                    enabled = true,
+                                    include_params = true,
+                                    eager = true,
+                                },
                                 pycodestyle = {
                                     maxLineLength = 120,
-                                    ignore = { "E251", "E202" }
+                                    ignore = { "E251", "E202" },
+                                    enabled = true,
                                 },
                                 flake8 = {
                                     maxLineLength = 120,
                                     enabled = true,
-                                    ignore = { "E251", "E202" }
+                                    ignore = { "E251", "E202" },
+                                    hangClosing = false,
                                 },
                             },
                         },
-                    }})
+                    }
+                })
             end,
         })
     end,

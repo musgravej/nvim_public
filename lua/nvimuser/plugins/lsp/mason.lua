@@ -24,24 +24,22 @@ return {
         config = function()
             require("mason-tool-installer").setup({
                 ensure_installed = {
-                    -- "tsserver",
                     "html",
+                    "docker_compose_language_service",
+                    "dockerls",
+                    "sqlfmt",
+                    "sqlls",
                     "cssls",
                     "yamlls",
-                    -- "flake8",
                     "black",
                     "fixjson",
-                    -- "jinja_lsp",
                     "jsonls",
                     "cmake",
                     "lua_ls",
                     "bashls",
                     "pylsp", -- python-lsp-server",
-                    "ruff_lsp", -- ruff
                     "mypy",
-                    "jedi_language_server", -- jedi
                     "terraform-ls",
-                    "pyright",
                     "dockerls",
                 },
             })
