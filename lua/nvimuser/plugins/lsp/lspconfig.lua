@@ -169,8 +169,6 @@ return {
                                     enabled = false,
                                 },
                                 flake8 = {
-                                    signs = false,
-                                    virtual_text = false,
                                     maxLineLength = 120,
                                     enabled = true,
                                     ignore = { "E251", "E202",},
