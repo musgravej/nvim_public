@@ -1,0 +1,44 @@
+return {
+    "wellle/targets.vim"
+    -- https://github.com/wellle/targets.vim
+    --
+    -- cursor position │    .....................
+    -- buffer line     │    This is example text (with a pair of parentheses).
+    -- selection       │                          └───────── cin) ─────────┘
+    --
+    -- cursor position │                                  .........
+    -- buffer line     │    Shopping list: oranges, apples, bananas, tomatoes
+    -- selection       │                                  └─ da, ─┘
+    --
+    -- In pair
+    --      ............
+    -- a ( b ( cccccccc ) d ) e
+    --    │   └── i) ──┘   │
+    --    └───── 2i) ──────┘
+    --
+    -- A pair
+    --       ............
+    -- a ( b ( cccccccc ) d ) e
+    --   │   └─── a) ───┘   │
+    --   └────── 2a) ───────┘
+    --
+    -- Inside pair
+    --       ............
+    -- a ( b ( cccccccc ) d ) e
+    --     │   └─ I) ─┘   │
+    --     └──── 2I) ─────┘
+    --
+    -- Around pair
+    --
+    -- a ( b ( cccccccc ) d ) e
+    --   │   └─── A) ────┘   │
+    --   └────── 2A) ────────┘
+    --
+    -- given cursor position `^`:
+    -- cin" (change in next ...) will change 'bing'
+    -- cil" (change in last ...) will change 'bar'
+    -- c2in" (change in 2nd next ...) will change 'bong'
+    -- c2il" (change in 2nd last ...) will change 'foo'
+    --
+    --   "foo", "bar",^ "bing", "bong"
+}
