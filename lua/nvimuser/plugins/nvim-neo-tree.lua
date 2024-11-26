@@ -117,7 +117,7 @@ return {
                     required_width = 88, -- min width of window required to show this column
                 },
                 created = {
-                    enabled = true,
+                    enabled = false,
                     required_width = 110, -- min width of window required to show this column
                 },
                 symlink_target = {
@@ -192,10 +192,20 @@ return {
             nesting_rules = {},
             filesystem = {
                 filtered_items = {
-                    visible = false, -- when true, they will just be displayed differently than normal items
-                    hide_dotfiles = true,
-                    hide_gitignored = true,
-                    hide_hidden = true, -- only works on Windows for hidden files/directories
+                    -- -- when true, they will just be displayed differently than normal items
+                    -- visible = false,
+                    -- hide_dotfiles = true,
+                    -- hide_gitignored = true,
+                    -- -- only works on Windows for hidden files/directories
+                    -- hide_hidden = true,
+
+                    -- when true, they will just be displayed differently than normal items
+                    visible = false,
+                    hide_dotfiles = false,
+                    hide_gitignored = false,
+                    -- only works on Windows for hidden files/directories
+                    hide_hidden = true,
+
                     hide_by_name = {
                         --"node_modules"
                     },
@@ -210,7 +220,8 @@ return {
                         --".env*",
                     },
                     never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-                        --".DS_Store",
+                        "lazy-lock.json",
+                        ".DS_Store",
                         --"thumbs.db"
                     },
                     never_show_by_pattern = { -- uses glob style patterns

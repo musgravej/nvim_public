@@ -32,6 +32,7 @@ return {
                     "cssls",
                     "yamlls",
                     "black",
+                    "isort",
                     "fixjson",
                     "jsonls",
                     "cmake",

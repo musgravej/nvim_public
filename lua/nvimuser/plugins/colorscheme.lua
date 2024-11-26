@@ -40,11 +40,7 @@ return {
             vim.cmd([[colorscheme rose-pine-moon]])
         end,
     },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,
-    },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
     { "rebelot/kanagawa.nvim", name = "kanagawa", priority = 902, lazy = false},
     { "EdenEast/nightfox.nvim", name = "nightfox", lazy = false},
     { "atmosuwiryo/vim-winteriscoming", name = "winteriscoming", lazy = false},
