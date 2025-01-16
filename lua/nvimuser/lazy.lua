@@ -12,14 +12,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    {import = "nvimuser.plugins"},
-    {import = "nvimuser.plugins.lsp"},
-    }, {
+    { import = "nvimuser.plugins" },
+    { import = "nvimuser.plugins.lsp" },
+}, {
     checker = {
         enabled = true,
         notify = false,
     },
     change_detection = {
         notify = false,
+    },
+    ui = {
+        icons = {
+            ft = "",
+            lazy = "󰂠 ",
+            loaded = "",
+            not_loaded = "",
+        },
     },
 })
