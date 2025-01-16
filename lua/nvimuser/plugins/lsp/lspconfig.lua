@@ -48,7 +48,6 @@ return {
 
                 opts.desc = "Show buffer LSP diagnostics"
                 keymap.set("n", "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-                keymap.set("n", "D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
 
                 opts.desc = "Show LSP line diagnostics"
                 keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts) -- show diagnostics for line
@@ -111,6 +110,20 @@ return {
                     -- on_attach = on_attach,
                     filetypes = { "json" },
                     settings = nil
+                })
+            end,
+            ["docker_compose_language_service"] = function()
+                lspconfig["docker_compose_language_service"].setup({
+                    capabilities = capabilities,
+                    -- on_attach = on_attach,
+                    filetypes = {"yaml"},
+                })
+            end,
+            ["dockerls"] = function()
+                lspconfig["dockerls"].setup({
+                    capabilities = capabilities,
+                    -- on_attach = on_attach,
+                    filetypes = {"dockerfile"},
                 })
             end,
             -- ["fixjson"] = function()

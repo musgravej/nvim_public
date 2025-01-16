@@ -105,15 +105,15 @@ return {
                 },
                 -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
                 file_size = {
-                    enabled = true,
+                    enabled = false,
                     required_width = 64, -- min width of window required to show this column
                 },
                 type = {
-                    enabled = true,
+                    enabled = false,
                     required_width = 122, -- min width of window required to show this column
                 },
                 last_modified = {
-                    enabled = true,
+                    enabled = false,
                     required_width = 88, -- min width of window required to show this column
                 },
                 created = {
@@ -322,7 +322,10 @@ return {
         })
 
         local keymap = vim.keymap
+        keymap.set("n", "<leader>eh", "<cmd>Neotree close<CR>", { desc = "Hide file explorer" })
+        keymap.set("n", "<leader>es", "<cmd>Neotree show<CR>", { desc = "Show file explorer (stay in buffer)" })
         keymap.set("n", "<leader>ee", "<cmd>Neotree left toggle<CR>", { desc = "Toggle file explorer" })
+        keymap.set("n", "<leader>eo", "<cmd>Neotree focus<CR>", { desc = "Focus file explorer" })
         keymap.set("n", "<leader>ef", "<cmd>Neotree left reveal_force_cwd<CR>", { desc = "Go to file in explorer" })
         keymap.set("n", "<leader>er", "<cmd>Neotree float reveal_file<CR>", { desc = "Reveal file in explorer preview" })
         keymap.set("n", "<leader>eb", "<cmd>Neotree float buffers<CR>", { desc = "Show buffers in explorer preview" })

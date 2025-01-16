@@ -12,13 +12,13 @@ return {
         -- { "<leader>xt", "<cmd>TodoTrouble<CR>", desc = "Open todos in trouble" },
         {
             "<leader>trs",
-            "<cmd>Trouble symbols<cr>",
-            desc = "Symbols (Trouble)",
+            "<cmd>Trouble symbols toggle win.position=bottom win.size=10<cr>",
+            desc = "Trouble Symbols",
         },
         {
-            "<leader>trt",
+            "<leader>trd",
             "<cmd>Trouble diagnostics toggle<cr>",
-            desc = "Diagnostics (Trouble)",
+            desc = "Trouble Diagnostics",
         },
         -- {
         --     "<leader>trf",

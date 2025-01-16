@@ -53,6 +53,9 @@ return {
             -- defaults to false.
             annotate = false,
         },
-        mappings = {}
-    }
+        mappings = {
+            -- prev_bookmark = "",
+            -- next_bookmark = "",
+         }
+    },
 }

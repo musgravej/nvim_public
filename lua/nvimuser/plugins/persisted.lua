@@ -74,6 +74,6 @@ return {
         vim.keymap.set("n", "<leader>pa", "<cmd>SessionStart<cr>", { desc = "Start Persisted Session" })
         vim.keymap.set("n", "<leader>po", "<cmd>SessionStop<cr>", { desc = "Stop Persisted Session" })
         vim.keymap.set("n", "<leader>pd", "<cmd>SessionLoad<cr>", { desc = "Load Persisted Session" })
-        vim.keymap.set("n", "<leader>pc", "<cmd>Telescope persisted<cr>", { desc = "Manage Persisted Session" })
+        vim.keymap.set("n", "<leader>pm", "<cmd>Telescope persisted<cr>", { desc = "Manage Persisted Session" })
 	end,
 }

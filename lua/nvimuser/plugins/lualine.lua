@@ -52,12 +52,22 @@ return {
         -- configured for noice
         lualine.setup({
             sections = {
+                lualine_c = {
+                    {
+                        'filename',
+                        path = 3,
+                        shortening_target = 70
+                    }
+                },
                 lualine_x = {
                     {
                         require("noice").api.statusline.mode.get,
                         cond = require("noice").api.statusline.mode.has,
                         color = { fg = "#ff9e64" },
-                    }
+                    },
+                    { "encoding" },
+                    { "fileformat" },
+                    { "filetype" },
                 },
             },
         })

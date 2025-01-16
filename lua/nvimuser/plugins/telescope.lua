@@ -17,7 +17,7 @@ return {
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-                        ["<C-j>"] = actions.move_selection_next, -- move to next result
+                        ["<C-j>"] = actions.move_selection_next,     -- move to next result
                         ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     },
                 },
@@ -33,11 +33,14 @@ return {
         telescope.load_extension("persisted")
         -- telescope.load_extension("noice")
         local builtin = require("telescope.builtin")
+        -- telescope.load_extension("yank_history")
         -- telescope.load_extension('remote-sshfs')
+        telescope.load_extension("diff")
 
         -- set keymaps
         local keymap = vim.keymap -- for conciseness
 
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" })
         keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
         keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
         keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
@@ -47,10 +50,8 @@ return {
         keymap.set("n", "<leader>fR", "<cmd>Telescope lsp_references<cr>", { desc = "Find references" })
         keymap.set("n", "<leader>fr", "<cmd>Telescope registers<cr>", { desc = "Find registers" })
         keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in buffer, fuzzy" })
-        -- keymap.set("n", "<leader>fs", "<cmd>Telescope treesitter<cr>", { desc = "Find in buffer, fuzzy" })
-        -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols({ignore_symbols = {'parameter', 'method'}}) end, { desc = "Find symbols"})
-        keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end, { desc = "Find document symbols"})
-        keymap.set("n", "<leader>fw", function() builtin.lsp_workspace_symbols() end, { desc = "Find workspce symbols"})
-        keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "Show command history"})
+        keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end, { desc = "Find document symbols" })
+        keymap.set("n", "<leader>fw", function() builtin.lsp_workspace_symbols() end, { desc = "Find workspce symbols" })
+        keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "Show command history" })
     end,
 }

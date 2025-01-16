@@ -20,9 +20,10 @@ return {
     },
     keys = {
         { "<leader>gB", function() Snacks.git.blame_line() end,   desc = "Git Blame Line" },
-        { "<leader>gb", function() Snacks.gitbrowse() end,        desc = "Open git line in browser" },
+        { "<leader>gu", function() Snacks.gitbrowse() end,        desc = "Open git line in url (browser)" },
         { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
         { "<leader>gl", function() Snacks.lazygit.log() end,      desc = "Lazygit log (cwd)" },
+        { "<leader>lg", function() Snacks.lazygit.open() end,      desc = "Lazygit open" },
         -- { "<leader>tt", function() Snacks.terminal() end,         desc = "Toggle Terminal" },
     }
 }

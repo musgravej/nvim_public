@@ -1,6 +1,7 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = {"BufReadPre", "BufNewFile"},
+    "nvim-treesitter/nvim-treesitter-refactor",
+    event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
         "windwp/nvim-ts-autotag",
@@ -10,10 +11,21 @@ return {
         local treesitter = require("nvim-treesitter.configs")
 
         -- configure treesitter
-        treesitter.setup({-- enable syntax highlighting
+        treesitter.setup({
+            -- enable syntax rjghlighting
             highlight = {
                 enable = true,
             },
+            -- refactor = {
+            --     highlight_current_scope = { enable = true },
+            --     smart_rename = {
+            --         enable = true,
+            --         keymaps = {
+            --             smart_rename = "<leader>grr"
+            --         }
+            --     }
+            -- },
+            -- highlight_definitions = { enable = true },
             -- enable indentation
             indent = {
                 enable = true
