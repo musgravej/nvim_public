@@ -1,5 +1,5 @@
 function _G.set_terminal_keymaps()
-    local opts = {buffer = 0}
+    local opts = { buffer = 0 }
     -- vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
     -- terminal commands
     vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
@@ -19,54 +19,71 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- A better way to do this?
 -- format current json file
 vim.api.nvim_create_user_command(
-  'Jsonfix',
-  function()
+    'Jsonfix',
+    function()
         vim.cmd("silent! :%s/\\cFalse/false/g")
         vim.cmd("silent! :%s/\\cNone/null/g")
         vim.cmd("silent! :%s/\\cTrue/true/g")
-        -- vim.cmd("silent! :%!jq --indent 4 .")
-        -- vim.cmd(vim.lsp.buf.format)
-  end,
-  { nargs = 0 }
+    end,
+    { nargs = 0 }
 )
 
 -- copy current full file path to clipboard
 vim.api.nvim_create_user_command(
-  'Filepath',
-  function()
+    'Filepath',
+    function()
         vim.cmd(":let @+ = expand('%:p')")
-  end,
-  { nargs = 0 }
+        vim.cmd("echo 'Copy: ' expand('%:p')")
+    end,
+    { nargs = 0 }
+)
+
+-- display current full file path
+vim.api.nvim_create_user_command(
+    'ShowFilepath',
+    function()
+        vim.cmd("echo expand('%:p')")
+    end,
+    { nargs = 0 }
 )
 
 -- copy current file directory path to clipboard
 vim.api.nvim_create_user_command(
-  'Dirpath',
-  function()
-        vim.cmd(":let @+ = expand('%:h')")
-  end,
-  { nargs = 0 }
+    'Dirpath',
+    function()
+        vim.cmd(":let @+ = expand('%:p:h')")
+        vim.cmd("echo 'Copy: ' expand('%:p:h')")
+    end,
+    { nargs = 0 }
+)
+
+-- display directory path
+vim.api.nvim_create_user_command(
+    'ShowDirpath',
+    function()
+        vim.cmd("echo expand('%:p:h')")
+    end,
+    { nargs = 0 }
 )
 
 -- set current file path as the current working directory
 vim.api.nvim_create_user_command(
-  'Cwdhere',
-  function()
+    'Cwdhere',
+    function()
         vim.cmd("lcd%:p:h")
-  end,
-  { nargs = 0 }
+    end,
+    { nargs = 0 }
 )
 
 -- copy current file name to clipboard
 vim.api.nvim_create_user_command(
-  'Filename',
-  function()
+    'Filename',
+    function()
         vim.cmd(":let @+ = expand('%:t')")
-  end,
-  { nargs = 0 }
+    end,
+    { nargs = 0 }
 )
 
 -- save from insert mode
-vim.keymap.set('n', '<leader>www', [[<Cmd>w<CR>]])
-
+vim.keymap.set('n', '<leader>www', [[<Cmd>w<CR>]], {desc = "write file"})
 
