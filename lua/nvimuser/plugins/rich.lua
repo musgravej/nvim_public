@@ -1,0 +1,1 @@
+return { "ginsburgnm/rich.nvim" }
