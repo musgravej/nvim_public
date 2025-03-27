@@ -100,7 +100,18 @@ keymap.set("n", "<leader>tb", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 
 -- Set for deletion, once fully tested
 -- Move lines up or down
-if vim.fn.has("mac") == 1 then
+
+-- Normal Mode
+keymap.set("n", "<C-S-.>", "<cmd>m .-2<CR>", { desc = "Move line up" })
+keymap.set("n", "<C-S-,>", "<cmd>m .+1<CR>", { desc = "Move line down" })
+-- Visual Line Mode
+keymap.set("v", "<C-S-.>", ":m '<-2<CR>gv=gv", { desc = "Move line up, Visual Mode", silent = true })
+keymap.set("v", "<C-S-,>", ":m '>+1<CR>gv=gv", { desc = "Move line down, Visual Mode", silent = true  })
+-- Insert Mode
+keymap.set("i", "<C-S-.>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
+keymap.set("i", "<C-S-,>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
+
+if vim.fn.has("mac") == 1 then  -- alternates for Mac
     -- Normal Mode
     keymap.set("n", "<C-S-i>", "<cmd>m .-2<CR>", { desc = "Move line up" })
     keymap.set("n", "<C-S-k>", "<cmd>m .+1<CR>", { desc = "Move line down" })
@@ -110,17 +121,6 @@ if vim.fn.has("mac") == 1 then
     -- Insert Mode
     keymap.set("i", "<C-S-i>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
     keymap.set("i", "<C-S-k>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
--- else
-    -- Linux
-    -- Normal Mode
-    -- keymap.set("n", "<M-i>", "<cmd>m .-2<CR>", { desc = "Move line up" })
-    -- keymap.set("n", "<M-k>", "<cmd>m .+1<CR>", { desc = "Move line down" })
-    -- Insert Mode
-    -- keymap.set("i", "<C-S-i>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
-    -- keymap.set("i", "<C-S-k>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
-    -- Visual Mode
-    -- keymap.set("v", "<C-S-i>", "<cmd>m '<-2<CR>gv=gv", { desc = "Move line up" })
-    -- keymap.set("v", "<C-S-k>", "<cmd>m '>+1<CR>gv=gv", { desc = "Move line down" })
  end
 
 -- Toggle Term
