@@ -9,9 +9,15 @@
 vim.g.mapleader = " "
 -- vim.g.mapleader = ","
 
-local keymap = vim.keymap -- for conciseness
+local keymap = vim.keymap
+
+-- Test kemaps here
+-- keymap.set("n", "<Bslash>", ":echo 'hello world'<CR>", {})
 
 -- General Keymaps -------------------
+
+keymap.set("n", "<leader>ss", ":FzfLua spell_suggest<CR>", { desc = "Suggest spelling", silent = true})
+keymap.set("n", "<leader>sf", ":source %<CR>", { desc = "Source this file", silent = true})
 
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
@@ -22,8 +28,14 @@ keymap.set("n", "<leader>q", ":q<CR>", { desc = "Fast quit, alias for :q" })
 keymap.set("n", "<leader>m", "`", { desc = "Remap mark recall" })
 
 -- clear search highlights
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
-keymap.set("n", " ,", ":nohl<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
+keymap.set("n", " ,", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
+
+-- hacky remap jump to start / end of functions
+keymap.set("n", "[e", ":exe 'normal [m'<CR>", { desc = "Previous method start", silent = true})
+keymap.set("n", "]e", ":exe 'normal ]m'<CR>", { desc = "Next method start", silent = true})
+keymap.set("n", "[r", ":exe 'normal [M'<CR>", { desc = "Previous method end", silent = true})
+keymap.set("n", "]r", ":exe 'normal ]M'<CR>", { desc = "Next method end", silent = true})
 
 -- New mapping for folds
 -- keymap.set("n", "<leader>fo", "<cmd>foldopen<CR>", {desc = "Open a fold"} )
@@ -45,7 +57,7 @@ keymap.set("v", "<leader>D", "D")
 keymap.set("v", "<leader>c", "c")
 keymap.set("v", "<leader>C", "C")
 --
--- Shortcut to use blackhole register by default
+-- Shortcut to use black hole register by default
 keymap.set("n", "x", '"_x')
 keymap.set("n", "X", '"_X')
 keymap.set("n", "d", '"_d')
@@ -62,8 +74,8 @@ keymap.set("v", "C", '"_C')
 --
 
 -- window management (split)
-keymap.set("n", "<leader>wsv", "<C-w>v", { desc = "Window split vertically" }) -- split window vertically
-keymap.set("n", "<leader>wsh", "<C-w>s", { desc = "Window split horizontally" }) -- split window horizontally
+keymap.set("n", "<leader>wsv", "<C-w>v", { desc = "Copy buffer (window) to new vertical split" }) -- split window vertically
+keymap.set("n", "<leader>wsh", "<C-w>s", { desc = "Copy buffer (window) to new horizontal split" }) -- split window horizontally
 keymap.set("n", "<leader>w=", "<C-w>=", { desc = "Window split splits equal size" }) -- make split windows equal width & height
 keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split (window)" }) -- close current split window
 keymap.set("n", "<leader>wk", "<C-w>l", { desc = "Move cursor right window" })
@@ -72,21 +84,18 @@ keymap.set("n", "<leader>wl", "<C-w>99l", { desc = "Move cursor to the last wind
 keymap.set("n", "<leader>wh", "<C-w>99h", { desc = "Move cursor to the first window" })
 keymap.set("n", "<leader>wu", "<C-w><Up>", { desc = "Move cursor up window" })
 keymap.set("n", "<leader>wd", "<C-w><Down>", { desc = "Move cursor down window" })
-keymap.set("n", "<leader>wn", "<C-w><C-x>", { desc = "Swap window to the right" })
+keymap.set("n", "<leader>wn", "<C-w><C-x>", { desc = "Swap window next to the right" })
 
 -- tab management
--- commands without leader (?)
--- keymap.set("n", "tn", "<cmd>tabnew<CR>", { desc = "Open new tab (tab, new)" }) -- open new tab
--- keymap.set("n", "tc", "<cmd>tabclose<CR>", { desc = "Close current tab (tab, close)" }) -- close current tab
--- keymap.set("n", "tk", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
--- keymap.set("n", "tj", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
--- keymap.set("n", "tb", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab (tab, buffer)" }) --  move current buffer to new tab
-
 keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "Open new tab (tab, new)" }) -- open new tab
 keymap.set("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close current tab (tab, close)" }) -- close current tab
 keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab (tab, exit)" }) -- close current tab
 keymap.set("n", "<leader>tk", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
 keymap.set("n", "<leader>tj", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
+keymap.set("n", "<leader>th", "<cmd>tabfirst<CR>", { desc = "Go to first tab" }) --  go to first tab
+keymap.set("n", "<leader>tl", "<cmd>tablast<CR>", { desc = "Go to last tab" }) --  go to last tab
+keymap.set("n", "<leader>ti", "<cmd>tabmove<CR>", { desc = "Move tab to the right" }) --  move tab to the right
+keymap.set("n", "<leader>tu", "<cmd>tabmove -1<CR>", { desc = "Move tab to the left" }) -- move tab to the left
 keymap.set("n", "<leader>tb", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab (tab, buffer)" }) --  move current buffer to new tab
 
 -- Set for deletion, once fully tested
@@ -96,8 +105,8 @@ if vim.fn.has("mac") == 1 then
     keymap.set("n", "<C-S-i>", "<cmd>m .-2<CR>", { desc = "Move line up" })
     keymap.set("n", "<C-S-k>", "<cmd>m .+1<CR>", { desc = "Move line down" })
     -- Visual Line Mode
-    keymap.set("v", "<C-S-i>", ":m '<-2<CR>gv=gv", { desc = "Move line up, Visual Mode" })
-    keymap.set("v", "<C-S-k>", ":m '>+1<CR>gv=gv", { desc = "Move line down, Visual Mode" })
+    keymap.set("v", "<C-S-i>", ":m '<-2<CR>gv=gv", { desc = "Move line up, Visual Mode", silent = true })
+    keymap.set("v", "<C-S-k>", ":m '>+1<CR>gv=gv", { desc = "Move line down, Visual Mode", silent = true  })
     -- Insert Mode
     keymap.set("i", "<C-S-i>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
     keymap.set("i", "<C-S-k>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
@@ -132,6 +141,9 @@ keymap.set("v", "<leader>cl", 'mz^"*y$`z', { desc = "Copy line to clipboard, wit
 -- *clipboard *copy
 keymap.set("n", "<leader>cc", '"*y', { desc = "Clipboard Copy"})
 keymap.set("v", "<leader>cc", '"*y', { desc = "Clipboard Copy"})
+
+-- *clipboard *copy word
+keymap.set("n", "<leader>cw", '<ESC>viw"*y', { desc = "Clipboard Copy this word", silent = true})
 
 -- *clipboard *paste
 keymap.set("n", "<leader>cp", '"*p', { desc = "Clipboard Paste"})
@@ -174,11 +186,11 @@ keymap.set("n", "<leader>srl", ":s/\\v", { desc = "Search and replace on line" }
 keymap.set("n", "<leader>srf", ":%s/\\v", { desc = "Search and replace on file" })
 keymap.set("v", "<leader>srv", ":s/\\%V", { desc = "Search and replace, only in visual selection" })
 -- Replace selected text
-keymap.set("v", "<leader>c*", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change seletion text, whole file" })
-keymap.set("v", "<leader>c#", '"hy:%s/\\v<C-r>h//c<left><left>', { desc = "Change seletion text, with confirmation" })
+keymap.set("v", "<leader>c*", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection text, whole file" })
+keymap.set("v", "<leader>c#", '"hy:%s/\\v<C-r>h//c<left><left>', { desc = "Change selection text, with confirmation" })
 --
 -- Duplicates current line, keeps unnamed register (copy a line without losing last register)
-keymap.set("n", "<leader>O", '<cmd>let @q=@"<CR>"0yyP<cmd>let @"=@q<CR>', { desc = "Duplicate current line above" })
+keymap.set("n", "<leader>rl", '<cmd>let @q=@"<CR>"0yyP<cmd>let @"=@q<CR>', { desc = "Repeat current line above" })
 -- keymap.set("n", "<leader>R", "", { desc = "Duplicate current line above, with auto comment" })
 
 -- Paste from register (register, paste), bring up register list
@@ -189,12 +201,12 @@ keymap.set(
 )
 
 -- Copy current file to buffer
-keymap.set(
-    "n",
-    "<leader>cwf",
-    ':let @+ = expand("%:p")<CR>:lua print("Copied path to: " .. vim.fn.expand("%:p"))<CR>',
-    { desc = "Copy current file name and path", silent = false }
-)
+-- keymap.set(
+--     "n",
+--     "<leader>cwf",
+--     ':let @+ = expand("%:p")<CR>:lua print("Copied path to: " .. vim.fn.expand("%:p"))<CR>',
+--     { desc = "Copy current file name and path", silent = false }
+-- )
 
 -- Resize splits (<Tab-> k, i, k, l)
 vim.api.nvim_set_keymap("n", "<Char-011>k", ":resize +4<CR>", { noremap = true, silent = true, desc = "Resize window height +"})

@@ -49,6 +49,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end,
 })
 
+-- https://neovim.io/doc/user/lua.html#vim.filetype.add()
+-- https://neovim.io/doc/user/luaref.html#lua-patterns
+-- https://gitspartv.github.io/lua-patterns  -- pattern tester
 vim.filetype.add({
   -- Detect and assign filetype based on the extension of the filename
   extension = {
@@ -64,9 +67,16 @@ vim.filetype.add({
   -- Detect and apply filetypes based on certain patterns of the filenames
   pattern = {
     -- Match filenames like - ".env.example", ".env.local" and so on
-    -- ["%.env%.[%w_.-]+"] = "dotenv",
+    ["%.env%.[%w_.-]+"] = "dotenv",
+    -- Match any file starting with letters, number, punctuation ending in 'requirements.txt'
+    -- ex: 'test_requirements.txt', '1_requirements.txt'
+    -- not: 'my requirements.txt', 'foo_requirement.txt', 'requirement_sample.txt'
+    ["[%d%a%p]*requirements%.txt"] = {"requirements", { priority = 1}}
   },
 })
+
+-- if vim.loop.os_uname().sysname == "Linux" then
+-- end
 
 -- vim.formatoptions.remove('ro')
 -- vim.api.nvim_create_autocmd("FileType", {
