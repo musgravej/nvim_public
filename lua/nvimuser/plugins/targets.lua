@@ -41,4 +41,10 @@ return {
     -- c2il" (change in 2nd last ...) will change 'foo'
     --
     --   "foo", "bar",^ "bing", "bong"
+    --
+    -- Arguments
+    --       ...........
+    -- a , b ( cccccccc , d ) e
+    --         └─ Ia ─┘
+    --
 }

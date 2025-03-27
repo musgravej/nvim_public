@@ -10,7 +10,8 @@ return {
             local bg_visual = "#275378"
             local fg = "#CBE0F0"
             local fg_dark = "#B4D0E9"
-            local fg_gutter = "#627E97"
+            -- local fg_gutter = "#627E97"
+            local fg_gutter = "#564a72"
             local border = "#547998"
 
             require("tokyonight").setup({
@@ -34,21 +35,30 @@ return {
                 end,
             })
             -- set the colorscheme here
-            -- vim.cmd([[colorscheme tokyonight]])
+            -- default, order by compatibility
+            vim.cmd([[colorscheme tokyonight-moon]])
+            -- vim.cmd([[colorscheme rose-pine-moon]])
+            -- vim.cmd([[colorscheme falcon]])
+            -- vim.cmd([[colorscheme darkplus]])
+            -- vim.cmd([[colorscheme icy]])
+            -- vim.cmd([[colorscheme nightfly]])
             -- vim.cmd([[colorscheme catppuccin-macchiato]])
             -- vim.cmd([[colorscheme kanagawa]])
-            vim.cmd([[colorscheme rose-pine-moon]])
+            -- vim.cmd([[colorscheme tokyonight-night]])
         end,
     },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000, },
+    -- { "luisiacc/gruvbox-baby", name = "gruvbox", priority = 1000, },
+    { "lunarvim/darkplus.nvim", name = "darkplus", priority = 1000, },
+    { "projekt0n/github-nvim-theme", name = "github-nvim", priority = 1000, },
     { "rebelot/kanagawa.nvim", name = "kanagawa", priority = 902, lazy = false},
     { "EdenEast/nightfox.nvim", name = "nightfox", lazy = false},
-    { "atmosuwiryo/vim-winteriscoming", name = "winteriscoming", lazy = false},
     { "rmehri01/onenord.nvim", name = "onenord", lazy = false},
+    { "fenetikm/falcon", name = "falcon", lazy = false},
+    { "elianiva/icy.nvim", name = "icy", lazy = false},
     { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 901 },
     { "rose-pine/neovim", name = "rose-pine" },
     { "oxfist/night-owl.nvim", name = "night-owl", lazy = false},
-    { "ofirgall/ofirkai.nvim", name = "ofirkai", },
     {
         "askfiy/visual_studio_code",
         priority = 998,

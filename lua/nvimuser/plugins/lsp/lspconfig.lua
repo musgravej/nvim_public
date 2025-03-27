@@ -4,7 +4,7 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        { "folke/neodev.nvim", opts = {} },
+        { "folke/neodev.nvim",                   opts = {} },
         -- { "hrsh7th/nvim-cmp" }, -- Required
         -- { "hrsh7th/cmp-buffer" },
         -- { "hrsh7th/cmp-path" },
@@ -29,22 +29,36 @@ return {
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
                 local opts = { buffer = ev.buf, silent = true }
 
-                -- set keybinds
-                opts.desc = "Go to declaration"
-                keymap.set("n", "<leader>fD", vim.lsp.buf.declaration, opts) -- go to declaration
+                -- Trigger code completion (omni)  Ctrl + Shift + o, from insert mode
+                keymap.set("i", "<C-S-O>", "<C-x><C-o>")
 
-                opts.desc = "Show LSP definitions"
-                keymap.set("n", "<leader>fd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+                -- set keybinds
+                --
+                -- g* keybinds are search for expected single response
+                -- <leader>f* are search for expected multi responses
+                -- <leader>l* are for LSP actions
+                --
+                -- This is where you first declare a symbol (variable, constant, function etc.)
+                -- May not be applicable to Python objects
+                opts.desc = "Go to declaration (n/a: Python)"
+                keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+
+                -- This is where you define a value for a symbol
+                opts.desc = "Go to definitions"
+                keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+                opts.desc = "Show LSP references"
+                keymap.set("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
                 -- opts.desc = "Show LSP implementations"
-                -- keymap.set("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+                -- keymap.set("n", "<leader>fi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
                 -- opts.desc = "Show LSP type definitions"
                 -- keymap.set("n", "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
                 opts.desc = "See available code LSP code actions"
                 keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-                keymap.set({ "n", "v" }, "ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+                keymap.set({ "n", "v" }, "ca", vim.lsp.buf.code_action, opts)         -- see available code actions, in visual mode will apply to selection
 
                 opts.desc = "Show buffer LSP diagnostics"
                 keymap.set("n", "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
@@ -59,13 +73,13 @@ return {
                 keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
                 opts.desc = "Show documentation for what is under cursor"
-                keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+                keymap.set("n", "K", vim.lsp.buf.hover, opts)          -- show documentation for what is under cursor
                 keymap.set("n", "<leader>lk", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
                 opts.desc = "Restart LSP"
-                keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+                keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
-                keymap.set("n", "<leader>fm", vim.lsp.buf.format, { desc = "Format file with current LSP" })
+                keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format file with current LSP" })
             end,
         })
 
@@ -74,11 +88,33 @@ return {
 
         -- Change the Diagnostic symbols in the sign column (gutter)
         -- (not in youtube nvim video)
-        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
+        -- Deprecated diagnostic config
+        -- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+        -- for type, icon in pairs(signs) do
+        --     local hl = "DiagnosticSign" .. type
+        --     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        -- end
+
+        vim.diagnostic.config({
+            virtual_text = true,
+            underline = {
+                severity = { min = vim.diagnostic.severity.WARN },
+            },
+            signs = {
+                text = {
+                    -- [vim.diagnostic.severity.HINT]  = "",
+                    -- [vim.diagnostic.severity.ERROR] = "✘",
+                    -- [vim.diagnostic.severity.INFO]  = "◉",
+                    -- [vim.diagnostic.severity.WARN]  = ""
+                    [vim.diagnostic.severity.HINT]  = "󰠠 ",
+                    [vim.diagnostic.severity.ERROR] = " ",
+                    [vim.diagnostic.severity.INFO]  = " ",
+                    [vim.diagnostic.severity.WARN]  = " "
+                }
+            }
+        })
+
+
 
         mason_lspconfig.setup_handlers({
             -- default handler for installed servers
@@ -104,26 +140,74 @@ return {
                     },
                 })
             end,
-            ["jsonls"] = function()
-                lspconfig["jsonls"].setup({
+            ["ember"] = function()
+                lspconfig["ember"].setup({
                     capabilities = capabilities,
                     -- on_attach = on_attach,
-                    filetypes = { "json" },
+                    filetypes = { "javascript" },
                     settings = nil
                 })
             end,
-            ["docker_compose_language_service"] = function()
-                lspconfig["docker_compose_language_service"].setup({
+            ["html"] = function()
+                lspconfig["html"].setup({
                     capabilities = capabilities,
                     -- on_attach = on_attach,
-                    filetypes = {"yaml"},
+                    filetypes = { "html" },
+                    settings = nil
                 })
             end,
+            -- ["htmlbeautifier"] = function()
+            --     lspconfig["htmlbeautifier"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = { "html" },
+            --         settings = nil
+            --     })
+            -- end,
+            ["superhtml"] = function()
+                lspconfig["superhtml"].setup({
+                    capabilities = capabilities,
+                    -- on_attach = on_attach,
+                    filetypes = { "html" },
+                    settings = nil
+                })
+            end,
+            -- ["htmlhint"] = function()
+            --     lspconfig["htmlhint"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = { "html" },
+            --         settings = nil
+            --     })
+            -- end,
+            -- ["django-template-lsp"] = function()
+            --     lspconfig["django-template-lsp"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = { "htmldjango" },
+            --         settings = nil
+            --     })
+            -- end,
+            -- ["jsonls"] = function()
+            --     lspconfig["jsonls"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = { "json" },
+            --         settings = nil
+            --     })
+            -- end,
+            -- ["docker_compose_language_service"] = function()
+            --     lspconfig["docker_compose_language_service"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = {"yaml"},
+            --     })
+            -- end,
             ["dockerls"] = function()
                 lspconfig["dockerls"].setup({
                     capabilities = capabilities,
                     -- on_attach = on_attach,
-                    filetypes = {"dockerfile"},
+                    filetypes = { "dockerfile" },
                 })
             end,
             -- ["fixjson"] = function()
@@ -184,7 +268,7 @@ return {
                                 flake8 = {
                                     maxLineLength = 120,
                                     enabled = true,
-                                    ignore = { "E251", "E202",},
+                                    ignore = { "E251", "E202", },
                                     hangClosing = false,
                                 },
                             },

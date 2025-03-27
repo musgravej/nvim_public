@@ -27,15 +27,35 @@ return {
         },
     },
     config = function ()
+        -- Deprecated error format
         -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-        vim.fn.sign_define("DiagnosticSignError",
-            {text = " ", texthl = "DiagnosticSignError"})
-        vim.fn.sign_define("DiagnosticSignWarn",
-            {text = " ", texthl = "DiagnosticSignWarn"})
-        vim.fn.sign_define("DiagnosticSignInfo",
-            {text = " ", texthl = "DiagnosticSignInfo"})
-        vim.fn.sign_define("DiagnosticSignHint",
-            {text = "󰌵", texthl = "DiagnosticSignHint"})
+        -- vim.fn.sign_define("DiagnosticSignError",
+        --     {text = " ", texthl = "DiagnosticSignError"})
+        -- vim.fn.sign_define("DiagnosticSignWarn",
+        --     {text = " ", texthl = "DiagnosticSignWarn"})
+        -- vim.fn.sign_define("DiagnosticSignInfo",
+        --     {text = " ", texthl = "DiagnosticSignInfo"})
+        -- vim.fn.sign_define("DiagnosticSignHint",
+        --     {text = "󰌵", texthl = "DiagnosticSignHint"})
+
+        vim.diagnostic.config({
+            virtual_text = true,
+            underline = {
+                severity = { min = vim.diagnostic.severity.WARN },
+            },
+            signs = {
+                text = {
+                    -- [vim.diagnostic.severity.HINT]  = "",
+                    -- [vim.diagnostic.severity.ERROR] = "✘",
+                    -- [vim.diagnostic.severity.INFO]  = "◉",
+                    -- [vim.diagnostic.severity.WARN]  = ""
+                    [vim.diagnostic.severity.HINT]  = "󰌵 ",
+                    [vim.diagnostic.severity.ERROR] = " ",
+                    [vim.diagnostic.severity.INFO]  = " ",
+                    [vim.diagnostic.severity.WARN]  = " "
+                }
+            }
+        })
 
         require("neo-tree").setup({
             close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
@@ -325,7 +345,7 @@ return {
         keymap.set("n", "<leader>eh", "<cmd>Neotree close<CR>", { desc = "Hide file explorer" })
         keymap.set("n", "<leader>es", "<cmd>Neotree show<CR>", { desc = "Show file explorer (stay in buffer)" })
         keymap.set("n", "<leader>ee", "<cmd>Neotree left toggle<CR>", { desc = "Toggle file explorer" })
-        keymap.set("n", "<leader>eo", "<cmd>Neotree focus<CR>", { desc = "Focus file explorer" })
+        keymap.set("n", "<leader>ej", "<cmd>Neotree focus<CR>", { desc = "Jump to file explorer" })
         keymap.set("n", "<leader>ef", "<cmd>Neotree left reveal_force_cwd<CR>", { desc = "Go to file in explorer" })
         keymap.set("n", "<leader>er", "<cmd>Neotree float reveal_file<CR>", { desc = "Reveal file in explorer preview" })
         keymap.set("n", "<leader>eb", "<cmd>Neotree float buffers<CR>", { desc = "Show buffers in explorer preview" })

@@ -54,8 +54,11 @@ return {
             annotate = false,
         },
         mappings = {
-            -- prev_bookmark = "",
-            -- next_bookmark = "",
-         }
+            -- next = "",
+            -- prev = "",
+            -- preview = "",
+            -- delete_line = "",
+            -- delete_buf = "",
+        }
     },
 }

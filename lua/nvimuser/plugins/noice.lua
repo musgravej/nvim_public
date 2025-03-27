@@ -20,6 +20,7 @@ return {
         { desc = "Dismiss Noice message" }
     ),
 
+    -- comment out this setup for installation
     require("noice").setup({
         views = {
             cmdline_popup = {

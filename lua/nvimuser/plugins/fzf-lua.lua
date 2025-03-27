@@ -5,5 +5,6 @@ return {
     config = function()
         -- calling `setup` is optional for customization
         require("fzf-lua").setup({})
+        require("fzf-lua").lsp_finder({})
     end
 }

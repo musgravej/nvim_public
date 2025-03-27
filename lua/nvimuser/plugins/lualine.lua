@@ -56,7 +56,7 @@ return {
                     {
                         'filename',
                         path = 3,
-                        shortening_target = 70
+                        shortening_target = 120
                     }
                 },
                 lualine_x = {
@@ -67,7 +67,13 @@ return {
                     },
                     { "encoding" },
                     { "fileformat" },
-                    { "filetype" },
+                    { "filetype" , icon_only = true},
+                    {
+                        "aerial",
+                        depth = -2,
+                        dense = true,
+                        dense_sep = "."
+                    },
                 },
             },
         })
