@@ -15,3 +15,14 @@
         - [lazygit](https://github.com/jesseduffield/lazygit)
         - *Possibly* [fzf](https://github.com/junegunn/fzf)
             - install directly from git, not with package manager
+
+## Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
+* `make CMAKE_BUILD_TYPE=RelWithDebInfo`
+* `sudo make install`
+
+### Raspberry Pi (ARM64)
+* `git clone https://github.com/neovim/neovim.git`
+* `make CMAKE_BUILD_TYPE=RelWithDebInfo`
+* `cd build`
+* `cpack -G DEB`
+* `sudo dpkg -i {package, ex: nvim-linux64.deb}`
