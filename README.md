@@ -1,4 +1,5 @@
 # Neovim Config
+## Neovim 0.10
 
 ## Suggested Config Installation:
 * [Install](https://github.com/neovim/neovim/blob/master/INSTALL.md) [Neovim](https://neovim.io)
