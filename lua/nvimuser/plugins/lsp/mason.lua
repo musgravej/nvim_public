@@ -1,6 +1,7 @@
 return {
     {
         "williamboman/mason.nvim",
+        version = "^1.0.0",
         config = function()
             require("mason").setup({
                 ui = {
@@ -15,6 +16,7 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
+        version = "^1.0.0",
         config = function()
             require("mason-lspconfig").setup()
         end,
@@ -29,22 +31,24 @@ return {
                     "cmake",
                     "cssls",
                     "django-template-lsp",
-                    -- "docker_compose_language_service",
-                    -- "dockerls",
                     "ember",
                     "fixjson",
                     "html",
-                    -- "htmlbeautifier",
                     "htmlhint",
                     "isort",
-                    -- "jsonls",
                     "lua_ls",
                     "mypy",
+                    -- "prettier",
                     "pylsp", -- python-lsp-server",
                     "sqlfmt",
                     "sqlls",
                     "superhtml",
+                    "tailwindcss",
                     "terraform-ls",
+                    -- "docker_compose_language_service",
+                    -- "dockerls",
+                    -- "htmlbeautifier",
+                    -- "jsonls",
                     -- "yamlls",
                 },
             })

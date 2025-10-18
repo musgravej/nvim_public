@@ -4,24 +4,6 @@ return {
 
     opts = {
         -- add any options here
-    },
-    dependencies = {
-        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-        "MunifTanjim/nui.nvim",
-        -- OPTIONAL:
-        --   `nvim-notify` is only needed, if you want to use the notification view.
-        --   If not available, we use `mini` as the fallback
-        "rcarriga/nvim-notify",
-    },
-
-    vim.keymap.set({ "n" }, "<Esc>", function()
-            require("noice").cmd("dismiss")
-        end,
-        { desc = "Dismiss Noice message" }
-    ),
-
-    -- comment out this setup for installation
-    require("noice").setup({
         views = {
             cmdline_popup = {
                 position = {
@@ -60,6 +42,11 @@ return {
                 -- requires hrsh7th/nvim-cmp
                 ["cmp.entry.get_documentation"] = true,
             },
+            signature = {
+                auto_open = {
+                    enabled = false,
+                },
+            }
         },
         status = {},
         -- you can enable a preset for easier configuration
@@ -75,7 +62,24 @@ return {
             -- enables an input dialog for inc-rename.nvim
             inc_rename = false,
             -- add a border to hover docs and signature help
-            lsp_doc_border = false,
+            lsp_doc_border = true,
         },
-    })
+    },
+    dependencies = {
+        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        "MunifTanjim/nui.nvim",
+        -- OPTIONAL:
+        --   `nvim-notify` is only needed, if you want to use the notification view.
+        --   If not available, we use `mini` as the fallback
+        "rcarriga/nvim-notify",
+    },
+
+    vim.keymap.set({ "n" }, "<Esc>", function()
+            require("noice").cmd("dismiss")
+        end,
+        { desc = "Dismiss Noice message" }
+    ),
+
+    -- comment out this setup for installation
+    -- require("noice").setup({})
 }

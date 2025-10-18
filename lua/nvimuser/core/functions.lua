@@ -20,6 +20,21 @@ function _G.set_terminal_keymaps()
     vim.keymap.set('t', '<C-S>t', [[<Cmd>ToggleTerm<CR>]], opts)
 end
 
+vim.api.nvim_create_user_command(
+    'Clearregister',
+    function(opts)
+        vim.cmd("silent! | :let @".. opts.fargs[1] .. "=''")
+    end,
+    { nargs = 1}
+)
+
+vim.api.nvim_create_user_command(
+    'Setregister',
+    function(opts)
+        vim.cmd(":let @".. opts.fargs[1] .. "=" .. opts.fargs[2])
+    end,
+    { nargs = 1}
+)
 
 -- Run iSort and Black on current buffer
 vim.api.nvim_create_user_command('Pyformat', function()
@@ -32,7 +47,6 @@ end, {})
 vim.api.nvim_create_user_command(
     'Pyformatfile',
     function(opts)
-        print(opts.fargs[1])
         vim.cmd("silent! | :!isort --profile black -e " .. opts.fargs[1])
         vim.cmd("silent! | :!black --line-length 120 " .. opts.fargs[1])
     end,

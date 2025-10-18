@@ -98,18 +98,16 @@ keymap.set("n", "<leader>ti", "<cmd>tabmove<CR>", { desc = "Move tab to the righ
 keymap.set("n", "<leader>tu", "<cmd>tabmove -1<CR>", { desc = "Move tab to the left" }) -- move tab to the left
 keymap.set("n", "<leader>tb", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab (tab, buffer)" }) --  move current buffer to new tab
 
--- Set for deletion, once fully tested
 -- Move lines up or down
-
 -- Normal Mode
-keymap.set("n", "<C-S-.>", "<cmd>m .-2<CR>", { desc = "Move line up" })
-keymap.set("n", "<C-S-,>", "<cmd>m .+1<CR>", { desc = "Move line down" })
+keymap.set("n", "r]", "<cmd>m .-2<CR>", { desc = "Move line up" })
+keymap.set("n", "r[", "<cmd>m .+1<CR>", { desc = "Move line down" })
 -- Visual Line Mode
-keymap.set("v", "<C-S-.>", ":m '<-2<CR>gv=gv", { desc = "Move line up, Visual Mode", silent = true })
-keymap.set("v", "<C-S-,>", ":m '>+1<CR>gv=gv", { desc = "Move line down, Visual Mode", silent = true  })
+keymap.set("v", "r]", ":m '<-2<CR>gv=gv", { desc = "Move line up, Visual Mode", silent = true })
+keymap.set("v", "r[", ":m '>+1<CR>gv=gv", { desc = "Move line down, Visual Mode", silent = true  })
 -- Insert Mode
-keymap.set("i", "<C-S-.>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
-keymap.set("i", "<C-S-,>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
+keymap.set("i", "r]", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
+keymap.set("i", "r[", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
 
 if vim.fn.has("mac") == 1 then  -- alternates for Mac
     -- Normal Mode
@@ -121,41 +119,70 @@ if vim.fn.has("mac") == 1 then  -- alternates for Mac
     -- Insert Mode
     keymap.set("i", "<C-S-i>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
     keymap.set("i", "<C-S-k>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
- end
+end
 
 -- Toggle Term
 keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", {desc = "Toggle Terminal"})
 
 -- Go Back to previously opened file
-keymap.set("n", "<leader>gb", "<C-^>", {desc = "Go Back to previously opened file"})
-
--- copy to clipboard
--- *copy *line (with cr, without)
-keymap.set("n", '<leader>cL', '"*yy', { desc = "Copy line to clipboard, with CRLF" })
-keymap.set("v", '<leader>cL', '"*y', { desc = "Copy line to clipboard, with CRLF" })
-
-keymap.set("n", "<leader>cl", 'mz^"*y$`z', { desc = "Copy line to clipboard, without CRLF" })
-keymap.set("v", "<leader>cl", 'mz^"*y$`z', { desc = "Copy line to clipboard, without CRLF" })
+-- Replaced by filenav plugin
+-- keymap.set("n", "<leader>gb", "<C-^>", {desc = "Go Back to previously opened file"})
 
 -- Use these for common copy / paste commands
--- *clipboard *copy
-keymap.set("n", "<leader>cc", '"*y', { desc = "Clipboard Copy"})
-keymap.set("v", "<leader>cc", '"*y', { desc = "Clipboard Copy"})
+if vim.fn.has("mac") == 1 then
+    -- *copy *line (with cr, without)
+    keymap.set("n", '<leader>cL', '"*yy', { desc = "Copy line to clipboard, with CRLF" })
+    keymap.set("v", '<leader>cL', '"*y', { desc = "Copy line to clipboard, with CRLF" })
 
--- *clipboard *copy word
-keymap.set("n", "<leader>cw", '<ESC>viw"*y', { desc = "Clipboard Copy this word", silent = true})
+    keymap.set("n", "<leader>cl", 'mz^"*y$`z', { desc = "Copy line to clipboard, without CRLF" })
+    keymap.set("v", "<leader>cl", 'mz^"*y$`z', { desc = "Copy line to clipboard, without CRLF" })
 
--- *clipboard *paste
-keymap.set("n", "<leader>cp", '"*p', { desc = "Clipboard Paste"})
-keymap.set("v", "<leader>cp", '"*p', { desc = "Clipboard Paste"})
+    -- *clipboard *copy
+	keymap.set("n", "<leader>cc", '"*y', { desc = "Clipboard Copy"})
+	keymap.set("v", "<leader>cc", '"*y', { desc = "Clipboard Copy"})
 
--- *copy *file
-keymap.set("n", "<leader>cf", 'mzG$"*ygg `z', { desc = "Copy entire file" })
-keymap.set("v", "<leader>cf", 'mzG$"*ygg `z', { desc = "Copy entire file" })
+    -- *clipboard *copy word
+    keymap.set("n", "<leader>cw", '<ESC>viw"*y', { desc = "Clipboard Copy this word", silent = true})
 
--- *paste *line (above, below)
-keymap.set("n", "<leader>pl", 'o<Esc>"*p', { desc = "Paste line below, from clipboard" })
-keymap.set("n", "<leader>Pl", 'O<Esc>"*p', { desc = "Paste line above, from clipboard" })
+    -- *clipboard *paste
+    keymap.set("n", "<leader>cp", '"*p', { desc = "Clipboard Paste"})
+    keymap.set("v", "<leader>cp", '"*p', { desc = "Clipboard Paste"})
+
+    -- *copy *file
+    keymap.set("n", "<leader>cf", 'mzG$"*ygg `z', { desc = "Copy entire file" })
+    keymap.set("v", "<leader>cf", 'mzG$"*ygg `z', { desc = "Copy entire file" })
+
+    -- *paste *line (above, below)
+    keymap.set("n", "<leader>pl", 'o<Esc>"*p', { desc = "Paste line below, from clipboard" })
+    keymap.set("n", "<leader>Pl", 'O<Esc>"*p', { desc = "Paste line above, from clipboard" })
+else
+	-- Linux
+    -- *copy *line (with cr, without)
+    keymap.set("n", '<leader>cL', '"+yy', { desc = "Copy line to clipboard, with CRLF" })
+    keymap.set("v", '<leader>cL', '"+y', { desc = "Copy line to clipboard, with CRLF" })
+
+    keymap.set("n", "<leader>cl", 'mz^"+y$`z', { desc = "Copy line to clipboard, without CRLF" })
+    keymap.set("v", "<leader>cl", 'mz^"+y$`z', { desc = "Copy line to clipboard, without CRLF" })
+
+    -- *clipboard *copy
+	keymap.set("n", "<leader>cc", '"+y', { desc = "Clipboard Copy"})
+	keymap.set("v", "<leader>cc", '"+y', { desc = "Clipboard Copy"})
+
+    -- *clipboard *copy word
+    keymap.set("n", "<leader>cw", '<ESC>viw"+y', { desc = "Clipboard Copy this word", silent = true})
+
+    -- *clipboard *paste
+    keymap.set("n", "<leader>cp", '"+p', { desc = "Clipboard Paste"})
+    keymap.set("v", "<leader>cp", '"+p', { desc = "Clipboard Paste"})
+
+    -- *copy *file
+    keymap.set("n", "<leader>cf", 'mzG$"+ygg `z', { desc = "Copy entire file" })
+    keymap.set("v", "<leader>cf", 'mzG$"+ygg `z', { desc = "Copy entire file" })
+
+    -- *paste *line (above, below)
+    keymap.set("n", "<leader>pl", 'o<Esc>"+p', { desc = "Paste line below, from clipboard" })
+    keymap.set("n", "<leader>Pl", 'O<Esc>"+p', { desc = "Paste line above, from clipboard" })
+end
 
 -- Page Up / Down and center
 keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })

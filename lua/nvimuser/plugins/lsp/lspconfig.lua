@@ -1,11 +1,12 @@
 return {
     "neovim/nvim-lspconfig",
+    version = "^1.0.0",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        { "folke/neodev.nvim",                   opts = {} },
-        -- { "hrsh7th/nvim-cmp" }, -- Required
+        { "folke/neodev.nvim", opts = {} },
+        { "hrsh7th/nvim-cmp" }, -- Required
         -- { "hrsh7th/cmp-buffer" },
         -- { "hrsh7th/cmp-path" },
         -- { "hrsh7th/cmp-cmdline" },
@@ -50,6 +51,9 @@ return {
                 opts.desc = "Show LSP references"
                 keymap.set("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
+                opts.desc = "Show object uses (references)"
+                keymap.set("n", "<leader>fu", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
                 -- opts.desc = "Show LSP implementations"
                 -- keymap.set("n", "<leader>fi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
@@ -62,6 +66,9 @@ return {
 
                 opts.desc = "Show buffer LSP diagnostics"
                 keymap.set("n", "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+
+                vim.keymap.set({ "i" }, "<C-s>", function() vim.lsp.buf.signature_help() end, { silent = true, noremap = true, desc = "Toggle LSP Signature" })
+                vim.keymap.set({ "n" }, "<leader>ls", function() vim.lsp.buf.signature_help() end, { silent = true, noremap = true, desc = "Toggle LSP Signature" })
 
                 opts.desc = "Show LSP line diagnostics"
                 keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts) -- show diagnostics for line
@@ -113,8 +120,6 @@ return {
                 }
             }
         })
-
-
 
         mason_lspconfig.setup_handlers({
             -- default handler for installed servers
@@ -172,6 +177,22 @@ return {
                     settings = nil
                 })
             end,
+            ["tailwindcss"] = function()
+                lspconfig["tailwindcss"].setup({
+                    capabilities = capabilities,
+                    -- on_attach = on_attach,
+                    filetypes = { "css" },
+                    settings = nil
+                })
+            end,
+            -- ["prettier"] = function()
+            --     lspconfig["prettier"].setup({
+            --         capabilities = capabilities,
+            --         -- on_attach = on_attach,
+            --         filetypes = { "css" },
+            --         settings = nil
+            --     })
+            -- end,
             -- ["htmlhint"] = function()
             --     lspconfig["htmlhint"].setup({
             --         capabilities = capabilities,
@@ -268,7 +289,8 @@ return {
                                 flake8 = {
                                     maxLineLength = 120,
                                     enabled = true,
-                                    ignore = { "E251", "E202", },
+                                    -- ignore = { "E251", "E202", },
+                                    ignore = { "E202", },
                                     hangClosing = false,
                                 },
                             },

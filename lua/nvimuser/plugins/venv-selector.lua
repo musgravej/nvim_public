@@ -7,7 +7,7 @@ return {
     opts = {
         stay_on_this_version = true,
         -- Your options go here
-        name = { "venv", "venv_38", "venv_39", "venv_310", "venv_311", "venv_312" },
+        name = { ".venv", "venv", "venv_38", "venv_39", "venv_310", "venv_311", "venv_312" },
         -- auto_refresh = false
     },
     event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping

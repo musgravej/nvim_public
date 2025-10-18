@@ -2,29 +2,33 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "nvim-treesitter/nvim-treesitter-refactor",
     event = { "BufReadPre", "BufNewFile" },
+    -- The master branch is frozen and provided for backward compatibility only.
+    -- All future updates happen on the main branch, which will become the default branch in the future.
+    branch = "master",
     build = ":TSUpdate",
     dependencies = {
         "windwp/nvim-ts-autotag",
     },
     config = function()
-        -- import nvim-treesitter plugin
-        local treesitter = require("nvim-treesitter.configs")
+        -- if Treesitter doesn't fold, try this:
+        -- TSInstall <lang>
+        -- set foldmethod=expr
+        -- set foldexpr=nvim_treesitter#foldexpr()
 
-        -- configure treesitter
-        treesitter.setup({
-            -- enable syntax rjghlighting
+        -- ## Configure Treesitter?
+        -- import nvim-treesitter plugin
+        -- local treesitter = require("nvim-treesitter.configs")
+        -- treesitter.setup({
+
+       require('nvim-treesitter.configs').setup {
+            -- enable syntax highlighting
+            modules = {},
+            sync_install = true,
+            ignore_install = {},
             highlight = {
                 enable = true,
             },
-            -- refactor = {
-            --     highlight_current_scope = { enable = true },
-            --     smart_rename = {
-            --         enable = true,
-            --         keymaps = {
-            --             smart_rename = "<leader>grr"
-            --         }
-            --     }
-            -- },
+
             highlight_definitions = { enable = true },
             -- enable indentation
             indent = {
@@ -69,6 +73,7 @@ return {
                     node_decremental = "<bs>",
                 },
             },
-        })
+        -- })
+        }
     end,
 }

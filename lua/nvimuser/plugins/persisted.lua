@@ -10,7 +10,7 @@ return {
 			-- Function to determine if a session should be saved
 			---@type fun(): boolean
 			should_save = function()
-				return true
+				return false
 			end,
 
             -- Directory where session files are saved
@@ -73,7 +73,8 @@ return {
         vim.keymap.set("n", "<leader>pt", "<cmd>SessionToggle<cr>", { desc = "Toggle Persisted Session" })
         vim.keymap.set("n", "<leader>pa", "<cmd>SessionStart<cr>", { desc = "Start Persisted Session" })
         vim.keymap.set("n", "<leader>po", "<cmd>SessionStop<cr>", { desc = "Stop Persisted Session" })
-        vim.keymap.set("n", "<leader>pd", "<cmd>SessionLoad<cr>", { desc = "Load Persisted Session" })
+        vim.keymap.set("n", "<leader>ps", "<cmd>SessionSave<cr>", { desc = "Save Persisted Session" })
+        -- vim.keymap.set("n", "<leader>pd", "<cmd>SessionLoad<cr>", { desc = "Load Persisted Session" })
         vim.keymap.set("n", "<leader>pm", "<cmd>Telescope persisted<cr>", { desc = "Manage Persisted Session" })
 	end,
 }
