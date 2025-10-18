@@ -71,7 +71,10 @@ return {
         -- OPTIONAL:
         --   `nvim-notify` is only needed, if you want to use the notification view.
         --   If not available, we use `mini` as the fallback
-        "rcarriga/nvim-notify",
+        {
+            "rcarriga/nvim-notify",
+            version = "3.15.0",  -- 2025-07-10: this dependecy is failing, pinning to an earlier version
+        },
     },
 
     vim.keymap.set({ "n" }, "<Esc>", function()

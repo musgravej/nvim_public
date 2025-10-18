@@ -19,14 +19,12 @@ return {
         set({ "n", "x" }, "<leader>Nc", function() mc.matchAddCursor(-1) end, { desc = "New cursor, next match back" })
         set({ "n", "x" }, "<leader>Sc", function() mc.matchSkipCursor(-1) end, { desc = "Skip new cursor, next match back" })
 
-        -- Add and remove cursors with control + left click.
         -- set("n", "<c-leftmouse>", mc.handleMouse)
         -- set("n", "<c-leftdrag>", mc.handleMouseDrag)
         -- set("n", "<c-leftrelease>", mc.handleMouseRelease)
 
         -- Disable and enable cursors.
         set({ "n", "x" }, "<c-q>", mc.toggleCursor, { desc = "Toggle enable / disable cursor"})
-
         -- Mappings defined in a keymap layer only apply when there are
         -- multiple cursors. This lets you have overlapping mappings.
         mc.addKeymapLayer(function(layerSet)

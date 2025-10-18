@@ -1,5 +1,9 @@
+-- Updated to work with the new LSP configuration
+-- Provides autocompletion with LSP integration
+
 return {
     "hrsh7th/nvim-cmp",
+    enabled = true,  -- Re-enabled for LSP support
     event = "InsertEnter",
     dependencies = {
         "hrsh7th/cmp-buffer", -- source for text in buffer
@@ -7,7 +11,7 @@ return {
         {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
-            version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+            -- version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
             -- install jsregexp (optional!).
             build = "make install_jsregexp",
         },
