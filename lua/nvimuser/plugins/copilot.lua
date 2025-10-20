@@ -17,7 +17,7 @@ return {
         vim.g.copilot_no_tab_map = true
         vim.keymap.set("n", "<leader>pe", "<cmd>Copilot enable<cr>", { desc = "Enable Copilot Suggestions" })
         vim.keymap.set("n", "<leader>pd", "<cmd>Copilot disable<cr>", { desc = "Disable Copilot Suggestions" })
-        vim.keymap.set("i", "<C-u>", 'copilot#Accept("<CR>")', { silent = true, expr = true, desc = "Accept Copilot suggestion" })
+        vim.keymap.set("i", "<C-u>", 'copilot#Accept()', { silent = true, expr = true, replace_keycodes = false, desc = "Accept Copilot suggestion" })
         vim.keymap.set("i", "<C-i>", 'copilot#Dismiss()', { silent = true, expr = true, desc = "Dismiss Copilot suggestion" })
         vim.keymap.set("i", "<C-]>", 'copilot#Next()', { silent = true, expr = true, desc = "Next Copilot suggestion" })
         vim.keymap.set("i", "<C-[>", 'copilot#Previous()', { silent = true, expr = true, desc = "Previous Copilot suggestion" })
