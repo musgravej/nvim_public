@@ -1,3 +1,0 @@
-return {
-    "yaocccc/nvim-hlchunk"
-}
