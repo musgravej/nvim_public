@@ -23,17 +23,17 @@ end
 vim.api.nvim_create_user_command(
     'Clearregister',
     function(opts)
-        vim.cmd("silent! | :let @".. opts.fargs[1] .. "=''")
+        vim.cmd("silent! | :let @" .. opts.fargs[1] .. "=''")
     end,
-    { nargs = 1}
+    { nargs = 1 }
 )
 
 vim.api.nvim_create_user_command(
     'Setregister',
     function(opts)
-        vim.cmd(":let @".. opts.fargs[1] .. "=" .. opts.fargs[2])
+        vim.cmd(":let @" .. opts.fargs[1] .. "=" .. opts.fargs[2])
     end,
-    { nargs = 1}
+    { nargs = 1 }
 )
 
 -- Run iSort and Black on current buffer
@@ -50,17 +50,17 @@ vim.api.nvim_create_user_command(
         vim.cmd("silent! | :!isort --profile black -e " .. opts.fargs[1])
         vim.cmd("silent! | :!black --line-length 120 " .. opts.fargs[1])
     end,
-    { nargs = 1}
+    { nargs = 1 }
 )
 
 -- Insert checkmark (✔)
 vim.api.nvim_create_user_command('Ck', function()
-  vim.api.nvim_put({ '✔' }, 'c', true, true)
+    vim.api.nvim_put({ '✔' }, 'c', true, true)
 end, {})
 
 -- Insert checkmark (✔)
 vim.api.nvim_create_user_command('Ckm', function()
-  vim.api.nvim_put({ '✔' }, 'c', true, true)
+    vim.api.nvim_put({ '✔' }, 'c', true, true)
 end, {})
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
