@@ -26,6 +26,7 @@ return {
                     local name = tab.name()
                     local index = string.find(name, "%[%d")
                     local tab_name = index and string.sub(name, 1, index - 1) or name
+                    local tab_number = vim.api.nvim_tabpage_get_number(tab.id)
                     local icon = require('nvim-web-devicons').get_icon(tab_name)
 
                     -- indicate if any of buffers in tab have unsaved changes
@@ -44,7 +45,7 @@ return {
                     return {
                         line.sep('', hl, theme.fill),
                         -- tab_name .. ":" .. tab.id,
-                        tab.id .. ":",
+                        tab_number .. ":",
                         icon,  -- add icon
                         tab_name,
                         modified and '',
