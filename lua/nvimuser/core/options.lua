@@ -75,7 +75,7 @@ vim.filetype.add({
   },
 })
 
--- if vim.loop.os_uname().sysname == "Linux" then
+-- if vim.uv.os_uname().sysname == "Linux" then
 -- end
 
 -- vim.formatoptions.remove('ro')
