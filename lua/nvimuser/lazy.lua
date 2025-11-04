@@ -12,8 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { import = "jmusgrave.plugins" },
-    -- { import = "jmusgrave.plugins.lsp" },
+    { import = "nvimuser.plugins" },
 }, {
     checker = {
         enabled = true,
