@@ -1,3 +1,5 @@
+--  LSP custom configurations in after/lsp/
+--  See https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ for LSP default configs.
 return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },

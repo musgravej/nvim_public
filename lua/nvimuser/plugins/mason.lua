@@ -30,21 +30,23 @@ return {
         })
 
         mason_lspconfig.setup({
-            -- list of servers for mason to install
+            -- list of LSP servers for mason to install
             ensure_installed = {
-                "lua_ls",      -- Lua LSP
-                "pyright",          -- Python LSP
-                "pylsp",       -- Python LSP
+                "bashls",      -- Bash LSP
+                "cmake",
+                "cssls",       -- CSS LSP
+                "ember",
+                "html",        -- HTML LSP
                 "jsonls",      -- JSON LSP
-                -- "fixjson",          -- JSON LSP helper
-                "bashls",      -- Bash LSP (bonus)
-                -- "tsserver",        -- TypeScript/JavaScript LSP (bonus)
-                "html",        -- HTML LSP (bonus)
-                "cssls",       -- CSS LSP (bonus)
-                "terraformls", -- Terraform LSP (bonus)
+                "lua_ls",      -- Lua LSP
+                "pylsp",       -- Python LSP
+                "terraformls", -- Terraform LSP
             },
             -- auto-install configured servers (with lspconfig)
             automatic_installation = true, -- not the same as ensure_installed
+
+            -- Install formatters and linters, install by command:
+            -- :MasonInstall black terraform flake8 isort fixjson prettier htmlhint jsonlint sqlfmt tflint sqlls
         })
     end,
 }
