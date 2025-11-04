@@ -20,7 +20,7 @@ return {
         -- local treesitter = require("nvim-treesitter.configs")
         -- treesitter.setup({
 
-       require('nvim-treesitter.configs').setup {
+        require('nvim-treesitter.configs').setup {
             -- enable syntax highlighting
             modules = {},
             sync_install = true,
@@ -58,6 +58,7 @@ return {
                 "query",
                 "rust",
                 "svelte",
+                "terraform",
                 "tsx",
                 "typescript",
                 "vim",
@@ -73,7 +74,7 @@ return {
                     node_decremental = "<bs>",
                 },
             },
-        -- })
+            -- })
         }
     end,
 }
