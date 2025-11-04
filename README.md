@@ -2,10 +2,12 @@
 
 ## NOTICE
 * ⚠️ MAIN branch has no configuration files!
-* To view configuration files, switch to a branch for you installation.
+* To view configuration files, switch to a branch for your installation.
 * Included Neovim Versions:
     - Neovim 0.10
     - Neovim 0.11
+      - Branch using nvim-cmp
+      - Branch using blink
 
 ## Suggested Config Installation:
 * [Install](https://github.com/neovim/neovim/blob/master/INSTALL.md) [Neovim](https://neovim.io)
