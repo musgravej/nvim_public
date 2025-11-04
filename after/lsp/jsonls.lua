@@ -23,14 +23,14 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "vscode-json-language-server", "--stdio" },
-	filetypes = { "json", "jsonc" },
-	settings = {
-		json = {
-			validate = { enable = true },
-			format = {
-				enable = true,
-			},
-		},
-	},
+    cmd = { "vscode-json-language-server", "--stdio" },
+    filetypes = { "json", "jsonc" },
+    settings = {
+        json = {
+            validate = { enable = true },
+            format = {
+                enable = true,
+            },
+        },
+    },
 }
