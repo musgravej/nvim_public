@@ -85,6 +85,7 @@ keymap.set("n", "<leader>wh", "<C-w>99h", { desc = "Move cursor to the first win
 keymap.set("n", "<leader>wu", "<C-w><Up>", { desc = "Move cursor up window" })
 keymap.set("n", "<leader>wd", "<C-w><Down>", { desc = "Move cursor down window" })
 keymap.set("n", "<leader>wn", "<C-w><C-x>", { desc = "Swap window next to the right" })
+keymap.set("n", "<leader>wp", "<C-w>p", { desc = "Go back to previous window" })
 
 -- tab management
 keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "Open new tab (tab, new)" }) -- open new tab
@@ -185,7 +186,7 @@ else
 end
 
 -- Page Up / Down and center
-keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+keymap.set("n", "<C-S-d>", "<C-u>zz", { desc = "Scroll up and center" })
 keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 
 -- Page Up / Down and center TODO: remap this to easy yank / paste register?
@@ -213,8 +214,8 @@ keymap.set("n", "<leader>srl", ":s/\\v", { desc = "Search and replace on line" }
 keymap.set("n", "<leader>srf", ":%s/\\v", { desc = "Search and replace on file" })
 keymap.set("v", "<leader>srv", ":s/\\%V", { desc = "Search and replace, only in visual selection" })
 -- Replace selected text
-keymap.set("v", "<leader>c*", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection text, whole file" })
-keymap.set("v", "<leader>c#", '"hy:%s/\\v<C-r>h//c<left><left>', { desc = "Change selection text, with confirmation" })
+keymap.set("v", "<leader>rs", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Replace selection text, whole file" })
+keymap.set("v", "<leader>rS", '"hy:%s/\\v<C-r>h//c<left><left>', { desc = "Replace selection text, with confirmation" })
 --
 -- Duplicates current line, keeps unnamed register (copy a line without losing last register)
 keymap.set("n", "<leader>rl", '<cmd>let @q=@"<CR>"0yyP<cmd>let @"=@q<CR>', { desc = "Repeat current line above" })
@@ -240,3 +241,8 @@ vim.api.nvim_set_keymap("n", "<Char-011>k", ":resize +4<CR>", { noremap = true, 
 vim.api.nvim_set_keymap("n", "<Char-011>i", ":resize -4<CR>", { noremap = true, silent = true, desc = "Resize window height -"})
 vim.api.nvim_set_keymap("n", "<Char-011>l", ":vertical resize -4<CR>", { noremap = true, silent = true, desc = "Resize window width +" })
 vim.api.nvim_set_keymap("n", "<Char-011>j", ":vertical resize +4<CR>", { noremap = true, silent = true, desc = "Resize window width -" })
+
+-- LSP Global keymaps (available even when LSP is not attached)
+-- keymap.set("n", "<leader>li", "<cmd>LspInfo<CR>", { desc = "LSP Info" })
+-- keymap.set("n", "<leader>lI", "<cmd>Mason<CR>", { desc = "Mason Info" })
+-- keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "LSP Restart" })
