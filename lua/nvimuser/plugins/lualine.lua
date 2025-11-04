@@ -67,13 +67,18 @@ return {
                     },
                     { "encoding" },
                     { "fileformat" },
-                    { "filetype" , icon_only = true},
+                    { "filetype",  icon_only = true },
+                    -- Venv selector show current virtual environment
                     {
-                        "aerial",
-                        depth = -2,
-                        dense = true,
-                        dense_sep = "."
+                        "venv-selector"
                     },
+                    -- Aerial shows position, class.function.* within file
+                    -- {
+                    --     "aerial",
+                    --     depth = -2,
+                    --     dense = true,
+                    --     dense_sep = "."
+                    -- },
                 },
             },
         })

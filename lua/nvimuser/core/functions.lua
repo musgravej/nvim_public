@@ -23,17 +23,17 @@ end
 vim.api.nvim_create_user_command(
     'Clearregister',
     function(opts)
-        vim.cmd("silent! | :let @".. opts.fargs[1] .. "=''")
+        vim.cmd("silent! | :let @" .. opts.fargs[1] .. "=''")
     end,
-    { nargs = 1}
+    { nargs = 1 }
 )
 
 vim.api.nvim_create_user_command(
     'Setregister',
     function(opts)
-        vim.cmd(":let @".. opts.fargs[1] .. "=" .. opts.fargs[2])
+        vim.cmd(":let @" .. opts.fargs[1] .. "=" .. opts.fargs[2])
     end,
-    { nargs = 1}
+    { nargs = 1 }
 )
 
 -- Run iSort and Black on current buffer
@@ -50,17 +50,83 @@ vim.api.nvim_create_user_command(
         vim.cmd("silent! | :!isort --profile black -e " .. opts.fargs[1])
         vim.cmd("silent! | :!black --line-length 120 " .. opts.fargs[1])
     end,
-    { nargs = 1}
+    { nargs = 1 }
 )
+
+function Virtualtext(state)
+    -- Ensure the argument is either 'on' or 'off' (case-insensitive)
+    local lower_state = string.lower(state or '')
+
+    if lower_state == 'on' then
+        -- Set virtual_text to true (turn on)
+        vim.diagnostic.config({
+            virtual_text = true,
+            -- You might want to include other diagnostic config options here
+        })
+        print("Neovim diagnostic virtual text is **ON**.")
+    elseif lower_state == 'off' then
+        -- Set virtual_text to false (turn off)
+        vim.diagnostic.config({
+            virtual_text = false,
+            -- You might want to include other diagnostic config options here
+        })
+        print("Neovim diagnostic virtual text is **OFF**.")
+    else
+        -- Handle invalid argument
+        print("Invalid argument for Virtualtext. Use 'on' or 'off'.")
+    end
+end
+
+function Virtuallines(state)
+    -- Ensure the argument is either 'on' or 'off' (case-insensitive)
+    local lower_state = string.lower(state or '')
+
+    if lower_state == 'on' then
+        -- Set virtual_text to true (turn on)
+        vim.diagnostic.config({
+            virtual_lines = true,
+            -- You might want to include other diagnostic config options here
+        })
+        print("Neovim diagnostic virtual lines is **ON**.")
+    elseif lower_state == 'off' then
+        -- Set virtual_lines to false (turn off)
+        vim.diagnostic.config({
+            virtual_lines = false,
+            -- You might want to include other diagnostic config options here
+        })
+        print("Neovim diagnostic virtual lines is **OFF**.")
+    else
+        -- Handle invalid argument
+        print("Invalid argument for Virtuallines. Use 'on' or 'off'.")
+    end
+end
+
+vim.api.nvim_create_user_command('VirtualtextToggle', function(opts)
+    Virtualtext(opts.args)
+end, {
+    nargs = 1,
+    complete = function(arglead, cmdline, cursorpos)
+        return { 'on', 'off' }
+    end
+})
+
+vim.api.nvim_create_user_command('VirtuallinesToggle', function(opts)
+    Virtuallines(opts.args)
+end, {
+    nargs = 1,
+    complete = function(arglead, cmdline, cursorpos)
+        return { 'on', 'off' }
+    end
+})
 
 -- Insert checkmark (✔)
 vim.api.nvim_create_user_command('Ck', function()
-  vim.api.nvim_put({ '✔' }, 'c', true, true)
+    vim.api.nvim_put({ '✔' }, 'c', true, true)
 end, {})
 
 -- Insert checkmark (✔)
 vim.api.nvim_create_user_command('Ckm', function()
-  vim.api.nvim_put({ '✔' }, 'c', true, true)
+    vim.api.nvim_put({ '✔' }, 'c', true, true)
 end, {})
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -131,7 +197,7 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command(
     'Completeoff',
     function()
-        vim.cmd(":lua require('cmp').setup.buffer { enabled = false }")
+        vim.cmd(":lua require('blink.cmp').setup { enabled = false }")
     end,
     { nargs = 0 }
 )
@@ -140,7 +206,7 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command(
     'Completeon',
     function()
-        vim.cmd(":lua require('cmp').setup.buffer { enabled = true }")
+        vim.cmd(":lua require('blink.cmp').setup { enabled = true }")
     end,
     { nargs = 0 }
 )

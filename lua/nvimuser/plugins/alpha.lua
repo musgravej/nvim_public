@@ -1,4 +1,3 @@
-
 return {
     "goolord/alpha-nvim",
     event = "VimEnter",
@@ -65,8 +64,7 @@ return {
             -- [[=='    _-'                        N E O V I M                         \/   `==]],
             -- [[\   _-'                                                                `-_   /]],
             -- [[ `''                                                                      ``' ]],
-            --
-            -- Dune-inspired NEOVIM header - Wide and short versions
+            -- Dune-inspired NEOVIM header - Wide and short version
             --
              "",
              "  ╭──────────────────────────────────────────────────────────────────────────────────────────────────╮ ",
@@ -123,4 +121,3 @@ return {
         vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
     end,
 }
-

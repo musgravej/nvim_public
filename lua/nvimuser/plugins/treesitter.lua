@@ -60,6 +60,7 @@ return {
                 "svelte",
                 "tsx",
                 "typescript",
+                "terraform",
                 "vim",
                 "vimdoc",
                 "yaml",
