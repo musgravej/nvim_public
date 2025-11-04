@@ -17,6 +17,19 @@
         - *Possibly* [fzf](https://github.com/junegunn/fzf)
             - install directly from git, not with package manager
 
+### Install over previous Neovim config
+* For best results, allow Lazy and Mason to reinstall all plugins and LSPs.
+* Delete files in ~/.local/share/nvim/lazy/ and ~/.local/share/nvim/mason/
+* Open Neovim, allow Lazy to install packages, close and reopen, allow Mason to install packages.
+* See notes in lua/nvimuser/plugins/mason.lua for instructions on installing formatters and linters.
+* Check installation with command `:checkhealth`
+
+### LSP
+* LSP is provided here with a few examples, compatible with the Neovim 0.11.
+* Sample files have been provided in /scratch.
+* LSP servers can be evaluated with `:LspInfo`
+* Manually start LSP on file with `:LspStart`
+
 ## Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
 * `make CMAKE_BUILD_TYPE=RelWithDebInfo`
 * `sudo make install`
@@ -26,4 +39,4 @@
 * `make CMAKE_BUILD_TYPE=RelWithDebInfo`
 * `cd build`
 * `cpack -G DEB`
-* `sudo dpkg -i {package, ex: nvim-linux64.deb}`
+* `sudo dpkg -i ^package^` ex: "nvim-linux64.deb"
