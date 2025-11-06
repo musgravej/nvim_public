@@ -38,89 +38,99 @@
 
 -- Function to perform initial grep search
 function GrepSearch()
-	local search_term = vim.fn.input("Grep for: ")
-	vim.cmd('cgetexpr system("rg --vimgrep \\"' .. search_term .. '\\"")')
-	vim.cmd("copen")
+    local search_term = vim.fn.input("Grep for: ")
+
+    -- Check if the search term is empty or contains only whitespace
+    if search_term == "" or search_term:match("^%s*$") then
+        print("Search term cannot be empty or contain only spaces.")
+        return
+    end
+
+    vim.cmd('cgetexpr system("rg --vimgrep \\"' .. search_term .. '\\"")')
+    vim.cmd("copen")
 end
 
 -- Function to include text and filename in the quickfix list
 function IncludeText()
-	local include_pattern = vim.fn.input("Include pattern: ")
-	local new_qf_list = {}
+    local include_pattern = vim.fn.input("Include pattern: ")
+    local new_qf_list = {}
 
-	-- Get the current quickfix list
-	local qf_list = vim.fn.getqflist()
+    -- Get the current quickfix list
+    local qf_list = vim.fn.getqflist()
 
-	-- Iterate over each item and get the filename from the buffer number if available
-	for _, item in ipairs(qf_list) do
-		local filename = item.filename or (item.bufnr and vim.fn.bufname(item.bufnr)) -- Get filename from bufnr
+    -- Iterate over each item and get the filename from the buffer number if available
+    for _, item in ipairs(qf_list) do
+        local filename = item.filename or (item.bufnr and vim.fn.bufname(item.bufnr)) -- Get filename from bufnr
 
-		-- If either the item text or the filename matches the include pattern, keep it in the list
-		if string.match(item.text or "", include_pattern) or string.match(filename or "", include_pattern) then
-			table.insert(new_qf_list, item)
-		end
-	end
+        -- If either the item text or the filename matches the include pattern, keep it in the list
+        if string.match(item.text or "", include_pattern) or string.match(filename or "", include_pattern) then
+            table.insert(new_qf_list, item)
+        end
+    end
 
-	-- Set the new quickfix list
-	vim.fn.setqflist(new_qf_list)
+    -- Set the new quickfix list
+    vim.fn.setqflist(new_qf_list)
 end
 
 -- Function to exclude text and filename from the quickfix list
 function ExcludeText()
-	local exclude_pattern = vim.fn.input("Exclude pattern: ")
-	local new_qf_list = {}
+    local exclude_pattern = vim.fn.input("Exclude pattern: ")
+    local new_qf_list = {}
 
-	-- Get the current quickfix list
-	local qf_list = vim.fn.getqflist()
+    -- Get the current quickfix list
+    local qf_list = vim.fn.getqflist()
 
-	-- Iterate over each item and get the filename from the buffer number if available
-	for _, item in ipairs(qf_list) do
-		local filename = item.filename or (item.bufnr and vim.fn.bufname(item.bufnr)) -- Get filename from bufnr
+    -- Iterate over each item and get the filename from the buffer number if available
+    for _, item in ipairs(qf_list) do
+        local filename = item.filename or (item.bufnr and vim.fn.bufname(item.bufnr)) -- Get filename from bufnr
 
-		-- If neither the item text nor the filename matches the exclude pattern, keep it in the list
-		if not (string.match(item.text or "", exclude_pattern) or string.match(filename or "", exclude_pattern)) then
-			table.insert(new_qf_list, item)
-		end
-	end
+        -- If neither the item text nor the filename matches the exclude pattern, keep it in the list
+        if not (string.match(item.text or "", exclude_pattern) or string.match(filename or "", exclude_pattern)) then
+            table.insert(new_qf_list, item)
+        end
+    end
 
-	-- Set the new quickfix list
-	vim.fn.setqflist(new_qf_list)
+    -- Set the new quickfix list
+    vim.fn.setqflist(new_qf_list)
 end
 
 -- Function to open selected quickfix entry
 function QuickfixOpen()
-	-- Get the current cursor position in the quickfix window
-	local cursor_pos = vim.fn.getcurpos()[2] -- Get the cursor's line number in the quickfix window
+    -- Get the current cursor position in the quickfix window
+    local cursor_pos = vim.fn.getcurpos()[2] -- Get the cursor's line number in the quickfix window
 
-	-- Get the entire quickfix list
-	local qf_list = vim.fn.getqflist()
+    -- Get the entire quickfix list
+    local qf_list = vim.fn.getqflist()
 
-	-- Get the quickfix item corresponding to the cursor position
-	local qf_item = qf_list[cursor_pos]
+    -- Get the quickfix item corresponding to the cursor position
+    local qf_item = qf_list[cursor_pos]
 
-	if qf_item and qf_item.bufnr and qf_item.lnum then
-		-- Get the buffer name (file path) from the buffer number
-		local filename = vim.fn.bufname(qf_item.bufnr)
-		if filename ~= "" then
-			-- Close the quickfix window and switch to the main window
-			vim.cmd("wincmd p") -- Move to the previous window (main editor)
-			-- Open the file and jump to the correct line and column
-			vim.cmd("e " .. filename)
-			vim.api.nvim_win_set_cursor(0, { qf_item.lnum, qf_item.col - 1 }) -- Move cursor to line and column
-		else
-			print("Unable to determine the file for the selected quickfix entry.")
-		end
-	else
-		print("No valid quickfix entry selected.")
-	end
+    if qf_item and qf_item.bufnr and qf_item.lnum then
+        -- Get the buffer name (file path) from the buffer number
+        local filename = vim.fn.bufname(qf_item.bufnr)
+        if filename ~= "" then
+            -- Close the quickfix window and switch to the main window
+            vim.cmd("wincmd p") -- Move to the previous window (main editor)
+            -- Open the file and jump to the correct line and column
+            vim.cmd("e " .. filename)
+            vim.api.nvim_win_set_cursor(0, { qf_item.lnum, qf_item.col - 1 }) -- Move cursor to line and column
+        else
+            print("Unable to determine the file for the selected quickfix entry.")
+        end
+    else
+        print("No valid quickfix entry selected.")
+    end
 end
 
 -- Function to set key mappings for quickfix window --
-vim.api.nvim_set_keymap("n", "<leader>ge", "<cmd>lua ExcludeText()<CR>", { noremap = true, silent = true, desc = "Grep search exclude text"})
-vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua IncludeText()<CR>", { noremap = true, silent = true,  desc = "Grep search include text"})
-vim.api.nvim_set_keymap("n", "<CR>", ":lua QuickfixOpen()<CR>", { noremap = true, silent = true, desc = "Grep search Quickfix" }) -- Specific to quickfix window
+vim.api.nvim_set_keymap("n", "<leader>ge", "<cmd>lua ExcludeText()<CR>",
+    { noremap = true, silent = true, desc = "Grep search exclude text" })
+vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>lua IncludeText()<CR>",
+    { noremap = true, silent = true, desc = "Grep search include text" })
+vim.api.nvim_set_keymap("n", "<CR>", ":lua QuickfixOpen()<CR>",
+    { noremap = true, silent = true, desc = "Grep search Quickfix" })                                                             -- Specific to quickfix window
 -- end
 
 -- Set the main keymap for this, <leader>gs to open the search interface --
-vim.api.nvim_set_keymap("n", "<leader>gs", ":lua GrepSearch()<CR>", { noremap = true, silent = true, desc = "Grep search" })
-
+vim.api.nvim_set_keymap("n", "<leader>gs", ":lua GrepSearch()<CR>",
+    { noremap = true, silent = true, desc = "Grep search" })
