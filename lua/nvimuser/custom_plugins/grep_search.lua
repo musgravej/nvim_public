@@ -39,6 +39,13 @@
 -- Function to perform initial grep search
 function GrepSearch()
 	local search_term = vim.fn.input("Grep for: ")
+
+	-- Check if the search term is empty or contains only whitespace
+	if search_term == "" or search_term:match("^%s*$") then
+		print("Search term cannot be empty or contain only spaces.")
+		return
+	end
+
 	vim.cmd('cgetexpr system("rg --vimgrep \\"' .. search_term .. '\\"")')
 	vim.cmd("copen")
 end
