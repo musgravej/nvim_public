@@ -3,9 +3,7 @@ return {
     event = "InsertEnter",
     -- optional: provides snippets for the snippet source
     dependencies = {
-        'rafamadriz/friendly-snippets',
-        'onsails/lspkind.nvim', -- vs-code like pictograms
-        "giuxtaposition/blink-cmp-copilot",
+        -- "giuxtaposition/blink-cmp-copilot",
     },
 
     -- use a release tag to download pre-built binaries
@@ -33,7 +31,7 @@ return {
 
             -- Accept completion
             ['<CR>'] = { 'accept', 'fallback' },
-
+            ['<C-y>'] = { 'select_and_accept', 'fallback' }, --  This is the default, think ctrl-Yes!
             -- Documentation and menu control
 
             ['<C-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -45,7 +43,8 @@ return {
             ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
         },
 
-        enabled = function() return not vim.tbl_contains({ "text", "markdown" }, vim.bo.filetype) end,
+        -- Explicitly disable / enable by filetype
+        -- enabled = function() return not vim.tbl_contains({ "text", "markdown" }, vim.bo.filetype) end,
 
         appearance = {
             -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -99,12 +98,12 @@ return {
                 -- `<C-space>` (by default) to show it manually or per filetype
                 -- auto_show = function(ctx, items) return vim.bo.filetype == 'markdown' end,
                 -- this option can be toggled with BlinkAutoShowToggle or <leader>ba
-                auto_show = false,
-                -- auto_show = true,
+                -- auto_show = false,
+                auto_show = true,
 
                 -- Delay before showing the completion menu while typing or per filetype
                 -- auto_show_delay_ms = function(ctx, items) return vim.bo.filetype == 'markdown' and 1000 or 0 end,
-                auto_show_delay_ms = 500,
+                auto_show_delay_ms = 3000, -- 3 second delay
 
                 border = 'single',
                 -- max_items = 200, -- Limit menu items for better performance
@@ -143,13 +142,13 @@ return {
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-            default = { 'lsp', 'buffer', 'path', 'snippets' },
+            default = { 'lsp', 'omni', 'buffer', 'path', 'snippets' },
             -- default = { 'lsp', 'copilot', 'buffer', 'path', 'snippets' },
             providers = {
                 lsp = {
                     name = 'LSP',
                     module = 'blink.cmp.sources.lsp',
-                    score_offset = 1000, -- Prioritize LSP completions
+                    -- score_offset = 1000, -- Prioritize LSP completions
                     -- min_keyword_length = 1
                     min_keyword_length = 0,
                     max_items = 50
@@ -164,26 +163,29 @@ return {
                     name = 'Path',
                     module = 'blink.cmp.sources.path',
                     score_offset = 3,
+                    fallbacks = { 'buffer' },
+                    min_keyword_length = 0,
+                    max_items = 10,
                     opts = {
-                        trailing_slash = false,
+                        trailing_slash = true,
                         label_trailing_slash = true,
                         get_cwd = function(context) return vim.fn.expand(('#%d:p:h'):format(context.bufnr)) end,
                         show_hidden_files_by_default = false,
-                    },
-                    min_keyword_length = 3,
-                    max_items = 10
+                        -- Treat `/path` as starting from the current working directory (cwd) instead of the root of your filesystem
+                        ignore_root_slash = false,
+                    }
                 },
                 snippets = {
                     name = 'Snippets',
                     module = 'blink.cmp.sources.snippets',
                     score_offset = 100,
-                    max_items = 25,
+                    max_items = 10,
                     min_keyword_length = 4
                 },
                 buffer = {
                     name = 'Buffer',
                     module = 'blink.cmp.sources.buffer',
-                    max_items = 50, -- Limit buffer completions
+                    max_items = 10, -- Limit buffer completions
                     min_keyword_length = 3,
                     opts = {
                         -- Performance optimizations for buffer source
@@ -201,7 +203,10 @@ return {
                 },
             },
             per_filetype = {
-                python = { 'lsp', 'snippets' }, -- For Python files, prioritize LSP and snippets, reduce buffer scanning
+                -- For Python files, prioritize LSP and snippets, reduce buffer scanning
+                -- python = { 'lsp', 'snippets', 'path' },
+                text = { 'path' },
+                markdown = { 'path', 'buffer' }
             },
         },
 
