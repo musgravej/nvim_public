@@ -2,6 +2,8 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
+-- consider dash separated words as a word text object
+opt.iskeyword:append("-")
 opt.relativenumber = true
 opt.number = true
 -- opt
@@ -11,7 +13,6 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.autoindent = true
-
 opt.wrap = false
 
 -- search settings
