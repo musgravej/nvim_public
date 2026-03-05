@@ -25,9 +25,9 @@ return {
                     }
                 },
                 mappings = {
-						-- <C-x> go to file selection as a split
-						-- <C-v> go to file selection as a vsplit
-						-- <C-t> go to a file in a new tab
+                    -- <C-x> go to file selection as a split
+                    -- <C-v> go to file selection as a vsplit
+                    -- <C-t> go to a file in a new tab
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
                         ["<C-j>"] = actions.move_selection_next,     -- move to next result
@@ -37,10 +37,11 @@ return {
             },
             extensions = {
                 persisted = {
-                    layout_config = { width = 0.55, height = 0.55 }
+                    layout_config = { width = 80, height = 0.45 }
                 }
             }
         })
+        telescope.load_extension("bookmarks")
         telescope.load_extension("fzf")
         telescope.load_extension("persisted")
         -- telescope.load_extension("noice")
@@ -77,28 +78,30 @@ return {
 
         -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols(document_symbols_opts) end, { desc = "Find document symbols" })
         keymap.set("n", "z=", "<cmd>Telescope spell_suggest<cr>", { desc = "Spell suggestions" })
-        keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "Show command history" })
-        keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Show buffers" })
-        keymap.set("n", "<leader>fd", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in current directory" })
-        keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-        -- keymap.set("n", "<leader>gS", "<cmd>Telescope git_status<cr>", { desc = "Git files status" })
-        keymap.set("n", "<leader>gS", "<cmd>FzfLua git_status<cr>", { desc = "Git files status" })
-        keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string (grep) in cwd" })
-        keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Fuzzy find marks" })
-        keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-        keymap.set("n", "<leader>fR", "<cmd>Telescope registers<cr>", { desc = "Find registers" })
+        keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "[C]ommand [h]istory" })
+        keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "[F]ind [b]uffers" })
+        keymap.set("n", "<leader>fd", "<cmd>Telescope grep_string<cr>",
+            { desc = "[F]ind string un[d]er cursor" })
+        keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "[F]ind [f]iles in cwd" })
+        keymap.set("n", "<leader>gS", "<cmd>Telescope git_status<cr>", { desc = "[G]it files [S]tatus" })
+        -- keymap.set("n", "<leader>gS", "<cmd>FzfLua git_status<cr>", { desc = "Git files status" })
+        keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "[F]ind [g]rep in cwd" })
+        keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "[F]ind [m]arks" })
+        keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "[F]ind [o]ld files" })
+        keymap.set("n", "<leader>fR", "<cmd>Telescope registers<cr>", { desc = "[F]ind [R]egisters" })
         -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end, { desc = "Find document symbols" })
         -- keymap.set("n", "<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "Find document symbols" })
         -- '<leader>fs' search handled by Aerial plugin
-        keymap.set("n", "<leader>fS", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "Find all document symbols" })
-        keymap.set("n", "<leader>fT", "<cmd>TodoFzfLua<cr>", { desc = "Find todos" })
-        keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+        keymap.set("n", "<leader>fS", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "[F]ind all document [S]ymbols" })
+        keymap.set("n", "<leader>fT", "<cmd>TodoFzfLua<cr>", { desc = "[F]ind [T]odos" })
+        keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "[F]ind [t]odos" })
         -- keymap.set("n", "<leader>fw", "<cmd>FzfLua lsp_workspace_symbols<cr>", { desc = "Find workspce symbols" })
-        keymap.set("n", "<leader>fh", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find fuzzy here (in this buffer)" })
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" })
+        keymap.set("n", "<leader>fh", "<cmd>Telescope current_buffer_fuzzy_find<cr>",
+            { desc = "[F]ind fuzzy [h]ere (in buffer)" })
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
         -- This is any place where you use a symbol that has been defined elsewhere
         -- keymap.set("n", "<leader>fr", "<cmd>Telescope lsp_references<cr>", { desc = "Find references" })
-        keymap.set("n", "<leader>fr", "<cmd>FzfLua lsp_references<cr>", { desc = "Find references" })
+        keymap.set("n", "<leader>fr", "<cmd>FzfLua lsp_references<cr>", { desc = "[F]ind [r]eferences" })
         -- WARNING: local warning
     end,
 }

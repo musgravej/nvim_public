@@ -17,8 +17,8 @@ return {
         enabled = false,
         config = function()
             vim.g.copilot_no_tab_map = true
-            vim.keymap.set("n", "<leader>pe", "<cmd>Copilot enable<cr>", { desc = "Enable Copilot Suggestions" })
-            vim.keymap.set("n", "<leader>pd", "<cmd>Copilot disable<cr>", { desc = "Disable Copilot Suggestions" })
+            vim.keymap.set("n", "<leader>pe", "<cmd>Copilot enable<cr>", { desc = "Co[p]ilot [e]nable" })
+            vim.keymap.set("n", "<leader>pd", "<cmd>Copilot disable<cr>", { desc = "Co[p]ilot [d]isable" })
             vim.api.nvim_set_keymap("i", "<C-u>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
             vim.api.nvim_set_keymap("i", "<C-i>", 'copilot#Dismiss()', { silent = true, expr = true })
             vim.api.nvim_set_keymap("i", "<C-]>", 'copilot#Next()', { silent = true, expr = true })
@@ -62,8 +62,21 @@ return {
             },
             panel = { enabled = false },
             filetypes = {
+                terraform = true,
+                lua = true,
+                python = true,
                 markdown = true,
+                json = true,
                 help = true,
+                csv = false,
+                text = function()
+                    local filename = vim.fs.basename(vim.api.nvim_buf_get_name(0))
+                    if string.match(filename, '_worksheet$') or string.match(filename, '_worksheet%.%w+$') then
+                        return true
+                    end
+                    return false
+                end,
+                ["*"] = false,
             },
         },
     }

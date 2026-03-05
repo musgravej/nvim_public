@@ -8,7 +8,7 @@ return {
             remove_duplicates = false,
         })
         -- Go Back to previously opened file
-        vim.keymap.set("n", "<leader>gb", "<cmd>FilenavPrev<CR>", {silent = true, desc = "Go Back in file history"})
-        vim.keymap.set("n", "<leader>gn", "<cmd>FilenavNext<CR>", {silent = true, desc = "Go Next in file history"})
+        vim.keymap.set("n", "<leader>gb", "<cmd>FilenavPrev<CR>", { silent = true, desc = "[G]o [b]ack in file history" })
+        vim.keymap.set("n", "<leader>gn", "<cmd>FilenavNext<CR>", { silent = true, desc = "[G]o [n]ext in file history" })
     end,
 }

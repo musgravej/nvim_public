@@ -1,55 +1,39 @@
 return {
-    'nvim-mini/mini.nvim',
-    version = false,
+    "echasnovski/mini.nvim",
+    enabled = true,
     config = function()
+        local map = function(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, { desc = desc })
+        end
+
         -- mini.ai
+        -- Extend and create a/i textobjects
+        --
+        -- It enhances some builtin textobjects (like a(, a), a', and more), creates new ones (like a*, a<Space>, af, a?, and more),
+        -- and allows user to create their own (like based on treesitter, and more).
+        -- Supports dot-repeat, v:count, different search methods, consecutive application, and customization via Lua patterns or functions.
+        -- Has builtins for brackets, quotes, function call, argument, tag, user prompt, and any punctuation/digit/whitespace character.
+        -- Ex: vin[ - visual select inside next [
+        -- Ex: v3in[ - visual select inside 3rd next [
         require("mini.ai").setup({
-            -- Extend and create a/i textobjects
-            --
-            -- It enhances some builtin textobjects (like a(, a), a', and more), creates new ones (like a*, a<Space>, af, a?, and more),
-            -- and allows user to create their own (like based on treesitter, and more).
-            -- Supports dot-repeat, v:count, different search methods, consecutive application, and customization via Lua patterns or functions.
-            -- Has builtins for brackets, quotes, function call, argument, tag, user prompt, and any punctuation/digit/whitespace character.
-            -- Ex: vin[ - visual select inside next [
-            -- Ex: v3in[ - visual select inside 3rd next [
+            n_lines = 500,
         })
-        require("mini.operators").setup({
-            -- Each entry configures one operator.
-            -- `prefix` defines keys mapped during `setup()`: in Normal mode
-            -- to operate on textobject and line, in Visual - on selection.
-            -- Evaluate text and replace with output
-            exchange = {
-                -- NOTE: Default `gx` is remapped to `gX`
-                prefix = 'gx',
-                -- Whether to reindent new text to match previous indent
-                reindent_linewise = true,
-            },
-            -- Exchange text regions
-            evaluate = {
-                prefix = 'g=',
-                -- Function which does the evaluation
-                func = nil,
-            },
-            -- Multiply (duplicate) text
-            multiply = {
-                prefix = 'gm',
-                -- Function which can modify text before multiplying
-                func = nil,
-            },
-            -- Replace text with register
-            replace = {
-                -- NOTE: Default `gr*` LSP mappings are removed
-                prefix = 'gr',
-                -- Whether to reindent new text to match previous indent
-                reindent_linewise = true,
-            },
-            -- Sort text
-            sort = {
-                prefix = 'gs',
-                -- Function which does the sort
-                func = nil,
-            }
-        })
-        -- require("mini.splitjoin").setup({})
-    end
+
+        -- mini git
+        local mini_git = require("mini.git")
+        mini_git.setup()
+        map({ "n", "x" }, "<leader>ga", mini_git.show_at_cursor, "[G]it show [a]t cursor")
+        -- map({ "n", "v" }, "<leader>gh", mini_git.show_range_history, "Git show range history")
+        -- map({ "n", "v" }, "<leader>gd", mini_git.show_diff_source, "Git show diff source")
+
+        -- mini diff
+        local mini_diff = require("mini.diff")
+        mini_diff.setup()
+        map("n", "<leader>go", mini_diff.toggle_overlay, "[G]it toggle [o]verlay")
+
+        -- local statusline = require("mini.statusline")
+        -- statusline.setup({
+        --     use_icons = vim.g.have_nerd_font,
+        -- })
+    end,
 }

@@ -1,4 +1,7 @@
 return {
+    -- blink.cmp is a completion plugin with support for LSPs, cmdline, signature help and snippets.
+    -- It uses an optional custom fuzzy matcher for typo resistance.
+    -- It provides extensibility via pluggable sources (LSP, buffer, snippets, etc), component based rendering and scripting for the configuration.
     'saghen/blink.cmp',
     event = "InsertEnter",
     -- optional: provides snippets for the snippet source
@@ -41,6 +44,10 @@ return {
             -- Documentation scrolling
             ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
             ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+
+            -- Snippet navigation
+            ['<C-j>'] = { 'snippet_forward', 'fallback' },
+            ['<C-k>'] = { 'snippet_backward', 'fallback' },
         },
 
         -- Explicitly disable / enable by filetype
@@ -165,7 +172,7 @@ return {
                     score_offset = 3,
                     fallbacks = { 'buffer' },
                     min_keyword_length = 0,
-                    max_items = 10,
+                    max_items = 20,
                     opts = {
                         trailing_slash = true,
                         label_trailing_slash = true,
@@ -176,11 +183,12 @@ return {
                     }
                 },
                 snippets = {
+                    -- Save custom snippets in `~/.config/nvim/snippets/` in VSCode format
                     name = 'Snippets',
                     module = 'blink.cmp.sources.snippets',
                     score_offset = 100,
                     max_items = 10,
-                    min_keyword_length = 4
+                    min_keyword_length = 3
                 },
                 buffer = {
                     name = 'Buffer',
@@ -205,7 +213,7 @@ return {
             per_filetype = {
                 -- For Python files, prioritize LSP and snippets, reduce buffer scanning
                 -- python = { 'lsp', 'snippets', 'path' },
-                text = { 'path' },
+                text = { 'path', 'snippets' },
                 markdown = { 'path', 'buffer' }
             },
         },
@@ -213,6 +221,26 @@ return {
         signature = {
             window = { border = 'single' },
             enabled = true,
+        },
+
+        cmdline = {
+            keymap = {
+                -- recommended, as the default keymap will only show and select the next item
+                ['<Tab>'] = { 'show_and_insert_or_accept_single', 'select_next' },
+                ['<S-Tab>'] = { 'show_and_insert_or_accept_single', 'select_prev' },
+
+                ['<C-space>'] = { 'show', 'fallback' },
+
+                ['<C-n>'] = { 'select_next', 'fallback' },
+                ['<C-p>'] = { 'select_prev', 'fallback' },
+                ['<Down>'] = { 'select_next', 'fallback' },
+                ['<Up>'] = { 'select_prev', 'fallback' },
+
+                ['<C-y>'] = { 'select_and_accept', 'fallback' },
+                ['<C-e>'] = { 'cancel', 'fallback' },
+                ['<C-S-y>'] = { 'cancel', 'fallback' },
+            },
+            completion = { menu = { auto_show = true } },
         },
 
         -- Optimized fuzzy matcher settings for better performance

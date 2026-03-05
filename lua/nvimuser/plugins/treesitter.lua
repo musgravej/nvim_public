@@ -20,7 +20,7 @@ return {
         -- local treesitter = require("nvim-treesitter.configs")
         -- treesitter.setup({
 
-       require('nvim-treesitter.configs').setup {
+        require('nvim-treesitter.configs').setup {
             -- enable syntax highlighting
             modules = {},
             sync_install = true,
@@ -40,10 +40,14 @@ return {
             },
             auto_install = true,
             -- ensure these language parsers are installed
+            -- TSInstall bash c css diff dockerfile gitignore graphql html javascript json lua markdown
+            -- TSInstall markdown_inline prisma python query regex rust svelte tsx typescript terraform vim vimdoc
+            -- TSInstall yaml
             ensure_installed = {
                 "bash",
                 "c",
                 "css",
+                "diff",
                 "dockerfile",
                 "gitignore",
                 "graphql",
@@ -56,6 +60,7 @@ return {
                 "prisma",
                 "python",
                 "query",
+                "regex",
                 "rust",
                 "svelte",
                 "tsx",
@@ -74,7 +79,6 @@ return {
                     node_decremental = "<bs>",
                 },
             },
-        -- })
         }
     end,
 }

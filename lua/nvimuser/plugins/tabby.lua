@@ -46,7 +46,7 @@ return {
                         line.sep('', hl, theme.fill),
                         -- tab_name .. ":" .. tab.id,
                         tab_number .. ":",
-                        icon,  -- add icon
+                        icon, -- add icon
                         tab_name,
                         modified and '',
                         line.sep('', hl, theme.fill),

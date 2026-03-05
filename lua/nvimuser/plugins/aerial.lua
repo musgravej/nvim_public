@@ -1,4 +1,5 @@
 return {
+    -- A code outline window for skimming and quick navigation
     'stevearc/aerial.nvim',
     -- Optional dependencies
     dependencies = {

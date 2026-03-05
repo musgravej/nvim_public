@@ -60,6 +60,7 @@ return {
                     }
                 },
                 lualine_x = {
+                    { "selectioncount", color = { fg = "#ff9e64" } },
                     {
                         require("noice").api.statusline.mode.get,
                         cond = require("noice").api.statusline.mode.has,
@@ -73,12 +74,12 @@ return {
                         "venv-selector"
                     },
                     -- Aerial shows position, class.function.* within file
-                    -- {
-                    --     "aerial",
-                    --     depth = -2,
-                    --     dense = true,
-                    --     dense_sep = "."
-                    -- },
+                    {
+                        "aerial",
+                        depth = -2,
+                        dense = true,
+                        dense_sep = "."
+                    },
                 },
             },
         })

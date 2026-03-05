@@ -1,5 +1,6 @@
 return {
-    "wellle/targets.vim"
+    "wellle/targets.vim",
+    -- enabled = false,
     -- https://github.com/wellle/targets.vim
     --
     -- cursor position │    .....................
