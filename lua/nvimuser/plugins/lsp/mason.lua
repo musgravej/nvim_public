@@ -37,9 +37,10 @@ return {
                 "sqlls",
                 "terraformls",
                 "tflint",
+                "ts_ls",
             },
-            -- Install formatters and linters, install by command:
-            -- :MasonInstall black terraform flake8 isort fixjson prettier htmlhint jsonlint sqlfmt tflint sqlls
+            -- Install manually through Mason UI, from Linter or Formatter list
+            -- :MasonInstall black terraform flake8 isort fixjson prettier
             -- }
         },
         dependencies = {
