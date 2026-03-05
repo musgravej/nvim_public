@@ -28,12 +28,6 @@ keymap.set("n", "<leader>q", ":q<CR>", { desc = "Fast quit, alias for :q" })
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
 keymap.set("n", " ,", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
 
--- hacky remap jump to start / end of functions
-keymap.set("n", "[e", ":exe 'normal [m'<CR>", { desc = "Previous method start", silent = true })
-keymap.set("n", "]e", ":exe 'normal ]m'<CR>", { desc = "Next method start", silent = true })
-keymap.set("n", "[r", ":exe 'normal [M'<CR>", { desc = "Previous method end", silent = true })
-keymap.set("n", "]r", ":exe 'normal ]M'<CR>", { desc = "Next method end", silent = true })
-
 -- New mapping for folds
 -- keymap.set("n", "<leader>fo", "<cmd>foldopen<CR>", {desc = "Open a fold"} )
 keymap.set("n", ", ", 'za', { desc = "Toggle a fold" })
@@ -80,7 +74,7 @@ keymap.set("n", "<leader>wj", "<C-w>h", { desc = "Move cursor left window" })
 keymap.set("n", "<leader>wl", "<C-w>99l", { desc = "Move cursor to the last window" })
 keymap.set("n", "<leader>wh", "<C-w>99h", { desc = "Move cursor to the first window" })
 keymap.set("n", "<leader>wu", "<C-w><Up>", { desc = "Move cursor up window" })
-keymap.set("n", "<leader>wd", "<C-w><Down>", { desc = "Move cursor down window" })
+keymap.set("n", "<leader>w,", "<C-w><Down>", { desc = "Move cursor down window" })
 keymap.set("n", "<leader>wn", "<C-w><C-x>", { desc = "Swap window next to the right" })
 
 -- tab management
@@ -91,7 +85,7 @@ keymap.set("n", "<leader>tk", "<cmd>tabn<CR>", { desc = "Go to next tab" })     
 keymap.set("n", "<leader>tj", "<cmd>tabp<CR>", { desc = "Go to previous tab" })                               --  go to previous tab
 keymap.set("n", "<leader>th", "<cmd>tabfirst<CR>", { desc = "Go to first tab" })                              --  go to first tab
 keymap.set("n", "<leader>tl", "<cmd>tablast<CR>", { desc = "Go to last tab" })                                --  go to last tab
-keymap.set("n", "<leader>ti", "<cmd>tabmove<CR>", { desc = "Move tab to the right" })                         --  move tab to the right
+keymap.set("n", "<leader>ti", "<cmd>tabmove +1<CR>", { desc = "Move tab to the right" })                      --  move tab to the right
 keymap.set("n", "<leader>tu", "<cmd>tabmove -1<CR>", { desc = "Move tab to the left" })                       -- move tab to the left
 keymap.set("n", "<leader>tb", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab (tab, buffer)" }) --  move current buffer to new tab
 
@@ -210,12 +204,11 @@ keymap.set("n", "<leader>srl", ":s/\\v", { desc = "Search and replace on line" }
 keymap.set("n", "<leader>srf", ":%s/\\v", { desc = "Search and replace on file" })
 keymap.set("v", "<leader>srv", ":s/\\%V", { desc = "Search and replace, only in visual selection" })
 -- Replace selected text
-keymap.set("v", "<leader>c*", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection text, whole file" })
-keymap.set("v", "<leader>c#", '"hy:%s/\\v<C-r>h//c<left><left>', { desc = "Change selection text, with confirmation" })
+keymap.set("v", "<leader>rf", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection text, whole file" })
+keymap.set("v", "<leader>rc", '"hy:%s/\\v<C-r>h//c<left><left>', { desc = "Change selection text, with confirmation" })
 --
 -- Duplicates current line, keeps unnamed register (copy a line without losing last register)
 keymap.set("n", "<leader>rl", '<cmd>let @q=@"<CR>"0yyP<cmd>let @"=@q<CR>', { desc = "Repeat current line above" })
--- keymap.set("n", "<leader>R", "", { desc = "Duplicate current line above, with auto comment" })
 
 -- Paste from register (register, paste), bring up register list
 keymap.set(
