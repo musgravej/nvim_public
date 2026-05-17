@@ -34,7 +34,10 @@ return {
 
             -- Accept completion
             ['<CR>'] = { 'accept', 'fallback' },
-            ['<C-y>'] = { 'select_and_accept', 'fallback' }, --  This is the default, think ctrl-Yes!
+            -- ['<C-y>'] = { 'select_and_accept', 'fallback' }, --  This is the default, think ctrl-Yes!
+            ['<C-l>'] = { 'select_and_accept', 'fallback' },
+            ['<C-S-l>'] = { 'cancel', 'fallback' },
+
             -- Documentation and menu control
 
             ['<C-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -110,12 +113,15 @@ return {
 
                 -- Delay before showing the completion menu while typing or per filetype
                 -- auto_show_delay_ms = function(ctx, items) return vim.bo.filetype == 'markdown' and 1000 or 0 end,
-                auto_show_delay_ms = 3000, -- 3 second delay
+                -- auto_show_delay_ms = 3000, -- 3 second delay
+                auto_show_delay_ms = 1000, -- 1 second delay
+                -- auto_show_delay_ms = 250,
 
                 border = 'single',
                 -- max_items = 200, -- Limit menu items for better performance
                 draw = {
-                    treesitter = { "lsp" },
+                    -- too slow
+                    -- treesitter = { "lsp" },
                     columns = {
                         { "kind_icon" },
                         { "label",      "label_description", gap = 1 },
@@ -125,6 +131,7 @@ return {
                 },
             },
             documentation = {
+                treesitter_highlighting = false,  -- turn off treesitter highlighting in documentation for better performance
                 -- auto_show = true,
                 auto_show = false,
                 auto_show_delay_ms = 200,
@@ -136,7 +143,8 @@ return {
                 enabled = false,
             },
             list = {
-                max_items = 100,
+                -- max_items = 100,
+                max_items = 40,
                 selection = { preselect = true, auto_insert = false }
                 -- selection = { preselect = false, auto_insert = false }
                 -- selection = { preselect = false, auto_insert = true }
@@ -156,7 +164,6 @@ return {
                     name = 'LSP',
                     module = 'blink.cmp.sources.lsp',
                     -- score_offset = 1000, -- Prioritize LSP completions
-                    -- min_keyword_length = 1
                     min_keyword_length = 0,
                     max_items = 50
                 },
@@ -196,16 +203,18 @@ return {
                     max_items = 10, -- Limit buffer completions
                     min_keyword_length = 3,
                     opts = {
-                        -- Performance optimizations for buffer source
                         get_bufnrs = function() -- Only scan visible buffers
-                            local bufs = {}
-                            for _, win in ipairs(vim.api.nvim_list_wins()) do
-                                local buf = vim.api.nvim_win_get_buf(win)
-                                if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
-                                    bufs[#bufs + 1] = buf
-                                end
-                            end
-                            return bufs
+                            -- Current buffer only
+                            return { vim.api.nvim_get_current_buf() }
+                            -- Performance optimizations for buffer source
+                            --     local bufs = {}
+                            --     for _, win in ipairs(vim.api.nvim_list_wins()) do
+                            --         local buf = vim.api.nvim_win_get_buf(win)
+                            --         if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+                            --             bufs[#bufs + 1] = buf
+                            --         end
+                            --     end
+                            --     return bufs
                         end,
                     },
                 },
@@ -236,9 +245,13 @@ return {
                 ['<Down>'] = { 'select_next', 'fallback' },
                 ['<Up>'] = { 'select_prev', 'fallback' },
 
-                ['<C-y>'] = { 'select_and_accept', 'fallback' },
-                ['<C-e>'] = { 'cancel', 'fallback' },
-                ['<C-S-y>'] = { 'cancel', 'fallback' },
+                -- Defaults
+                -- ['<C-y>'] = { 'select_and_accept', 'fallback' },
+                -- ['<C-e>'] = { 'cancel', 'fallback' },
+                -- ['<C-S-y>'] = { 'cancel', 'fallback' },
+
+                ['<C-l>'] = { 'select_and_accept', 'fallback' },
+                ['<C-S-l>'] = { 'cancel', 'fallback' },
             },
             completion = { menu = { auto_show = true } },
         },

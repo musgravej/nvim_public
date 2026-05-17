@@ -1,4 +1,16 @@
 -- ## Copilot Configuration Options───
+local function is_work_machine(val)
+    work_computers = { 'foo.local' }
+    for index, value in ipairs(work_computers) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
+local is_work_computer = is_work_machine(vim.uv.os_gethostname())
+
 return {
     {
         -- Here are the default keybindings for GitHub Copilot in Neovim when using the official copilot.vim plugin:
@@ -14,7 +26,8 @@ return {
         -- imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
         -- ```
         "github/copilot.vim",
-        enabled = false,
+        -- enabled = true,
+        enabled = is_work_computer,
         config = function()
             vim.g.copilot_no_tab_map = true
             vim.keymap.set("n", "<leader>pe", "<cmd>Copilot enable<cr>", { desc = "Co[p]ilot [e]nable" })
@@ -30,6 +43,8 @@ return {
         cmd = "Copilot",
         build = ":Copilot auth",
         event = "BufReadPost",
+        enabled = false,
+        -- enabled = is_work_computer,
 
         -- Copilot suggestion is automatically hidden when popupmenu-completion is open.
         -- In case you use a custom menu for completion, you can set the copilot_suggestion_hidden

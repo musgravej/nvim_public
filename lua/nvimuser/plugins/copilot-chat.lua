@@ -1,3 +1,16 @@
+-- ## Copilot Configuration Options───
+local function is_work_machine(val)
+    work_computers = { 'foo.local' }
+    for index, value in ipairs(work_computers) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
+local is_work_computer = is_work_machine(vim.uv.os_gethostname())
+
 return {
     {
         -- Key Mappings
@@ -26,6 +39,7 @@ return {
             { "nvim-treesitter/nvim-treesitter" },
             { "nvim-lua/plenary.nvim",          branch = "master" }, -- for curl, log and async functions
         },
+        enabled = is_work_computer,
         build = "make tiktoken",                                     -- Only on MacOS or Linux
         opts = {
             window = {

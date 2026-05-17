@@ -54,8 +54,8 @@ return {
             annotate = false,
         },
         mappings = {
-            -- next = "",
-            -- prev = "",
+            next = "<leader>nm",
+            prev = "<leader>lm",
             -- preview = "",
             -- delete_line = "",
             -- delete_buf = "",

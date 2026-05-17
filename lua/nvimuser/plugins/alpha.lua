@@ -120,8 +120,8 @@ return {
         dashboard.section.buttons.val = {
             dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
             dashboard.button("<leader> ee", "  > Toggle file explorer", "<cmd>Neotree reveal<CR>"),
-            dashboard.button("<leader> ff", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
-            dashboard.button("<leader> fs", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
+            dashboard.button("<leader> ff", "󰱼  > Find File", "<cmd>FzfLua files<CR>"),
+            dashboard.button("<leader> fs", "  > Find Word", "<cmd>FzfLua live_grep<CR>"),
             dashboard.button("Session Restore Last", "󰁯  > Restore Last Session", "<cmd>Persisted load_last<cr>"),
             dashboard.button("Session List", "󰁯  > Restore Session From List", "<cmd>Persisted select<cr>"),
             dashboard.button("Session Manage", "󰁯  > Manage Sessions", "<cmd>Telescope persisted<cr>"),

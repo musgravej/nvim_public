@@ -20,9 +20,9 @@ return {
         })
 
         -- mini git
-        local mini_git = require("mini.git")
-        mini_git.setup()
-        map({ "n", "x" }, "<leader>ga", mini_git.show_at_cursor, "[G]it show [a]t cursor")
+        -- local mini_git = require("mini.git")
+        -- mini_git.setup()
+        -- map({ "n", "x" }, "<leader>ga", mini_git.show_at_cursor, "[G]it show [a]t cursor")
         -- map({ "n", "v" }, "<leader>gh", mini_git.show_range_history, "Git show range history")
         -- map({ "n", "v" }, "<leader>gd", mini_git.show_diff_source, "Git show diff source")
 

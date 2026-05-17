@@ -1,11 +1,13 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    "nvim-treesitter/nvim-treesitter-refactor",
+    -- "nvim-treesitter/nvim-treesitter-refactor",
+    "nvim-treesitter/nvim-treesitter-locals",
     event = { "BufReadPre", "BufNewFile" },
     -- The master branch is frozen and provided for backward compatibility only.
     -- All future updates happen on the main branch, which will become the default branch in the future.
     branch = "master",
     build = ":TSUpdate",
+    -- disable = { "ipynb", }, -- list of language that will be disabled
     dependencies = {
         "windwp/nvim-ts-autotag",
     },

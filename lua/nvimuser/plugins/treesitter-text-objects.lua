@@ -66,35 +66,58 @@ return {
         require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
     end),
 
-    -- keymaps MOVE
-    -- keymaps
+    -- keymaps MOVE with recenter
     -- You can use the capture groups defined in `textobjects.scm`
     vim.keymap.set({ "n", "x", "o" }, "]f", function()
         require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Next function start"}),
     vim.keymap.set({ "n", "x", "o" }, "]]", function()
         require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Next class start"}),
 
     vim.keymap.set({ "n", "x", "o" }, "]e", function()
         require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Next function end"}),
     vim.keymap.set({ "n", "x", "o" }, "][", function()
         require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Next class end"}),
 
     vim.keymap.set({ "n", "x", "o" }, "[f", function()
         require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Previous function start"}),
     vim.keymap.set({ "n", "x", "o" }, "[[", function()
         require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Previous class start"}),
 
     vim.keymap.set({ "n", "x", "o" }, "[e", function()
         require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Previous function end"}),
     vim.keymap.set({ "n", "x", "o" }, "[]", function()
         require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects")
-    end),
+        vim.defer_fn(function()
+            vim.cmd("normal! zz")
+        end, 10)
+    end, { desc = "Previous class end"}),
 
 }

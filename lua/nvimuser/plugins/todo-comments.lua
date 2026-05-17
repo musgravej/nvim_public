@@ -10,10 +10,16 @@ return {
 
         keymap.set("n", "]t", function()
             todo_comments.jump_next()
+            vim.defer_fn(function()
+                vim.cmd("normal! zz")
+            end, 10)
         end, { desc = "Next todo comment" })
 
         keymap.set("n", "[t", function()
             todo_comments.jump_prev()
+            vim.defer_fn(function()
+                vim.cmd("normal! zz")
+            end, 10)
         end, { desc = "Previous todo comment" })
 
         -- TODO: sample todo
