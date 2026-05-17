@@ -25,12 +25,12 @@
 
 ### Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
 * Default build
-- `make CMAKE_BUILD_TYPE=RelWithDebInfo`
-- `sudo make install`
+    - `make CMAKE_BUILD_TYPE=RelWithDebInfo`
+    - `sudo make install`
 
 * To install to a non-default location
-- `make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/full/path/`
-- `make install`
+    - `make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/full/path/`
+    - `make install`
 
 ## Changes from Neovim 0.11
 Neovim 0.12 has significant changes.\
