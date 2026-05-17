@@ -1,0 +1,23 @@
+{
+    "class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:classname}:",
+            "\t${2:pass}"
+        ],
+        "description": "Class definition"
+    },
+    "docstring": {
+        "prefix": "docstring",
+        "body": [
+            "\"\"\"${1:description}",
+            "",
+            "Args:",
+            "\t${2:args}",
+            "Returns:",
+            "\t${3:returns}",
+            "\"\"\""
+        ],
+        "description": "Google docstring template"
+    }
+}
