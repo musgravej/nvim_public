@@ -31,6 +31,7 @@ return {
         { "mason-org/mason-lspconfig.nvim" }, -- Ensure mason-lspconfig loads first
     },
 
+    -- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
     -- example using `opts` for defining servers
     opts = {},
     config = function()
@@ -170,6 +171,7 @@ return {
                         pydocstyle = { enabled = false },
                         pyflakes = { enabled = false },
                         pylint = { enabled = false },
+                        pylsp_mypy = { enabled = false },
                         rope_autoimport = { enabled = false },
                         rope_completion = { enabled = false },
                         yapf = { enabled = false },
