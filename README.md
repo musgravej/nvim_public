@@ -1,6 +1,15 @@
 # Neovim Config
 ## Neovim 0.11
 
+# Deprecated Version
+* This version of config files will not be updated, due to changes in packages compatability with neovim 0.11 and 0.12
+* install neovim 0.12 and checkout `neovim-12-blink` for an updated config file
+
+### Use at your own risk!
+* This config may not work on all systems, and should not be considered to be completely up to date for all settings.
+* Notes here are as accurate as I could remember them.
+* If something doesn't work, you may be responsible for troubleshooting your own solutions.
+
 ## Suggested Config Installation:
 * [Install](https://github.com/neovim/neovim/blob/master/INSTALL.md) [Neovim](https://neovim.io)
 * Clone this repository to a `custom_path` (if not installing directly into nvim config directory)
@@ -17,9 +26,13 @@
         - *Possibly* [fzf](https://github.com/junegunn/fzf)
             - install directly from git, not with package manager
 
+### Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
+* `make CMAKE_BUILD_TYPE=RelWithDebInfo`
+* `sudo make install`
+
 ### Install over previous Neovim config
 * For best results, allow Lazy and Mason to reinstall all plugins and LSPs.
-* Delete files in ~/.local/share/nvim/lazy/ and ~/.local/share/nvim/mason/
+* Delete files in `~/.local/share/nvim/lazy/` and `~/.local/share/nvim/mason/`
 * Open Neovim, allow Lazy to install packages, close and reopen, allow Mason to install packages.
 * See notes in lua/nvimuser/plugins/mason.lua for instructions on installing formatters and linters.
 * Check installation with command `:checkhealth`
@@ -33,10 +46,6 @@
 ### Completion
 * This branch uses [Blink](https://cmp.saghen.dev) as an alternative to `nvim-cmp`.
 * See documentation for configuration and plugin lua file for keymaps.
-
-## Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
-* `make CMAKE_BUILD_TYPE=RelWithDebInfo`
-* `sudo make install`
 
 ### Raspberry Pi (ARM64)
 * `git clone https://github.com/neovim/neovim.git`
