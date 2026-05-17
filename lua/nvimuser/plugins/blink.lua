@@ -131,7 +131,7 @@ return {
                 },
             },
             documentation = {
-                treesitter_highlighting = false,  -- turn off treesitter highlighting in documentation for better performance
+                treesitter_highlighting = false, -- turn off treesitter highlighting in documentation for better performance
                 -- auto_show = true,
                 auto_show = false,
                 auto_show_delay_ms = 200,

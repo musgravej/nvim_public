@@ -1,6 +1,7 @@
 return {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    -- branch = "0.1.x",
+    branch = "master",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -44,7 +45,7 @@ return {
         telescope.load_extension("bookmarks")
         telescope.load_extension("fzf")
         telescope.load_extension("persisted")
-        -- telescope.load_extension("noice")
+        telescope.load_extension("noice")
         local builtin = require("telescope.builtin")
         -- telescope.load_extension("yank_history")
         -- telescope.load_extension('remote-sshfs')
@@ -76,52 +77,7 @@ return {
         -- set keymaps
         local keymap = vim.keymap -- for conciseness
 
-        -- OSX key bindings
-        if vim.fn.has("mac") then
-            keymap.set("n", "<leader>ch", "<cmd>Telescope command_history<cr>", { desc = "[C]ommand [h]istory" })
-            keymap.set("n", "<leader>fR", "<cmd>Telescope registers<cr>", { desc = "[F]ind [R]egisters" })
-            keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "[F]ind [b]uffers" })
-            keymap.set("n", "<leader>fd", "<cmd>Telescope grep_string<cr>", { desc = "[F]ind string un[d]er cursor" })
-            keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "[F]ind [f]iles in cwd" })
-            keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "[F]ind [g]rep in cwd" })
-            keymap.set("n", "<leader>fh", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "[F]ind fuzzy [h]ere (in buffer)" })
-            keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "[F]ind [m]arks" })
-            keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "[F]ind [o]ld files" })
-            keymap.set("n", "<leader>gS", "<cmd>Telescope git_status<cr>", { desc = "[G]it files [S]tatus" })
-            keymap.set("n", "z=", "<cmd>Telescope spell_suggest<cr>", { desc = "Spell suggestions" })
-        else
-            -- Inferred Linux keybindings
-            keymap.set("n", "<leader>ch", "<cmd>FzfLua command_history<cr>", { desc = "[C]ommand [h]istory" })
-            keymap.set("n", "<leader>fR", "<cmd>FzfLua registers<cr>", { desc = "[F]ind [R]egisters" })
-            keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<cr>", { desc = "[F]ind [b]uffers" })
-            keymap.set("n", "<leader>fd", "<cmd>FzfLua grep_visual<cr>", { desc = "[F]ind string un[d]er cursor" })
-            keymap.set("n", "<leader>fp", "<cmd>FzfLua grep_project<cr>", { desc = "[F]ind string in [p]roject files" })
-            keymap.set("n", "<leader>ff", "<cmd>FzfLua files<cr>", { desc = "[F]ind [f]iles in cwd" })
-            keymap.set("n", "<leader>fh", "<cmd>FzfLua grep_curbuf<cr>", { desc = "[F]ind fuzzy [h]ere (in buffer)" })
-            keymap.set("n", "<leader>fg", "<cmd>FzfLua grep_cword<cr>", { desc = "[F]ind [g]rep in cwd" })
-            keymap.set("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "[F]ind [m]arks" })
-            keymap.set("n", "<leader>fo", "<cmd>FzfLua oldfiles<cr>", { desc = "[F]ind [o]ld files" })
-            keymap.set("n", "<leader>gS", "<cmd>FzfLua git_status<cr>", { desc = "[G]it files [S]tatus" })
-            keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<cr>", { desc = "Spell suggestions" })
-        end
-
-        -- keymap.set("n", "<leader>gS", "<cmd>FzfLua git_status<cr>", { desc = "Git files status" })
-        -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end, { desc = "Find document symbols" })
-        -- keymap.set("n", "<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "Find document symbols" })
-        -- '<leader>fs' search handled by Aerial plugin
-        keymap.set("n", "<leader>fS", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "[F]ind all document [S]ymbols" })
-        keymap.set("n", "<leader>fT", "<cmd>TodoFzfLua<cr>", { desc = "[F]ind [T]odos" })
-        keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "[F]ind [t]odos" })
-        -- keymap.set("n", "<leader>fw", "<cmd>FzfLua lsp_workspace_symbols<cr>", { desc = "Find workspce symbols" })
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-
-        keymap.set("n", "<leader>fi", "<cmd>FzfLua live_grep<cr>", { desc = "[F]ind [i]nteractive grep" })
-        keymap.set("n", "<leader>fI", "<cmd>FzfLua live_grep resume=true<cr>", { desc = "[F]ind [I]nteractive grep resume" })
-
-        -- This is any place where you use a symbol that has been defined elsewhere
-        -- keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols(document_symbols_opts) end, { desc = "Find document symbols" })
-        -- keymap.set("n", "<leader>fr", "<cmd>Telescope lsp_references<cr>", { desc = "Find references" })
-        keymap.set("n", "<leader>fr", "<cmd>FzfLua lsp_references<cr>", { desc = "[F]ind [r]eferences" })
+        -- Telescope is broken for any file previewers.  All previewers are moved to FzfLua or Snacks
         -- WARNING: local warning
     end,
 }

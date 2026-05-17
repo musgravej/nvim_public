@@ -26,10 +26,9 @@ return {
         -- imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
         -- ```
         "github/copilot.vim",
-        -- enabled = true,
-        enabled = is_work_computer,
+        -- This plugin hijacks the tab key, I cannot find a way to reliably disable it
+        enabled = false,
         config = function()
-            vim.g.copilot_no_tab_map = true
             vim.keymap.set("n", "<leader>pe", "<cmd>Copilot enable<cr>", { desc = "Co[p]ilot [e]nable" })
             vim.keymap.set("n", "<leader>pd", "<cmd>Copilot disable<cr>", { desc = "Co[p]ilot [d]isable" })
             vim.api.nvim_set_keymap("i", "<C-u>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
@@ -43,8 +42,8 @@ return {
         cmd = "Copilot",
         build = ":Copilot auth",
         event = "BufReadPost",
-        enabled = false,
-        -- enabled = is_work_computer,
+        -- enabled = false,
+        enabled = is_work_computer,
 
         -- Copilot suggestion is automatically hidden when popupmenu-completion is open.
         -- In case you use a custom menu for completion, you can set the copilot_suggestion_hidden
@@ -85,6 +84,7 @@ return {
                 help = true,
                 csv = false,
                 text = function()
+                    -- test lua: `print((vim.fn.expand('%:t'):match('_worksheet$') or vim.fn.expand('%:t'):match('_worksheet%.%w+$')) and "is worksheet" or "not worksheet")`
                     local filename = vim.fs.basename(vim.api.nvim_buf_get_name(0))
                     if string.match(filename, '_worksheet$') or string.match(filename, '_worksheet%.%w+$') then
                         return true

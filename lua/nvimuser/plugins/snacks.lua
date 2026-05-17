@@ -39,8 +39,24 @@ return {
             layout = {
                 -- presets options : "default" , "ivy" , "ivy-split" , "telescope" , "vscode", "select" , "sidebar"
                 -- override picker layout in keymaps function as a param below
-                preset = "telescope", -- defaults to this layout unless overidden
+                preset = "default", -- defaults to this layout unless overidden
+                -- preset = "vscode", -- a floating picker
                 cycle = false,
+            },
+            sources = {
+                lsp_symbols = {
+                    layout = {
+                        -- presets options : "default" , "ivy" , "ivy-split" , "telescope" , "vscode", "select" , "sidebar"
+                        -- override picker layout in keymaps function as a param below
+                        preset = "default", -- defaults to this layout unless overidden
+                        -- preset = "vscode", -- a floating picker
+                        cycle = false,
+                    },
+                    keep_parents = true,
+                    filter = {
+                        python = { "Class", "Function", "Method"},
+                    },
+                },
             },
             layouts = {
                 select = {
@@ -120,6 +136,8 @@ return {
             function() require("snacks").picker.files({ cwd = "~/.config/nvim/lua" }) end,
             desc = "[F]ind [c]onfig file"
         },
+        { "<leader>fs", function() Snacks.picker.lsp_symbols() end,                          desc = "[F]ind document [s]ymbols" },
+        { "<leader>eE", function() Snacks.explorer() end,                                    desc = "Snacks File [E]xplorer" },
         { "<leader>fk", function() require("snacks").picker.keymaps({ layout = "ivy" }) end, desc = "[F]ind [k]eymaps" },
     }
 }

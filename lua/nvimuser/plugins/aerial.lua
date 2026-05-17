@@ -8,7 +8,6 @@ return {
     },
     opts = {},
     vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle<CR>", { desc = "Aerial toggle" }),
-    vim.keymap.set("n", "<leader>fs", "<cmd>Telescope aerial<CR>", { desc = "Find document symbols" }),
     require("telescope").setup({
         extensions = {
             aerial = {
