@@ -14,8 +14,21 @@ local keymap = vim.keymap
 -- Test kemaps here
 -- keymap.set("n", "<Bslash>", ":echo 'hello world'<CR>", {})
 
--- General Keymaps -------------------
+-- Remap system auto complete suggestion
+vim.keymap.set("i", "<c-l>", "<c-x><c-o>", { desc = "Omnifunc Completion"})
 
+-- On complete, do not scan included files (i), or tags (t)
+vim.opt.complete:remove("i")
+vim.opt.complete:remove("t")
+
+-- Insert a checkmark
+-- keymap.set("n", "<leader>ckm", ':r !echo "✔"<CR>kJ', { silent = true, desc = "Insert checkmark" })
+
+-- Keep selection when indenting selection
+vim.keymap.set("x", "<", "<gv", { noremap = true })
+vim.keymap.set("x", ">", ">gv", { noremap = true })
+
+-- General Keymaps -------------------
 keymap.set("n", "<leader>ss", ":FzfLua spell_suggest<CR>", { desc = "Suggest spelling", silent = true })
 keymap.set("n", "<leader>sf", ":source %<CR>", { desc = "Source this file", silent = true })
 
@@ -25,7 +38,7 @@ keymap.set("i", ";;", "<ESC>", { desc = "Exit insert mode with ;;" })
 keymap.set("n", "<leader>q", ":q<CR>", { desc = "Fast quit, alias for :q" })
 
 -- clear search highlights
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
+-- keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
 keymap.set("n", " ,", ":nohl<CR>", { desc = "Clear search highlights", silent = true })
 
 -- New mapping for folds
@@ -213,7 +226,7 @@ keymap.set("n", "<leader>rl", '<cmd>let @q=@"<CR>"0yyP<cmd>let @"=@q<CR>', { des
 -- Paste from register (register, paste), bring up register list
 keymap.set(
     "n", "<leader>rp",
-    function() require("telescope.builtin").registers() end,
+    function() require("fzf-lua").registers() end,
     { remap = true, silent = false, desc = "Paste from register prompt" }
 )
 
@@ -234,3 +247,20 @@ vim.api.nvim_set_keymap("n", "<Char-011>l", ":vertical resize -4<CR>",
     { noremap = true, silent = true, desc = "Resize window width +" })
 vim.api.nvim_set_keymap("n", "<Char-011>j", ":vertical resize +4<CR>",
     { noremap = true, silent = true, desc = "Resize window width -" })
+
+-- Blink completion toggle
+keymap.set("n", "<leader>bay", "<cmd>BlinkAutoShowToggle on<CR>", { desc = "Toggle Blink auto-show completion ON" })
+keymap.set("n", "<leader>ban", "<cmd>BlinkAutoShowToggle off<CR>", { desc = "Toggle Blink auto-show completion OFF" })
+
+vim.keymap.set('n', '<leader>bd', ':diffthis<CR>', { desc = 'Enable diff mode for this buffer' })
+vim.keymap.set('n', '<leader>bo', ':diffoff!<CR>', { desc = 'Disable diff mode for this buffer' })
+
+vim.keymap.set('n', '<leader>lv', function()
+    local new_config = not vim.diagnostic.config().virtual_lines
+    vim.diagnostic.config({ virtual_lines = new_config })
+end, { desc = 'Toggle diagnostic virtual lines' })
+
+vim.keymap.set('n', '<leader>lt', function()
+    local new_config = not vim.diagnostic.config().virtual_text
+    vim.diagnostic.config({ virtual_text = new_config })
+end, { desc = 'Toggle diagnostic virtual text' })

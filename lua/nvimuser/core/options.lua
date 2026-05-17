@@ -2,6 +2,8 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
+-- consider dash separated words as a word text object
+opt.iskeyword:append("-")
 opt.relativenumber = true
 opt.number = true
 -- opt
@@ -11,7 +13,6 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.autoindent = true
-
 opt.wrap = false
 
 -- search settings
@@ -41,7 +42,7 @@ vim.opt.foldlevel = 20
 --
 -- remove whitespace on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = {"*"},
+    pattern = { "*" },
     callback = function()
         SAVE_CURSOR = vim.fn.getpos(".")
         vim.cmd([[%s/\s\+$//e]])
@@ -53,26 +54,26 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 -- https://neovim.io/doc/user/luaref.html#lua-patterns
 -- https://gitspartv.github.io/lua-patterns  -- pattern tester
 vim.filetype.add({
-  -- Detect and assign filetype based on the extension of the filename
-  extension = {
-    -- mdx = "mdx",
-  },
-  -- Detect and apply filetypes based on the entire filename
-  filename = {
-    ["ci.txt"] = "requirements",
-    ["dev.txt"] = "requirements",
-    ["dist.txt"] = "requirements",
-    ["base.txt"] = "requirements",
-  },
-  -- Detect and apply filetypes based on certain patterns of the filenames
-  pattern = {
-    -- Match filenames like - ".env.example", ".env.local" and so on
-    ["%.env%.[%w_.-]+"] = "dotenv",
-    -- Match any file starting with letters, number, punctuation ending in 'requirements.txt'
-    -- ex: 'test_requirements.txt', '1_requirements.txt'
-    -- not: 'my requirements.txt', 'foo_requirement.txt', 'requirement_sample.txt'
-    ["[%d%a%p]*requirements%.txt"] = {"requirements", { priority = 1}}
-  },
+    -- Detect and assign filetype based on the extension of the filename
+    extension = {
+        -- mdx = "mdx",
+    },
+    -- Detect and apply filetypes based on the entire filename
+    filename = {
+        ["ci.txt"] = "requirements",
+        ["dev.txt"] = "requirements",
+        ["dist.txt"] = "requirements",
+        ["base.txt"] = "requirements",
+    },
+    -- Detect and apply filetypes based on certain patterns of the filenames
+    pattern = {
+        -- Match filenames like - ".env.example", ".env.local" and so on
+        ["%.env%.[%w_.-]+"] = "dotenv",
+        -- Match any file starting with letters, number, punctuation ending in 'requirements.txt'
+        -- ex: 'test_requirements.txt', '1_requirements.txt'
+        -- not: 'my requirements.txt', 'foo_requirement.txt', 'requirement_sample.txt'
+        ["[%d%a%p]*requirements%.txt"] = { "requirements", { priority = 1 } }
+    },
 })
 
 -- if vim.loop.os_uname().sysname == "Linux" then

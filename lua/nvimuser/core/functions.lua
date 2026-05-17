@@ -211,6 +211,66 @@ vim.api.nvim_create_user_command(
     { nargs = 0 }
 )
 
+-- Function to toggle blink completion auto_show
+function BlinkAutoShowToggle(state)
+    local blink = require('blink.cmp')
+
+    if state then
+        -- Use the provided state (on/off)
+        local lower_state = string.lower(state)
+
+        if lower_state == 'on' then
+            blink.setup({
+                completion = {
+                    menu = {
+                        auto_show = true
+                    }
+                }
+            })
+            print("Blink completion auto_show is **ON**.")
+        elseif lower_state == 'off' then
+            blink.setup({
+                completion = {
+                    menu = {
+                        auto_show = false
+                    }
+                }
+            })
+            print("Blink completion auto_show is **OFF**.")
+        else
+            print("Invalid argument for BlinkAutoShowToggle. Use 'on' or 'off'.")
+        end
+    else
+        -- Toggle current state
+        local current_config = blink.config.completion.menu.auto_show
+        local new_state = not current_config
+
+        blink.setup({
+            completion = {
+                menu = {
+                    auto_show = new_state
+                }
+            }
+        })
+
+        print("Blink completion auto_show is **" .. (new_state and "ON" or "OFF") .. "**.")
+    end
+end
+
+-- User command to toggle blink auto_show with optional on/off parameter
+vim.api.nvim_create_user_command('BlinkAutoShowToggle', function(opts)
+    if opts.args and opts.args ~= "" then
+        BlinkAutoShowToggle(opts.args)
+    else
+        BlinkAutoShowToggle()
+    end
+end, {
+    nargs = '?',
+    complete = function(arglead, cmdline, cursorpos)
+        return { 'on', 'off' }
+    end
+})
+
 -- set current file path as the current working directory
 vim.api.nvim_create_user_command(
     'Cwdhere',
@@ -225,6 +285,7 @@ vim.api.nvim_create_user_command(
     'Filename',
     function()
         vim.cmd(":let @+ = expand('%:t')")
+        vim.cmd("echo 'Copy: ' expand('%:t')")
     end,
     { nargs = 0 }
 )
@@ -260,3 +321,19 @@ vim.api.nvim_create_user_command(
     end,
     { nargs = 0 }
 )
+
+-- Function to generate a random UUID (version 4)
+function GenerateUUID()
+    local template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return string.gsub(template, '[xy]', function(c)
+        local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
+        return string.format('%x', v)
+    end)
+end
+
+-- User command to insert a UUID at cursor position
+vim.api.nvim_create_user_command('UUID', function()
+    math.randomseed(os.time())
+    local uuid = GenerateUUID()
+    vim.api.nvim_put({ uuid }, 'c', true, true)
+end, {})
