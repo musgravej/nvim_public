@@ -7,6 +7,16 @@
 -- )
 --
 
+-- remove whitespace on save
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = { "*" },
+    callback = function()
+        SAVE_CURSOR = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", SAVE_CURSOR)
+    end,
+})
+
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     -- vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)

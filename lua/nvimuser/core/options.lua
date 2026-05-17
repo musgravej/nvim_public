@@ -2,77 +2,67 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
--- consider dash separated words as a word text object
-opt.iskeyword:append("-")
-opt.relativenumber = true
-opt.number = true
--- opt
+-- Line numbers & display
+opt.number = true         -- Absolute line number on current line
+opt.relativenumber = true -- Relative line numbers for easier motion counts
+opt.wrap = false          -- Don't wrap long lines
+opt.signcolumn = "yes"    -- Always show sign column (prevents layout shift)
+opt.termguicolors = true  -- Enable 24-bit RGB colors
+opt.background = "dark"   -- Use dark background variants of colorschemes
 
--- tabs & indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-opt.autoindent = true
-opt.wrap = false
+-- Indentation
+opt.tabstop = 4       -- A tab character counts as 4 spaces
+opt.shiftwidth = 4    -- Indent/dedent by 4 spaces with < and >
+opt.expandtab = true  -- Insert spaces when Tab is pressed
+opt.autoindent = true -- Copy indent from current line on new line
 
--- search settings
-opt.ignorecase = true
-opt.smartcase = true
+-- Search
+opt.ignorecase = true -- Case-insensitive search by default
+opt.smartcase = true  -- Switch to case-sensitive when query contains uppercase
 
-opt.termguicolors = true
-opt.background = "dark"
-opt.signcolumn = "yes"
+-- Editing behavior
+opt.iskeyword:append("-")          -- Treat dash-separated words as a single word object
+opt.backspace = "indent,eol,start" -- Allow backspace over indentation, line breaks, and insert start
+opt.errorbells = false             -- No error bells
+-- opt.clipboard:append("unnamedplus") -- Uncomment to sync with system clipboard
 
--- backspace
-opt.backspace = "indent,eol,start"
+-- Splits
+opt.splitright = true -- Vertical splits open to the right
+opt.splitbelow = true -- Horizontal splits open below
 
--- clipboard
--- opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- Performance
+opt.updatetime = 300                          -- Faster CursorHold events (affects gitsigns, hover, etc.)
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Time to wait for mapped key sequence (lower triggers which-key faster)
+opt.redrawtime = 10000                        -- Max time for syntax highlighting redraw before giving up
+opt.maxmempattern = 20000                     -- Max memory (KB) for pattern matching
 
--- split windows
-opt.splitright = true -- split vertical window to the right
-opt.splitbelow = true -- split horizontal window to the bottom
+-- Folding (treesitter-based)
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldcolumn = "0" -- Hide the fold column
+opt.foldlevel = 20   -- Start with most folds open
 
--- folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldcolumn = "0"
--- vim.opt.foldtext = ""
-vim.opt.foldlevel = 20
---
--- remove whitespace on save
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*" },
-    callback = function()
-        SAVE_CURSOR = vim.fn.getpos(".")
-        vim.cmd([[%s/\s\+$//e]])
-        vim.fn.setpos(".", SAVE_CURSOR)
-    end,
-})
-
--- https://neovim.io/doc/user/lua.html#vim.filetype.add()
--- https://neovim.io/doc/user/luaref.html#lua-patterns
--- https://gitspartv.github.io/lua-patterns  -- pattern tester
+-- File type detection
+-- Docs: https://neovim.io/doc/user/lua.html#vim.filetype.add()
+-- Pattern syntax: https://gitspartv.github.io/lua-patterns
 vim.filetype.add({
-    -- Detect and assign filetype based on the extension of the filename
     extension = {
         -- mdx = "mdx",
+        tfstate = "json",
+        ["tfstate.backup"] = "json",
     },
-    -- Detect and apply filetypes based on the entire filename
     filename = {
-        ["ci.txt"] = "requirements",
-        ["dev.txt"] = "requirements",
+        ["ci.txt"]   = "requirements",
+        ["dev.txt"]  = "requirements",
         ["dist.txt"] = "requirements",
         ["base.txt"] = "requirements",
     },
-    -- Detect and apply filetypes based on certain patterns of the filenames
     pattern = {
-        -- Match filenames like - ".env.example", ".env.local" and so on
+        -- Match ".env.example", ".env.local", etc.
         ["%.env%.[%w_.-]+"] = "dotenv",
-        -- Match any file starting with letters, number, punctuation ending in 'requirements.txt'
-        -- ex: 'test_requirements.txt', '1_requirements.txt'
-        -- not: 'my requirements.txt', 'foo_requirement.txt', 'requirement_sample.txt'
-        ["[%d%a%p]*requirements%.txt"] = { "requirements", { priority = 1 } }
+        -- Match "test_requirements.txt", "1_requirements.txt", etc.
+        -- Does NOT match "my requirements.txt" or "requirement_sample.txt"
+        ["[%d%a%p]*requirements%.txt"] = { "requirements", { priority = 1 } },
     },
 })
 
