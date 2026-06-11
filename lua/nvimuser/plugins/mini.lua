@@ -1,9 +1,21 @@
 return {
-    "echasnovski/mini.nvim",
+    "nvim-mini/mini.nvim",
     enabled = true,
     config = function()
-        local map = function(mode, lhs, rhs, desc)
-            vim.keymap.set(mode, lhs, rhs, { desc = desc })
+        -- local map = function(mode, lhs, rhs, desc)
+        --     vim.keymap.set(mode, lhs, rhs, { desc = desc })
+        -- end
+
+        local win_config = function()
+            local height = math.floor(0.618 * vim.o.lines)
+            local width = math.floor(0.618 * vim.o.columns)
+            return {
+                anchor = 'NW',
+                height = height,
+                width = width,
+                row = math.floor(0.5 * (vim.o.lines - height)),
+                col = math.floor(0.5 * (vim.o.columns - width)),
+            }
         end
 
         -- mini.ai
@@ -19,17 +31,21 @@ return {
             n_lines = 500,
         })
 
-        -- mini git
-        -- local mini_git = require("mini.git")
-        -- mini_git.setup()
-        -- map({ "n", "x" }, "<leader>ga", mini_git.show_at_cursor, "[G]it show [a]t cursor")
-        -- map({ "n", "v" }, "<leader>gh", mini_git.show_range_history, "Git show range history")
-        -- map({ "n", "v" }, "<leader>gd", mini_git.show_diff_source, "Git show diff source")
+        require("mini.git").setup()
+        vim.keymap.set("n", "<leader>ga", "<cmd>! git add %<CR>", { silent = true, desc = "[G]it [a]dd current file" })
+        vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { silent = true, desc = "[G]it [c]ommit" })
+        vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>", { silent = true, desc = "[G]it [p]ush" })
+
+        require("mini.pick").setup({
+            window = { config = win_config }
+        })
+        vim.keymap.set("n", "<leader>pb", "<cmd>Pick buffers<CR>", { silent = true, desc = "[P]ick [b]uffer" })
+        vim.keymap.set("n", "<leader>pf", "<cmd>Pick files<CR>", { silent = true, desc = "[P]ick [f]iles" })
 
         -- mini diff
-        local mini_diff = require("mini.diff")
-        mini_diff.setup()
-        map("n", "<leader>go", mini_diff.toggle_overlay, "[G]it toggle [o]verlay")
+        require("mini.diff").setup({})
+        vim.keymap.set("n", "<leader>go", "<cmd>lua MiniDiff.toggle_overlay()<CR>",
+            { silent = true, desc = "[G]it toggle [o]verlay" })
 
         -- local statusline = require("mini.statusline")
         -- statusline.setup({
