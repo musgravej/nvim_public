@@ -8,6 +8,7 @@
     - Neovim 0.11
       - Branch using nvim-cmp
       - Branch using blink
+    - Neovim 0.12
 
 ## Suggested Config Installation:
 * [Install](https://github.com/neovim/neovim/blob/master/INSTALL.md) [Neovim](https://neovim.io)
