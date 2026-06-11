@@ -49,7 +49,7 @@ return {
         local builtin = require("telescope.builtin")
         -- telescope.load_extension("yank_history")
         -- telescope.load_extension('remote-sshfs')
-        telescope.load_extension("diff")
+        -- telescope.load_extension("diff")
         -- TODO: local todo
 
         -- https://github.com/nvim-telescope/telescope.nvim/blob/78857db9e8d819d3cc1a9a7bdc1d39d127a36495/doc/telescope.txt#L1712
