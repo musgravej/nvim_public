@@ -1,6 +1,7 @@
 -- This is a configuration for the Namu plugin, which provides a symbols navigator for Neovim.
 return { -- Those are the default options
     "bassamsdata/namu.nvim",
+    enabled = true,
     opts = {
         -- Enable symbols navigator which is the default
         namu_symbols = {
