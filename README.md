@@ -41,7 +41,7 @@ There are significant changes for package management and the treesitter plugin.
 * Install any way that will put treesitter in __your__ system path
 * Ex install: `npm install -g tree-sitter-cli`, or install from homebrew (MacOS).
 * You can check that `treesitter-cli` is installed with `which treesitter`
-* Reinstall treesitter parsers, delete files from `.local/share/nvim/site/parser`
+* Reinstall treesitter parsers, delete files from `.local/share/nvim/site`: `parser`, `parser-info`, `queries`
 * Reinstall Neovim packages and linters by deleting files `$HOME/.local/state/nvim/lazy` and `$HOME/.local/state/nvim/mason`
 * See `plugins/treesitter.lua` for notes in installing parsers manually.  A new installation may not install parsers automatically.
 
