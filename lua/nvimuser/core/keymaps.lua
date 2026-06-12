@@ -12,12 +12,15 @@ local keymap = vim.keymap
 
 -- Alternate search
 keymap.set("n", "<leader>ss", "/", { desc = "Search forward" })
-keymap.set("n", "<leader>sk", "?", { desc = "Search backward" })
+keymap.set("n", "<leader>sS", "?", { desc = "Search backward" })
 
 -- Completion scanning (related to insert-mode behavior)
 -- On complete, do not scan included files (i) or tags (t)
 vim.opt.complete:remove("i")
 vim.opt.complete:remove("t")
+
+-- ─── UndoTree ───────────────────────────────────────────────────────────────
+vim.keymap.set("n", "<leader>tr", "<cmd>Undotree<CR>", { desc = "Toggle Undo[T][r]ee" })
 
 -- ─── Insert Mode ────────────────────────────────────────────────────────────
 
@@ -216,7 +219,8 @@ end
 -- ─── Diff ───────────────────────────────────────────────────────────────────
 
 vim.keymap.set("n", "<leader>bd", ":diffthis<CR>", { desc = "Enable diff mode for this buffer" })
-vim.keymap.set("n", "<leader>bo", ":diffoff!<CR>", { desc = "Disable diff mode for all buffers" })
+vim.keymap.set("n", "<leader>bO", ":diffoff!<CR>", { desc = "Disable diff mode for all buffers" })
+vim.keymap.set("n", "<leader>bo", ":diffoff<CR>", { desc = "Disable diff mode for this buffer" })
 
 -- ─── Diagnostics ────────────────────────────────────────────────────────────
 
