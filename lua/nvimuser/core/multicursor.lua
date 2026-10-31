@@ -14,7 +14,7 @@ vim.api.nvim_set_hl(0, 'MCursorVisual', { link = 'Visual' })
 
 -- Example: Sublime style "Select Next Occurrence" (Ctrl+D)
 -- This performs a search for the word under the cursor and appends a new cursor to the next match
-vim.keymap.set('n', '<C-d>', function()
+vim.keymap.set('n', '<C-n>', function()
   if vim.fn.expand('<cword>') == '' then return end
   vim.cmd('normal! *')
   -- Feed the native '[count]Q' command to spawn a cursor on the next match
@@ -22,7 +22,7 @@ vim.keymap.set('n', '<C-d>', function()
 end, { desc = 'Multicursor: Add next occurrence' })
 
 -- Add a cursor at the previous match for the word under the cursor.
-vim.keymap.set('n', '<C-S-d>', function()
+vim.keymap.set('n', '<C-S-n>', function()
   if vim.fn.expand('<cword>') == '' then return end
   vim.cmd('normal! #')
   -- Feed the native '[count]Q' command to spawn a cursor on the previous match
