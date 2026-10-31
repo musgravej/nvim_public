@@ -1,5 +1,5 @@
-# insert commands here
---  Set formatter command options through cli parameters
+-- insert commands here
+-- Set formatter command options through cli parameters
 -- vim.api.nvim_create_user_command('Black', 'silent! | :!black --line-length 120 %', {})
 -- vim.api.nvim_create_user_command('Isort', 'silent! | :!isort --profile black -e %', {})
 --

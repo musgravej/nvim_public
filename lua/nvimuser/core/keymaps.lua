@@ -14,6 +14,18 @@ local keymap = vim.keymap
 keymap.set("n", "<leader>ss", "/", { desc = "Search forward" })
 keymap.set("n", "<leader>sS", "?", { desc = "Search backward" })
 
+
+-- Saving registers
+-- save from insert mode
+vim.keymap.set('n', '<leader>www', [[<Cmd>w<CR>]], { desc = "write file" })
+
+vim.keymap.set('n', '<leader>wwb', function()
+  vim.cmd('w')
+  vim.cmd('silent! !black ' .. vim.fn.expand('%'))
+  vim.cmd('edit!')
+  vim.cmd('w')
+end, { silent = true, desc = 'Save file with Black' })
+
 -- Completion scanning (related to insert-mode behavior)
 -- On complete, do not scan included files (i) or tags (t)
 vim.opt.complete:remove("i")
@@ -21,10 +33,12 @@ vim.opt.complete:remove("t")
 
 -- ─── UndoTree ───────────────────────────────────────────────────────────────
 vim.keymap.set("n", "<leader>tr", "<cmd>Undotree<CR>", { desc = "Toggle Undo[T][r]ee" })
+vim.keymap.set("n", "<leader>u", "<cmd>Undotree<CR>", { desc = "Toggle [U]ndo tree" })
 
 -- ─── Insert Mode ────────────────────────────────────────────────────────────
 
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+keymap.set("i", ";;", "<ESC>", { desc = "Exit insert mode with ;;" })
 keymap.set("i", "<c-l>", "<c-x><c-o>", { desc = "Omnifunc completion" })
 
 -- ─── Folding ────────────────────────────────────────────────────────────────
@@ -93,12 +107,14 @@ keymap.set("n", "<BS>", "^", { desc = "Move to first non-blank character" })
 keymap.set("n", "<S-BS>", "$", { desc = "Move to end of line" })
 
 -- Scroll and keep cursor centered
-keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
-keymap.set("n", "<C-S-d>", "<C-u>zz", { desc = "Scroll up and center" })
+-- keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
+-- keymap.set("n", "<C-S-d>", "<C-u>zz", { desc = "Scroll up and center" })
+
+-- New keybindings for down and up to keep <C-d> keybinding for multicursor (add next occurrence)
+keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll down and center" })
+keymap.set("n", "<C-S-u>", "<C-d>zz", { desc = "Scroll up and center" })
 keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Scroll back (page up) and center" })
 keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll forward (page down) and center" })
--- keymap.set("n", "<C-u>", "<Nop>", { desc = "Convenience copy to register" })
--- keymap.set("n", "<C-p>", "<Nop>", { desc = "Convenience paste to register" })
 
 -- ─── Search ─────────────────────────────────────────────────────────────────
 
@@ -150,7 +166,7 @@ keymap.set("n", "<leader>wk", "<C-w>l", { desc = "Move cursor to right window" }
 keymap.set("n", "<leader>wh", "<C-w>99h", { desc = "Move cursor to first window" })
 keymap.set("n", "<leader>wl", "<C-w>99l", { desc = "Move cursor to last window" })
 keymap.set("n", "<leader>wu", "<C-w><Up>", { desc = "Move cursor up a window" })
-keymap.set("n", "<leader>w,", "<C-w><Down>", { desc = "Move cursor down a window" })
+keymap.set("n", "<leader>wm", "<C-w><Down>", { desc = "Move cursor down a window" })
 keymap.set("n", "<leader>wn", "<C-w><C-x>", { desc = "Swap window with the one to the right" })
 
 -- Resize splits (Tab+k/i/j/l)
@@ -158,9 +174,9 @@ vim.api.nvim_set_keymap("n", "<Char-011>k", ":resize +4<CR>",
     { noremap = true, silent = true, desc = "Resize window height +" })
 vim.api.nvim_set_keymap("n", "<Char-011>i", ":resize -4<CR>",
     { noremap = true, silent = true, desc = "Resize window height -" })
-vim.api.nvim_set_keymap("n", "<Char-011>l", ":vertical resize -4<CR>",
+vim.api.nvim_set_keymap("n", "<Char-011>j", ":vertical resize -4<CR>",
     { noremap = true, silent = true, desc = "Resize window width -" })
-vim.api.nvim_set_keymap("n", "<Char-011>j", ":vertical resize +4<CR>",
+vim.api.nvim_set_keymap("n", "<Char-011>l", ":vertical resize +4<CR>",
     { noremap = true, silent = true, desc = "Resize window width +" })
 
 -- ─── Tab Management ─────────────────────────────────────────────────────────
@@ -218,9 +234,11 @@ end
 
 -- ─── Diff ───────────────────────────────────────────────────────────────────
 
-vim.keymap.set("n", "<leader>bd", ":diffthis<CR>", { desc = "Enable diff mode for this buffer" })
-vim.keymap.set("n", "<leader>bO", ":diffoff!<CR>", { desc = "Disable diff mode for all buffers" })
-vim.keymap.set("n", "<leader>bo", ":diffoff<CR>", { desc = "Disable diff mode for this buffer" })
+vim.keymap.set("n", "<leader>bd", ":diffthis<CR>", { desc = "Enable diff mode for this buffer", silent = true })
+vim.keymap.set("n", "<leader>bO", ":diffoff!<CR>", { desc = "Disable diff mode for all buffers", silent = true })
+vim.keymap.set("n", "<leader>bo", ":diffoff<CR>", { desc = "Disable diff mode for this buffer", silent = true })
+vim.keymap.set("n", "<leader>bp", ":diffput<CR>", { desc = "Put diff to other buffer", silent = true })
+vim.keymap.set("n", "<leader>bg", ":diffget<CR>", { desc = "Get diff from other buffer", silent = true })
 
 -- ─── Diagnostics ────────────────────────────────────────────────────────────
 
@@ -238,7 +256,6 @@ end, { desc = "Toggle diagnostic virtual text" })
 
 keymap.set("n", "<leader>sf", ":source %<CR>", { desc = "Source current file", silent = true })
 keymap.set("n", "<leader>sp", ":FzfLua spell_suggest<CR>", { desc = "Spell suggestions", silent = true })
-keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit (:q)" })
 keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 
@@ -253,4 +270,3 @@ keymap.set("n", "<leader>ban", "<cmd>BlinkAutoShowToggle off<CR>", { desc = "Tog
 --     ':let @+ = expand("%:p")<CR>:lua print("Copied path to: " .. vim.fn.expand("%:p"))<CR>',
 --     { desc = "Copy current file name and path", silent = false }
 -- )
-

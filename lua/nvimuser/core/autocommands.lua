@@ -4,14 +4,22 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
     desc = "highlight selection on yank",
     callback = function()
-        vim.highlight.on_yank({ timeout = 200, visual = true })
+        -- vim.highlight.on_yank({ timeout = 200, visual = true })
+        vim.hl.hl_op({ timeout = 200, visual = true })
     end,
 })
 
 -- customize colorscheme
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-        vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#9a12b3", bold = true, italic = true })
+        vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#9E3A26", bold = true, italic = true })
+        if vim.g.colors_name == "tokyonight-moon" then
+            -- highlight color for matching strings
+            for _, group in ipairs({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }) do
+                -- vim.api.nvim_set_hl(0, group, { bg = "#795A2C" })
+                vim.api.nvim_set_hl(0, group, { bg = "#00859C" })
+            end
+        end
     end,
 })
 

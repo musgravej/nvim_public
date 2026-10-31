@@ -2,6 +2,14 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
+
+-- Enable the cursorline framework
+vim.opt.cursorline = true
+
+-- Restrict the cursorline highlight ONLY to the line number column
+vim.opt.cursorlineopt = "number"
+
+
 -- Line numbers & display
 opt.number = true         -- Absolute line number on current line
 opt.relativenumber = true -- Relative line numbers for easier motion counts

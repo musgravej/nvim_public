@@ -38,6 +38,19 @@ vim.api.nvim_create_user_command(
     { nargs = 1 }
 )
 
+vim.keymap.set('n', '<leader>rd', function()
+    -- Prompt the user for a single register character
+    vim.ui.input({ prompt = 'Delete register: ' }, function(input)
+        -- Check if the user entered something and didn't just cancel
+        if input and #input == 1 then
+            vim.cmd('Clearregister ' .. input)
+            print("Cleared register: " .. input)
+        elseif input and #input > 1 then
+            print("Error: Please enter only one register character.")
+        end
+    end)
+end, { desc = "[D]elete [r]egister" })
+
 vim.api.nvim_create_user_command(
     'Setregister',
     function(opts)
@@ -300,9 +313,6 @@ vim.api.nvim_create_user_command(
     { nargs = 0 }
 )
 
--- save from insert mode
-vim.keymap.set('n', '<leader>www', [[<Cmd>w<CR>]], { desc = "write file" })
-
 vim.api.nvim_create_user_command(
     'Buffersclear',
     function()
@@ -330,6 +340,33 @@ vim.api.nvim_create_user_command(
         end
     end,
     { nargs = 0 }
+)
+
+-- Function to change directory the Carium notes directory
+vim.api.nvim_create_user_command(
+    'Gonotesdir',
+    function()
+        vim.cmd(":cd ~/Carium/job_notes/")
+    end,
+    { nargs = 0 }
+)
+
+-- Function to change directory to the profiles directory
+vim.api.nvim_create_user_command(
+    'Goprofilesdir',
+    function()
+        vim.cmd(":cd ~/github/profiles/profiles/")
+    end,
+    { nargs = 0 }
+)
+
+-- Function to change directory to the github directory
+vim.api.nvim_create_user_command(
+    'Gogithubpath',
+    function(opts)
+        vim.cmd(":cd ~/github/" .. opts.fargs[1])
+    end,
+    { nargs = 1 }
 )
 
 -- Function to generate a random UUID (version 4)
