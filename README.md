@@ -1,4 +1,4 @@
-# Neovim (0.12) Config
+# Neovim (0.13) Config
 
 ### Use at your own risk!
 * This config may not work on all systems, and should not be considered to be completely up to date for all settings.
@@ -8,6 +8,7 @@
 ## Suggested Config Installation:
 * [Install](https://github.com/neovim/neovim/blob/master/INSTALL.md) [Neovim](https://neovim.io)
 * Clone this repository to a `custom_path` (if not installing directly into nvim config directory)
+    - `git clone https://github.com/neovim/neovim.git`
 * If applicable, rename current neovim custom config path to non-matching name (ex: `~/.config/nvim` -> `~/.config/_nvim`)
 * Create symbolic link from repository to nvim config path (ex: `ln -s custom_path/nvim_public ~/.config/nvim`)
 * Launch neovim, allow packages to install
@@ -22,6 +23,9 @@
         - [lazygit](https://github.com/jesseduffield/lazygit)
         - *Possibly* [fzf](https://github.com/junegunn/fzf)
             - install directly from git, not with package manager
+* [Build from source](https://github.com/neovim/neovim#install-from-source)
+- Fedora: link `/usr/local/share/nvim` to runtime
+- `sudo ln -s ~/github/neovim/runtime nvim`
 
 ### Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
 * Default build
@@ -32,11 +36,9 @@
     - `make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/full/path/`
     - `make install`
 
-## Changes from Neovim 0.11
-Neovim 0.12 has significant changes.\
-Like the upgrade from `0.10` -> `0.11`, the change to `0.12` is significant and breaking.\
+## Setup notes
 For best experience, you should uninstall packages and linters.\
-There are significant changes for package management and the treesitter plugin.
+There are significant changes from earlier versions for package management and the treesitter plugin.
 * `treesitter-cli` is required for treesitter to work
 * Install any way that will put treesitter in __your__ system path
 * Ex install: `npm install -g tree-sitter-cli`, or install from homebrew (MacOS).
@@ -59,6 +61,9 @@ After upgrade run `checkhealth nvim-treesitter`
 ### Install over earlier versions of Neovim
 * For best results, allow Lazy and Mason to reinstall all plugins and LSPs.
 * Delete files in `~/.local/share/nvim/lazy/` and `~/.local/share/nvim/mason/`
+- `rm -rf ~/.local/share/nvim/lazy`
+- `rm -rf ~/.local/share/nvim/mason`
+- `rm -rf ~/.local/state/nvim/lazy`
 * Open Neovim, allow Lazy to install packages, close and reopen, allow Mason to install packages.
 * See notes in lua/nvimuser/plugins/mason.lua for instructions on installing formatters and linters.
 * Check installation with command `:checkhealth`
