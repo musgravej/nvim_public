@@ -107,12 +107,8 @@ keymap.set("n", "<BS>", "^", { desc = "Move to first non-blank character" })
 keymap.set("n", "<S-BS>", "$", { desc = "Move to end of line" })
 
 -- Scroll and keep cursor centered
--- keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
--- keymap.set("n", "<C-S-d>", "<C-u>zz", { desc = "Scroll up and center" })
-
--- New keybindings for down and up to keep <C-d> keybinding for multicursor (add next occurrence)
-keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll down and center" })
-keymap.set("n", "<C-S-u>", "<C-d>zz", { desc = "Scroll up and center" })
+keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
+keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
 keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Scroll back (page up) and center" })
 keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll forward (page down) and center" })
 
