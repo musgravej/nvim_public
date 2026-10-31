@@ -5,14 +5,29 @@ return {
         config = function()
             local bg = "#011628"
             local bg_dark = "#011423"
+
+            -- color when doing a selection highlight (e.g. from a dropdown menu)
             local bg_highlight = "#143652"
-            local bg_search = "#0A64AC"
-            local bg_visual = "#275378"
+
+            -- color showing all matching search results
+            -- local bg_search = "#0A64AC"
+            local bg_search = "#950606"
+
+            -- color when selecting text in visual mode
+            -- local bg_visual = "#275378"
+            -- local bg_visual = "#2C5779"  -- slightly lighter
+            -- local bg_visual = "#573275"
+            local bg_visual = "#795A2C"
+
+            --
             local fg = "#CBE0F0"
             local fg_dark = "#B4D0E9"
             -- local fg_gutter = "#627E97"
-            local fg_gutter = "#564a72"
+            -- local fg_gutter = "#564a72"
+            local fg_gutter = "#756599"
             local border = "#547998"
+
+            -- local comment = "#795A2C"
 
             require("tokyonight").setup({
                 style = "night",
@@ -27,6 +42,7 @@ return {
                     colors.bg_statusline = bg_dark
                     colors.bg_visual = bg_visual
                     colors.border = border
+                    -- colors.comment = comment
                     colors.fg = fg
                     colors.fg_dark = fg_dark
                     colors.fg_float = fg
@@ -34,17 +50,7 @@ return {
                     colors.fg_sidebar = fg_dark
                 end,
             })
-            -- set the colorscheme here
-            -- default, order by compatibility
-            vim.cmd([[colorscheme tokyonight-moon]])
-            -- vim.cmd([[colorscheme rose-pine-moon]])
-            -- vim.cmd([[colorscheme falcon]])
-            -- vim.cmd([[colorscheme darkplus]])
-            -- vim.cmd([[colorscheme icy]])
-            -- vim.cmd([[colorscheme nightfly]])
-            -- vim.cmd([[colorscheme catppuccin-macchiato]])
-            -- vim.cmd([[colorscheme kanagawa]])
-            -- vim.cmd([[colorscheme tokyonight-night]])
+            -- set the colorscheme here: init.lua
         end,
     },
     { "catppuccin/nvim",             name = "catppuccin",  priority = 1000, },
@@ -64,7 +70,6 @@ return {
         priority = 998,
         name = "visual_studio_code",
         config = function()
-            -- vim.cmd([[colorscheme visual_studio_code]])
         end,
     },
 }

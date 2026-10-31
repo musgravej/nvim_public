@@ -29,19 +29,19 @@ return {
             ensure_installed = {
                 "bashls",
                 "cmake",
-                "cssls", -- CSS LSP
-                "html",  -- HTML LSP
+                "cssls",
+                "html",
                 "jsonls",
                 "lua_ls",
-                "pylsp", -- python-lsp-server
-                "sqlls",
+                "pylsp",
                 "terraformls",
-                "tflint",
+                "tofu_ls",
                 "ts_ls",
-            },
+            }
             -- Install manually through Mason UI, from Linter or Formatter list
-            -- :MasonInstall black terraform flake8 isort fixjson prettier
-            -- }
+            -- :MasonInstall bash-language-server black cmake-language-server css-lsp fixjson flake8
+            -- :MasonInstall html-lsp isort json-lsp lua-language-server prettier python-lsp-server
+            -- :MasonInstall sqlls terraform terraform-ls tflint tofu-ls typescript-language-server
         },
         dependencies = {
             {

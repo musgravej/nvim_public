@@ -23,8 +23,6 @@ return {
             preset = 'super-tab', -- Custom keymap configuration
 
             -- Completion navigation
-            ['<C-n>'] = { 'select_next', 'fallback' },
-            ['<C-p>'] = { 'select_prev', 'fallback' },
             ['<Down>'] = { 'select_next', 'fallback' },
             ['<Up>'] = { 'select_prev', 'fallback' },
 
@@ -223,7 +221,7 @@ return {
                 -- For Python files, prioritize LSP and snippets, reduce buffer scanning
                 -- python = { 'lsp', 'snippets', 'path' },
                 text = { 'path', 'snippets' },
-                markdown = { 'path', 'buffer' }
+                markdown = { 'path', 'buffer', 'snippets' }
             },
         },
 

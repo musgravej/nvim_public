@@ -1,6 +1,6 @@
 -- ## Copilot Configuration Options───
 local function is_work_machine(val)
-    work_computers = { 'foo.local' }
+    work_computers = { 'HMAP-5123-MAC.local', 'Mac.lan' }
     for index, value in ipairs(work_computers) do
         if value == val then
             return true
@@ -35,13 +35,15 @@ return {
 
         "CopilotC-Nvim/CopilotChat.nvim",
         dependencies = {
-            { "github/copilot.vim" },                                -- or zbirenbaum/copilot.lua
+            -- { "github/copilot.vim" },                                -- or zbirenbaum/copilot.lua
+            { "zbirenbaum/copilot.lua" },                               -- or zbirenbaum/copilot.lua
             { "nvim-treesitter/nvim-treesitter" },
             { "nvim-lua/plenary.nvim",          branch = "master" }, -- for curl, log and async functions
         },
         enabled = is_work_computer,
         build = "make tiktoken",                                     -- Only on MacOS or Linux
         opts = {
+            model = "claude-sonnet-5.5",
             window = {
                 layout = 'float',
                 width = 100,         -- Fixed width in columns

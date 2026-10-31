@@ -39,7 +39,7 @@ return {
         --     {text = "󰌵", texthl = "DiagnosticSignHint"})
 
         vim.diagnostic.config({
-            virtual_text = true,
+            virtual_text = false,
             underline = {
                 severity = { min = vim.diagnostic.severity.WARN },
             },
@@ -56,6 +56,58 @@ return {
                 }
             }
         })
+
+
+        local function copy_node_info(state)
+            local node = state.tree:get_node()
+
+            if not node then
+                vim.notify("No node selected", vim.log.levels.WARN)
+                return
+            end
+
+            local filepath = node:get_id()
+            local filename = node.name
+            local dirname = vim.fn.fnamemodify(filepath, ":h")
+            local modify = vim.fn.fnamemodify
+
+            local options = {
+                {
+                    label = "Absolute Path:  " .. filepath,
+                    value = filepath,
+                },
+                {
+                    label = "Directory Path: " .. dirname,
+                    value = dirname,
+                },
+                {
+                    label = "Relative Path:  " .. modify(filepath, ":."),
+                    value = modify(filepath, ":."),
+                },
+                {
+                    label = "Filename:       " .. filename,
+                    value = filename,
+                },
+                -- {
+                --     label = "Extension:     " .. modify(filename, ":e"),
+                --     value = modify(filename, ":e"),
+                -- },
+            }
+
+            vim.ui.select(options, {
+                prompt = "Choose what to copy:",
+                format_item = function(item)
+                    return item.label
+                end,
+            }, function(choice)
+                if not choice then
+                    return
+                end
+
+                vim.fn.setreg("+", choice.value)
+                vim.notify("Copied to clipboard: " .. choice.value)
+            end)
+        end
 
         require("neo-tree").setup({
             close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
@@ -166,7 +218,7 @@ return {
                     ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
                     -- Read `# Preview Mode` for more information
                     ["l"] = "focus_preview",
-                    ["S"] = {"open_split", desc = "open_hsplit" },
+                    ["S"] = { "open_split", desc = "open_hsplit" },
                     ["s"] = "open_vsplit",
                     -- ["S"] = "split_with_window_picker",
                     -- ["s"] = "vsplit_with_window_picker",
@@ -191,6 +243,7 @@ return {
                     ["d"] = "delete",
                     ["r"] = "rename",
                     ["y"] = "copy_to_clipboard",
+                    ["Y"] = copy_node_info,
                     ["x"] = "cut_to_clipboard",
                     ["p"] = "paste_from_clipboard",
                     ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":

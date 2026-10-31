@@ -60,15 +60,27 @@ return {
                     }
                 },
                 lualine_x = {
-                    { "selectioncount", color = { fg = "#ff9e64" } },
+                    {
+                        require("recorder").displaySlots,
+                        color = { fg = "#7fbbb3" }
+                    },
+                    {
+                        "selectioncount",
+                        color = { fg = "#ff9e64" }
+                    },
                     {
                         require("noice").api.statusline.mode.get,
                         cond = require("noice").api.statusline.mode.has,
-                        color = { fg = "#ff9e64" },
+                        color = { fg = "#bf616a" },
                     },
-                    { "encoding" },
-                    { "fileformat" },
-                    { "filetype",  icon_only = true },
+                    {
+                        "encoding",
+                        color = { fg = "#dbbc7f" }
+                    },
+                    {
+                        "fileformat",
+                    },
+                    { "filetype", icon_only = true },
                     -- Venv selector show current virtual environment
                     {
                         "venv-selector"

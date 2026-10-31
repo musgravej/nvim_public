@@ -1,5 +1,6 @@
 return {
     'crusj/bookmarks.nvim',
+    enabled = false,
     -- keymap = {
     --     toggle = "<tab><tab>", -- Toggle bookmarks(global keymap)
     --     close = "q", -- close bookmarks (buf keymap)

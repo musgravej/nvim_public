@@ -12,7 +12,7 @@ return {
         notifier = { enabled = false },
         quickfile = { enabled = false },
         rename = { enabled = false },
-        statuscolumn = { enabled = true },
+        statuscolumn = { enabled = false },  -- could be causing sign error
         terminal = { enabled = false },
         toggle = { enabled = false },
         win = { enabled = false },
@@ -119,6 +119,7 @@ return {
             }
         },
     },
+    -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
     keys = {
         { "<leader>gB", function() require("snacks").git.blame_line() end,                           desc = "[G]it [B]lame line" },
         { "<leader>gu", function() require("snacks").gitbrowse() end,                                desc = "[G]it open in [u]rl (browser)" },
@@ -128,7 +129,7 @@ return {
         -- { "<leader>tt", function() Snacks.terminal() end,         desc = "Toggle Terminal" },
 
         -- Git Stuff
-        { "<leader>gr", function() require("snacks").picker.git_branches({ layout = "select" }) end, desc = "[G]it switch b[r]anches" },
+        { "<leader>gr", function() Snacks.picker.git_branches() end, desc = "[G]it switch b[r]anches" },
 
         -- Snacks Picker
         {

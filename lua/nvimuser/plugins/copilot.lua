@@ -1,6 +1,6 @@
 -- ## Copilot Configuration Options───
 local function is_work_machine(val)
-    work_computers = { 'foo.local' }
+    work_computers = { 'HMAP-5123-MAC.local', 'Mac.lan' }
     for index, value in ipairs(work_computers) do
         if value == val then
             return true

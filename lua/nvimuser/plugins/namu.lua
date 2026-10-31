@@ -2,11 +2,22 @@
 return { -- Those are the default options
     "bassamsdata/namu.nvim",
     enabled = true,
+    vim.keymap.set("n", "<leader>ns", ":Namu symbols<cr>", {
+        desc = "[N]amu [s]ymbols",
+        silent = true,
+    }),
+    vim.keymap.set("n", "<leader>nd", ":Namu diagnostics<cr>", {
+        desc = "[N]amu [d]iagnostics",
+        silent = true,
+    }),
+    vim.keymap.set("n", "<leader>nw", ":Namu watchtower<cr>", {
+        desc = "[N]amu [w]atchtower",
+        silent = true,
+    }),
     opts = {
-        -- Enable symbols navigator which is the default
+        global = {},
         namu_symbols = {
-            enable = true,
-            ---@type NamuConfig
+            ui_select = { enable = false }, -- vim.ui.select() wrapper
             options = {
                 AllowKinds = {
                     default = {
@@ -26,7 +37,7 @@ return { -- Those are the default options
                         "Function",
                         "Method",
                         "Struct", -- For struct definitions
-                        "Field", -- For struct fields
+                        "Field",  -- For struct fields
                         "Interface",
                         "Constant",
                         -- "Variable",
@@ -45,12 +56,12 @@ return { -- Those are the default options
                     default = {},
                     -- Filetype-specific
                     lua = {
-                        "^vim%.", -- anonymous functions passed to nvim api
-                        "%.%.%. :", -- vim.iter functions
-                        ":gsub", -- lua string.gsub
+                        "^vim%.",     -- anonymous functions passed to nvim api
+                        "%.%.%. :",   -- vim.iter functions
+                        ":gsub",      -- lua string.gsub
                         "^callback$", -- nvim autocmds
                         "^filter$",
-                        "^map$", -- nvim keymaps
+                        "^map$",      -- nvim keymaps
                     },
                     -- another example:
                     -- python = { "^__" }, -- ignore __init__ functions
@@ -62,9 +73,9 @@ return { -- Those are the default options
                 },
                 -- This is a preset that let's set window without really get into the hassle of tuning window options
                 -- top10 meaning top 10% of the window
-                row_position = "top10", -- options: "center"|"top10"|"top10_right"|"center_right"|"bottom",
+                row_position = "top10",        -- options: "center"|"top10"|"top10_right"|"center_right"|"bottom",
                 preview = {
-                    highlight_on_move = true, -- Whether to highlight symbols as you move through them
+                    highlight_on_move = true,  -- Whether to highlight symbols as you move through them
                     -- still needs implmenting, keep it always now
                     highlight_mode = "always", -- "always" | "select" (only highlight when selecting)
                 },
@@ -101,16 +112,16 @@ return { -- Those are the default options
                     max_items = nil, -- No limit by default
                 },
                 actions = {
-                    close_on_yank = false, -- Whether to close picker after yanking
+                    close_on_yank = false,  -- Whether to close picker after yanking
                     close_on_delete = true, -- Whether to close picker after deleting
                 },
-                movement = {        -- Support multiple keys
+                movement = {                -- Support multiple keys
                     next = { "<C-n>", "<DOWN>" },
                     previous = { "<C-p>", "<UP>" },
                     close = { "<ESC>" }, -- "<C-c>" can be added as well
                     select = { "<CR>" },
-                    delete_word = {}, -- it can assign "<C-w>"
-                    clear_line = {}, -- it can be "<C-u>"
+                    delete_word = {},    -- it can assign "<C-w>"
+                    clear_line = {},     -- it can be "<C-u>"
                 },
                 custom_keymaps = {
                     yank = {
@@ -138,7 +149,7 @@ return { -- Those are the default options
                         desc = "Add symbol to Avante",
                     },
                 },
-                icon = "󱠦", -- 󱠦 -  -  -- 󰚟
+                icon = "󰚟", -- 󱠦 -  -  -- 󰚟
                 kindText = {
                     Function = "function",
                     Class = "class",
@@ -203,12 +214,6 @@ return { -- Those are the default options
                     },
                 },
             }
-        },
-        ui_select = { enable = false }, -- vim.ui.select() wrapper
-    },
-    -- === Suggested Keymaps: ===
-    vim.keymap.set("n", "<leader>ns", ":Namu symbols<cr>", {
-        desc = "[N]amu [s]ymbols",
-        silent = true,
-    }),
+        }
+    }
 }
