@@ -9,6 +9,7 @@
       - Branch using nvim-cmp
       - Branch using blink
     - Neovim 0.12
+    - Neovim 0.13
 
 ## Suggested Config Installation:
 * [Install](https://github.com/neovim/neovim/blob/master/INSTALL.md) [Neovim](https://neovim.io)
@@ -29,6 +30,7 @@
 ## Install Neovim from [source](https://github.com/neovim/neovim?tab=readme-ov-file#install-from-source)
 * `make CMAKE_BUILD_TYPE=RelWithDebInfo`
 * `sudo make install`
+* `make CMAKE_INSTALL_PREFIX={path} install`
 
 ### Raspberry Pi (ARM64)
 * `git clone https://github.com/neovim/neovim.git`
