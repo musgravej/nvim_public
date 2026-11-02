@@ -49,11 +49,20 @@ vim.api.nvim_create_autocmd("VimResized", {
     command = "wincmd =",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("markdown_no_modeline", { clear = true }),
+    pattern = "markdown",
+    desc = "Prevent Markdown examples from being parsed as modelines",
+    callback = function(args)
+        vim.bo[args.buf].modeline = false
+    end,
+})
+
 -- no auto continue comments on new line
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("no_auto_comment", {}),
     callback = function()
-        vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+        vim.opt_local.formatoptions:remove("cro")
     end,
 })
 
@@ -115,3 +124,4 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 -- 		vim.lsp.buf.clear_references()
 -- 	end,
 -- })
+
