@@ -252,7 +252,6 @@ end, { desc = "Toggle diagnostic virtual text" })
 
 keymap.set("n", "<leader>sf", ":source %<CR>", { desc = "Source current file", silent = true })
 keymap.set("n", "<leader>sp", ":FzfLua spell_suggest<CR>", { desc = "Spell suggestions", silent = true })
-keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 
 -- Blink completion auto-show toggle
