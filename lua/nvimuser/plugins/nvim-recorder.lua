@@ -17,8 +17,8 @@ return {
         dynamicSlots = "static",
 
         mapping = {
-            startStopRecording = "t",
-            playMacro = "T",
+            startStopRecording = "<leader>tt",
+            playMacro = "<leader>tT",
             switchSlot = "<leader>ts",
             editMacro = "<leader>te",
             deleteAllMacros = "<leader>td",
