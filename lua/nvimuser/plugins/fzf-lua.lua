@@ -29,5 +29,6 @@ return {
         keymap.set("n", "<leader>ft", "<cmd>TodoFzfLua<cr>", { desc = "[F]ind [t]odos" })
         keymap.set("n", "<leader>gS", "<cmd>FzfLua git_status<cr>", { desc = "[G]it files [S]tatus" })
         keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<cr>", { desc = "Spell suggestions" })
+        keymap.set("n", "<leader>fk", "<cmd>FzfLua keymaps<CR>", { silent = true, desc = "[F]ind [k]eymaps" })
     end
 }
