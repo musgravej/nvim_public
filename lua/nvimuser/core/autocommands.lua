@@ -124,4 +124,3 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 -- 		vim.lsp.buf.clear_references()
 -- 	end,
 -- })
-
