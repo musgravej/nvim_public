@@ -181,14 +181,13 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- TODO Need function to save keymaps to file
 
--- A better way to do this?
--- format current json file
+-- format current json file, fix errors
+-- requires json_repair (pipx install json-repair) and json_pp
 vim.api.nvim_create_user_command(
     'Jsonfix',
     function()
-        vim.cmd("silent! :%s/\\cFalse/false/g")
-        vim.cmd("silent! :%s/\\cNone/null/g")
-        vim.cmd("silent! :%s/\\cTrue/true/g")
+        vim.cmd("silent! :%! json_repair")
+        vim.cmd("silent! :%! json_pp")
     end,
     { nargs = 0 }
 )
